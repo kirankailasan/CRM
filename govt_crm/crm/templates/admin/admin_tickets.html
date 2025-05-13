@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'navbar.html' %}
+  <meta charset="UTF-8">
+  <title>Tickets</title>
+  <link rel="stylesheet" href="{% static 'css/admin_tickets.css' %}">
+</head>
+<body>
+
+      <!-- Ticket Section -->
+  <div class="ticket-section" style="width: fit-content;margin:40px auto;padding:32px;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+    <div class="hc">
+        <h2>Ticket List</h2>
+    </div>
+    <div class="ticket-list">
+
+          <form method="get" style="margin-bottom: 16px; text-align: right;">
+            <label for="sort">Sort by:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()">
+              <option value="created_at_desc" {% if sort == 'created_at_desc' %}selected{% endif %}>Newest First</option>
+              <option value="created_at_asc" {% if sort == 'created_at_asc' %}selected{% endif %}>Oldest First</option>
+            </select>
+            <label for="issueTypeFilter">Issue Type:</label>
+            <select name="issue_type" id="issueTypeFilter" style="margin-right: 12px;" onchange="this.form.submit()">
+              <option value="" {% if not selected_issue_type %}selected{% endif %}>All</option>
+              <option value="Technical" {% if selected_issue_type == 'Technical' %}selected{% endif %}>Technical</option>
+              <option value="Assignment" {% if selected_issue_type == 'Assignment' %}selected{% endif %}>Assignment</option>
+              <option value="Tanda" {% if selected_issue_type == 'Tanda' %}selected{% endif %}>Tanda</option>
+              <option value="Account" {% if selected_issue_type == 'Account' %}selected{% endif %}>Account</option>
+              <option value="Other" {% if selected_issue_type == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+            <label for="statusFilter">Status:</label>
+            <select name="status" id="statusFilter" onchange="this.form.submit()">
+              <option value="" {% if not selected_status %}selected{% endif %}>All</option>
+              <option value="Open" {% if selected_status == 'Open' %}selected{% endif %}>Open</option>
+              <option value="Closed" {% if selected_status == 'Closed' %}selected{% endif %}>Closed</option>
+            </select>
+        </form>
+      <table>
+        <thead>
+            <tr>
+                <th>Ticket No:</th>
+                <th>User</th>
+                <th>Issue Type</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Created at</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in user_tickets %}
+                <tr>
+                    <td>#{{ticket.id}}</td>
+                    <td>{{ticket.user.username}}</td>
+                    <td>{{ticket.issue_type}}</td>
+                    <td>{{ticket.title}}</td>
+                    <td>{{ticket.description}}</td>
+                    <td>
+                        <span class="ticket-status{% if ticket.status == 'Closed' %} closed{% endif %}"></span>
+                        {{ticket.status}}
+                    </td>
+                    <td>{{ticket.created_at|date:"M d, Y H:i"}}</td>
+                    <td>
+                        {% if ticket.status == 'Open' %} 
+    
+                        <form method="post" action="{% url 'close_ticket' ticket.id %}">
+                            {% csrf_token %}
+                            <button type="submit" >Close</button>
+                        </form>
+                    {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+            <tr>
+                <td colspan ="7" style="text-align: center;">No tickets</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% include 'footer.html' %}
+  </body>
+  </html>

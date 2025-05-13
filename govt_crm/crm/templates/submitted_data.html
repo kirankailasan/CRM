@@ -1,0 +1,225 @@
+
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Submitted Forms</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f8fa;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #1a237e;
+        }
+
+        .form-list {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 12px;
+
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+            transition: transform 0.3s ease-in-out;
+            padding: 40px;
+        }
+        .form-list:hover{
+            transform: scale(1.03);
+            transition: transform 0.3s ease-in-out;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+
+        }
+        .table:hover{
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background: #e3eafc;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            width: 90%;
+            height: 90%;
+            margin: 40px auto;
+            overflow-y: auto;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        #submittedTable_filter {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Submitted Forms</h1>
+
+    {% if submitted_data %}
+    <div class="form-list">
+        <table id="submittedTable" class="table">
+            <thead>
+                <tr>
+                    <th>Taluka Name</th>
+                    <th>Gram Panchayat</th>
+                    <th>Village</th>
+                    <th>Submitted On</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in submitted_data %}
+                <tr>
+                    <td>{{ entry.form1_data|get_item:"taluka-name" }}</td>
+                    <td>{{ entry.form1_data|get_item:"gram-panchayat-name" }}</td>
+                    <td>{{ entry.form1_data|get_item:"village-name" }}</td>
+                    <td>
+                        {{entry.created_at}}
+                    </td>
+                    <td>
+                        <button onclick="viewFormData('{{ entry.id }}')" class="btn-primary">View</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p style="text-align:center;">No data submitted yet.</p>
+    {% endif %}
+
+    <!-- Modal -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="formContainer"></div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        // Initialize DataTable
+        $(document).ready(function () {
+            $('#submittedTable').DataTable();
+        });
+    </script>
+
+    
+    <script>
+
+function viewFormData(entryId) {
+    fetch(`/view-form-popup/${entryId}/`)
+        .then(response => response.json())  // Parse the response as JSON
+        .then(data => {
+            if (data.html) {
+                // If we receive HTML from the backend, display it in the modal
+                document.getElementById('formContainer').innerHTML = data.html;
+                document.getElementById('formModal').style.display = 'block';
+            } else {
+                alert("Error loading form data.");
+            }
+        })
+        .catch(error => {
+            alert("Error loading form data.");
+            console.error('Error:', error);
+        });
+}
+
+function closeModal() {
+    document.getElementById('formModal').style.display = 'none';
+}
+</script>
+
+
+        <script>
+            function toggleForm(id, iconId) {
+                const section = document.getElementById(id);
+                const icon = document.getElementById(iconId);
+                if (section.style.display === "none") {
+                    section.style.display = "block";
+                    icon.innerText = "▼";
+                } else {
+                    section.style.display = "none";
+                    icon.innerText = "▶";
+                }
+            }
+        </script>
+</body>
+</html>
+
+
+
+
+
+{% include 'footer.html' %} 
+
+</body>
+</html>

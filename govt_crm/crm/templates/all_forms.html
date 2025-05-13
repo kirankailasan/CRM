@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
+    <link rel="stylesheet" href="{% static 'css/all_forms.css' %}">
+    <script>
+        function toggleForm(id, iconId) {
+            const section = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+                icon.innerText = "▼";
+            } else {
+                section.style.display = "none";
+                icon.innerText = "▶";
+            }
+        }
+    </script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+<div class="total-container">
+    <form method="POST">
+    {% csrf_token %}
+    <h1 style="text-align:center;">Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</h1>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form1', 'icon1')">
+        <span id="icon1">▶</span> Form 1 - Work Report
+    </div>
+    <div id="form1" class="form-content" style="display:none;">
+        {% include 'forms/form1.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form2', 'icon2')">
+        <span id="icon2">▶</span> Form 2 - General Information of the Tanda
+    </div>
+    <div id="form2" class="form-content" style="display:none;">
+        {% include 'forms/form2.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form3', 'icon3')">
+        <span id="icon3">▶</span> Form 3 - Tanda Representatives
+    </div>
+    <div id="form3" class="form-content" style="display:none;">
+        {% include 'forms/form3.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form4', 'icon4')">
+        <span id="icon4">▶</span> Form 4 - Tanda Facilities
+    </div>
+    <div id="form4" class="form-content" style="display:none;">
+        {% include 'forms/form4.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form5', 'icon5')">
+        <span id="icon5">▶</span> Form 5 - Important People in the Tanda
+    </div>
+    <div id="form5" class="form-content" style="display:none;">
+        {% include 'forms/form5.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form6', 'icon6')">
+        <span id="icon6">▶</span> Form 6 - Development Works
+    </div>
+    <div id="form6" class="form-content" style="display:none;">
+        {% include 'forms/form6.html' %}
+    </div>
+</div>
+
+<div class="form-section">
+    <div class="form-header" onclick="toggleForm('form7', 'icon7')">
+        <span id="icon7">▶</span> Form 7 - General Information
+    </div>
+    <div id="form7" class="form-content" style="display:none;">
+        {% include 'forms/form7.html' %}
+    </div>
+</div>
+
+
+<!-- Submit All Button -->
+<div class="form-section" style="text-align: center; margin-top: 20px;">
+    <button type="submit" name="submit_all" id="submitAllBtn">Submit All Forms</button>
+    <div id="allSuccessMessage"  class="success-message" style="display:none; color: green;">All forms saved successfully!</div>
+</div>
+</form>
+</div>
+
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<script>
+    function getCSRFToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}
+
+</script>
+
+<script>
+function getCSRFToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}
+
+document.getElementById('submitAllBtn').addEventListener('click', function () {
+    const forms = document.querySelectorAll('form');
+    let allValid = true;
+
+    forms.forEach(form => {
+        const elements = form.querySelectorAll('input, select, textarea');
+        elements.forEach(el => {
+            if (
+                el.type !== 'button' &&
+                el.type !== 'submit' &&
+                el.type !== 'hidden' &&
+                !el.disabled &&
+                el.hasAttribute('required') &&
+                !el.value.trim()
+            ) {
+                el.style.border = "2px solid red";
+                allValid = false;
+            } else {
+                el.style.border = "";
+            }
+        });
+    });
+
+    if (!allValid) {
+        alert("Please fill in all required fields before submitting.");
+        return;
+    }
+
+    // Collect form data from all the forms
+    const formData = {
+        form1_data: getFormData('form1'),
+        form2_data: getFormData('form2'),
+        form3_data: getFormData('form3'),
+        form4_data: getFormData('form4'),
+        form5_data: getFormData('form5'),
+        form6_data: getFormData('form6'),
+        form7_data: getFormData('form7')
+    };
+
+    fetch('/save-form-data/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            window.location.href = "/submitted-data/";
+        } else {
+            alert("Error: " + data.error);
+        }
+    })
+    .catch(error => {
+        console.error("Error submitting forms:", error);
+        alert("An error occurred while submitting forms.");
+    });
+});
+
+function getFormData(formId) {
+    const form = document.getElementById(formId);
+    const formData = {};
+
+    const elements = form.querySelectorAll('input, select, textarea');
+    elements.forEach(el => {
+        if (el.type !== 'button' && el.type !== 'submit' && el.type !== 'hidden' && !el.disabled) {
+            formData[el.name] = el.value;
+        }
+    });
+
+    return formData;
+}
+</script>
+
+
+
+
+<script>
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+</script>
+
+{% include 'footer.html' %}
+</body>
+</html>

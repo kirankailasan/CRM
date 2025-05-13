@@ -1,0 +1,1249 @@
+{% load  static %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="{% static 'css/form7.css' %}">
+    </head>
+    
+    <body>
+        <form class="form-section" id="form7" method="post">
+            {% csrf_token %}
+            <h2>General Information on Tanda</h2>
+          
+            <fieldset>
+              <legend>Location information</legend>
+              <table>
+                <thead>
+                  <tr>
+                    <th>District Name</th>
+                    <th>Taluka</th>
+                    <th>Name of gram panchayat</th>
+                    <th>Tanda's name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" name="district_name"></label></td>
+                    <td><input type="text" name="taluka"></label></td>
+                    <td><input type="text" name="gram_panchayat_name"></label></td>
+                    <td><input type="text" name="tanda_name"></label></td>
+                  </tr>
+                </tbody>              
+              </table>
+            </fieldset>
+          
+            <fieldset>
+              <legend>Population Details</legend>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Number of Women: </th>
+                    <th>Number of Men: </th>
+                    <th>Children: </th>
+                    <th>Little Girls: </th>
+                    <th>Other: </th>
+                    <th>Total Population: </th>
+                  </tr>
+                </thead>             
+                <tbody>
+                  <tr>
+                    <td><input type="number" name="number_of_women"></td>
+                    <td><input type="number" name="number_of_men"></td>
+                    <td><input type="number" name="number_of_children"></td>
+                    <td><input type="number" name="number_of_little_girls"></td>
+                    <td><input type="number" name="other"></td>
+                    <td><input type="number" name="total_population"></td>
+                  </tr>
+                </tbody> 
+              </table>
+            </fieldset>
+          
+            <fieldset>
+              <legend>Gram Panchayat Infrastructure</legend>
+              <label>Is there a separate building for the gram panchayat?
+                <select id="separate_building" name="separate_building">
+                  <option value="">Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </label>
+              
+              <div id="part1" class="part1" style="display:none;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Is there a place?</th>
+                      <th>Public/Private</th>
+                      <th>Area</th>
+                      <th>Has the proposal been submitted under the Matoshree scheme?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" name="separate_place_name"></td>
+                      <td>
+                        <select name="public_private">
+                          <option value="public">Public</option>
+                          <option value="private">Private</option>
+                        </select>
+                      </td>
+                      <td><input type="text" name="place_area"></td>
+                      <td>
+                        <select name="proposal_submitted">
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <script>
+                const yesno = document.getElementById('separate_building');
+                const part1 = document.getElementById('part1');
+                yesno.addEventListener('change', function() {
+                  if (this.value === 'yes') {
+                    part1.style.display = 'block';
+                  } else {
+                    part1.style.display = 'none';
+                  }
+                });
+                </script>
+            </fieldset>
+          
+            <fieldset>
+              <legend>Independent Gram Panchayat Status</legend>
+              <label>Is Tanda a separate Gram Panchayat of Tanda?
+                <select name="separate_gp">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </label>
+              <label>Is gram panchayat eligible for revenue status?
+                <select id="revenueyn" name="revenue_status_eligibility">
+                  <option value="">Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </label>
+              <div id="part2" class="part2" style="display: none">
+                <label>Did you submit the proposal to the department?
+                  <select id = "proposal_submitted_gp" name="proposal_submitted_gp">
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </label>
+                <div id="part21" class="part21" style="display: none">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Resolution Date</th>
+                        <th>Submission Date</th>
+                        <th>Concerned officer</th>
+                        <th>Pending</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="date" name="resolution_date"></td>
+                        <td><input type="date" name="submission_date"></td>
+                        <td><input type="text" name="concerned_officer"></td>
+                        <td><input type="text" name="pending"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <script>
+                const part2a = document.getElementById("revenueyn");
+                const part2 = document.getElementById("part2");
+                part2a.addEventListener("change", function(){
+                  if (this.value === "yes") {
+                    part2.style.display="block";
+                  } else {
+                    part2.syle.display ="none";
+                  }
+                });
+
+                const part2b = document.getElementById("proposal_submitted_gp");
+                const part21 = document.getElementById("part21");
+                part2b.addEventListener("change", function(){
+                  if(this.value ==="yes") {
+                    part21.style.display="block";
+                  }else{
+                    part21.style.display="none";
+                  }
+                });
+                </script>
+                
+            </fieldset>
+          
+            <fieldset>
+              <legend>Housing plan information</legend>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Total number of houses in Tanda</th>
+                    <th>Total household information</th>
+                    <th>Apporved houses</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="number" name="total_houses"></td>
+                    <td><input type="number" name="total_household_information"></td>
+                    <td><input type="number" name="approved_houses"></td>
+                    <td><input type="number" name="balance_houses"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </fieldset>
+          
+            <fieldset>
+              <legend>Committee Members</legend>
+            
+              <div id="committee-members">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>A.No.</th>
+                      <th>Member's name</th>
+                      <th>Designation</th>
+                      <th>Contact No.</th>
+                      <th>Address</th>
+                      <th>E-mail ID</th>
+                      <th>Date of birth</th>
+                    </tr>
+                  </thead>
+                  <tbody id="members-tbody">
+                    <tr>
+                      <td>1</td>
+                      <td><input type="text" name="committee_member_name_1"></td>
+                      <td><input type="text" name="committee_member_designation_1"></td>
+                      <td><input type="text" name="committee_member_contact_1"></td>
+                      <td><input type="text" name="committee_member_address_1"></td>
+                      <td><input type="email" name="committee_member_email_1"></td>
+                      <td><input type="date" name="committee_member_dob_1"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            
+              <button type="button" onclick="addMember()">Add Another Member</button>
+            </fieldset>
+          
+            <fieldset>
+              <legend>Facilities in Tanda</legend>
+              <label>Is there a school? <select id="has_school" name="has_school"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+                <div id="part3" style="display: none">Provide information about the nearest school</div>
+                <script>
+                  const has_school = document.getElementById("has_school");
+                  const part3 = document.getElementById("part3");
+                  has_school.addEventListener("change", function(){
+                    if(this.value === "no"){
+                      part3.style.display="block";
+                    } else {
+                      part3.style.display="none";
+                    }
+                  });
+                </script>
+              <table>
+                <thead>
+                  <tr>
+                    <th>School name</th>
+                    <th>Primary/Secondary</th>
+                    <th>Village name</th>
+                    <th>Differences</th>
+                    <th>Principal's name</th>
+                    <th>Contact number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" name="school_name"></td>
+                    <td><select name="primary_secondary">
+                      <option value="primary">Primary</option>
+                      <option value="secondary">Secondary</option>
+                    </select>  
+                    </td>
+                    <td><input type="text" name="village_name"></td>
+                    <td>
+                      <select name="school_distance">
+                        <option value="0-3">0-3</option>
+                        <option value="3-6">3-6</option>
+                        <option value="6-10">6-10</option>
+                        <option value="10+">10+</option>
+                      </select>
+                    </td>
+                    <td><input type="text" name="principals_name"></td>
+                    <td><input type="tel" name="contact_number"></td>
+                  </tr>
+                  </tbody>
+              </table>
+
+              <label>Is there a milk collection center? <select id="has_milkcenter" name="has_milkcenter"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+                <div id="part4"style="display: none">Provide information about the nearest center</div>
+                <script>
+                  const has_milk = document.getElementById("has_milkcenter");
+                  const part4 = document.getElementById("part4");
+                  has_milk.addEventListener("change", function(){
+                    if(this.value === "no"){
+                      part4.style.display="block";
+                    } else {
+                      part4.style.display="none";
+                    }
+                  });
+                </script>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name of the collection center</th>
+                    <th>Owner's name</th>
+                    <th>Contact number</th>
+                    <th>Milk collection capacity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" name="center_name"></td>
+                    <td><input type="text" name="owner_name"></td>
+                    <td><input type="tel" name="contact_number1"></td>
+                    <td><input type="text" name="collection_capacity"></td>
+                  </tr>
+                  </tbody>
+              </table>
+            </fieldset>
+          
+            <fieldset>
+              <h3>Development Works </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Names of works</th>
+                    <th>Status</th>
+                    <th>Nature of work</th>
+                    <th>Funding provision</th>
+                  </tr>
+                </thead>
+                <tbody id="development_works">
+                  <tr>
+                    <td>1</td>
+                    <td><input type="text" name="name_of_work_1"></td>
+                    <td><select id="status" name="status_1">
+                      <option value="previous">Previous</option>
+                      <option value="currently_in_operation">Currently in operation</option>
+                      <option value="approved">Approved</option>
+                      <option value="work_to_be_proposed">Work to be proposed</option>
+                    </select></td>
+                    <td><input type="text" name="nature_of_work_1"></td>
+                    <td><input type="text" name="fund_provision_1"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" onclick="addWork()">Add Another</button>
+            </fieldset>
+
+            <fieldset>
+              <label>Is there a cow shed in Tanda? <select id="has_cowshed" name="has_cowshed"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+              <div id="part5"style="display: none">Nearby cow shelter information</div>
+              <script>
+                const has_cowshed = document.getElementById("has_cowshed");
+                const part5 = document.getElementById("part5");
+                has_cowshed.addEventListener("change", function(){
+                  if(this.value === "no"){
+                    part5.style.display="block";
+                  } else {
+                    part5.style.display="none";
+                  }
+                });
+              </script>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name of the gaushala</th>
+                  <th>Owner's name</th>
+                  <th>Contact number</th>
+                  <th>Founding year</th>
+                  <th>Number of Livestock</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" name="gaushala_name"></td>
+                  <td><input type="text" name="owner_name2"></td>
+                  <td><input type="tel" name="contact_number2"></td>
+                  <td><input type="number" name="founding_year"></td>
+                  <td><input type="number" name="number_of_livestock"></td>
+                </tr>
+                </tbody>
+            </table>
+            </fieldset>
+
+            <fieldset>
+              <label>Is there a ration shop in Tanda? <select id="has_rationshop" name="has_cowshed"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+              <div id="part6"style="display: none">Provide information about the nearest ration shop</div>
+              <script>
+                const has_rationshop = document.getElementById("has_rationshop");
+                const part6 = document.getElementById("part6");
+                has_rationshop.addEventListener("change", function(){
+                  if(this.value === "no"){
+                    part6.style.display="block";
+                  } else {
+                    part6.style.display="none";
+                  }
+                });
+              </script>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name of the ration shop</th>
+                  <th>Owner's name</th>
+                  <th>Contact number</th>
+                  <th>Number of card holders</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" name="shop_name"></td>
+                  <td><input type="text" name="owner_name3"></td>
+                  <td><input type="tel" name="contact_number3"></td>
+                  <td><input type="number" name="number_of_cardholder"></td>
+                </tr>
+                </tbody>
+            </table>
+            </fieldset>
+
+            <!-- College Section -->
+<fieldset>
+  <label>Is there a college in Tandaya?
+    
+    <select id="has_college" name="has_college">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part7"style="display: none">Provide information about the nearest college</div>
+  <div id="college_info">
+    <table>
+      <thead>
+        <tr>
+          <th>College name</th>
+          <th>Village name</th>
+          <th>Differences</th>
+          <th>Principal's name</th>
+          <th>Contact numbers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="college_name"></td>
+          <td><input type="text" name="college_village"></td>
+          <td>
+            <select name="college_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td><input type="text" name="college_principal"></td>
+          <td><input type="tel" name="college_contact"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_college").addEventListener("change", function(){
+      document.getElementById("part7").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- Health Centre Section -->
+<fieldset>
+  <label>Is there a health centre in Tandaya?
+    
+    <select id="has_healthcentre" name="has_healthcentre">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part8"style="display: none">Provide information about the nearest health center</div>
+  <div id="healthcentre_info" >
+    <table>
+      <thead>
+        <tr>
+          <th>Village name</th>
+          <th>Differences</th>
+          <th>Health officer's name</th>
+          <th>Contact numbers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="health_village"></td>
+          <td>
+            <select name="health_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td><input type="text" name="health_officer"></td>
+          <td><input type="tel" name="health_contact"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_healthcentre").addEventListener("change", function(){
+      document.getElementById("part8").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- Veterinary Hospital Section -->
+<fieldset>
+  <label>Is there a veterinary hospital in Tanda?
+    
+    <select id="has_vet" name="has_vet">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part9"style="display: none">Provide information about the nearest veterinary clinic</div>
+  <div id="vet_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Village name</th>
+          <th>Differences</th>
+          <th>Veterinary officer's name</th>
+          <th>Contact numbers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="vet_village"></td>
+          <td>
+            <select name="vet_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td><input type="text" name="vet_officer"></td>
+          <td><input type="tel" name="vet_contact"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_vet").addEventListener("change", function(){
+      document.getElementById("part9").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- FPO Section -->
+<fieldset>
+  <label>Is there an FPO (Agricultural Producer Company) in Tandaya?
+    
+    <select id="has_fpo" name="has_fpo">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part10"style="display: none">Provide information about the nearest FPO</div>
+  <div id="fpo_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Name of company</th>
+          <th>Differences</th>
+          <th>Director's name</th>
+          <th>Contact numbers</th>
+          <th>Number of members</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="fpo_name"></td>
+          <td>
+            <select name="fpo_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td><input type="text" name="fpo_director"></td>
+          <td><input type="tel" name="fpo_contact"></td>
+          <td><input type="number" name="fpo_members"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_fpo").addEventListener("change", function(){
+      document.getElementById("part10").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- Medicine Shop Section -->
+<fieldset>
+  <label>Is there a medicine shop in Tanda?
+    
+    <select id="has_medicineshop" name="has_medicineshop">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part11"style="display: none">Provide information about the nearest medicine shop</div>
+  <div id="medicineshop_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Name of the drug store</th>
+          <th>Differences</th>
+          <th>Director's name</th>
+          <th>Contact numbers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="medicine_name"></td>
+          <td>
+            <select name="medicine_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td><input type="text" name="medicine_director"></td>
+          <td><input type="tel" name="medicine_contact"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_medicineshop").addEventListener("change", function(){
+      document.getElementById("part11").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+
+
+</fieldset>
+
+
+
+<!-- Religious Places Section -->
+<fieldset>
+  <legend>Information on religious places in Tandaya</legend>
+  <table>
+    <thead>
+      <tr>
+        <th>Temple name</th>
+        <th>Is there a place or not?</th>
+        <th>Location Govt./Private</th>
+        <th>Area</th>
+        <th>Proposal submitted for development works?</th>
+        <th>Funding</th>
+      </tr>
+    </thead>
+    <tbody id="temple_list">
+      <tr>
+        <td>
+          <select name="temple_name_1">
+            <option value="Sant Sevalal Maharaj Temple">Sant Sevalal Maharaj Temple</option>
+            <option value="Aai Jagdamba Devi Temple">Aai Jagdamba Devi Temple</option>
+            <option value="Hanuman Temple">Hanuman Temple</option>
+            <option value="Other">Other</option>
+          </select>
+        </td>
+        <td>
+          <select name="temple_place_1">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </td>
+        <td>
+          <select name="temple_location_1">
+            <option value="official">Official</option>
+            <option value="private">Private</option>
+          </select>
+        </td>
+        <td><input type="text" name="temple_area_1"></td>
+        <td>
+          <select name="temple_proposal_1">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </td>
+        <td><input type="text" name="temple_funding_1"></td>
+      </tr>
+    </tbody>
+    
+  </table>
+  <button type="button" onclick="addTemple()">Add Another</button>
+</fieldset>
+
+<!-- Social Hall Section -->
+<fieldset>
+  <label>Is there a social hall in Tanda?
+    
+    <select id="has_socialhall" name="has_socialhall">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part12"style="display: none">Provide information about the nearest social hall</div>
+  <div id="socialhall_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Village name</th>
+          <th>Difference</th>
+          <th>Is there a place or not?</th>
+          <th>Location Govt./Private</th>
+          <th>Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="socialhall_village"></td>
+          <td>
+            <select name="socialhall_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td>
+            <select name="socialhall_place">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </td>
+          <td>
+            <select name="socialhall_location">
+              <option value="official">Official</option>
+              <option value="private">Private</option>
+            </select>
+          </td>
+          <td><input type="text" name="socialhall_area"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_socialhall").addEventListener("change", function(){
+      document.getElementById("part12").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- Anganwadi Section -->
+<fieldset>
+  <label>Is there an anganwadi in Tanda?
+    <select id="has_anganwadi" name="has_anganwadi">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part13" style="display: none;">Provide information about the nearest anganwadi</div>
+  <div id="anganwadi_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Village name</th>
+          <th>Difference</th>
+          <th>Is there a place or not?</th>
+          <th>Location Govt./Private</th>
+          <th>Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="anganwadi_village"></td>
+          <td>
+            <select name="anganwadi_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td>
+            <select name="anganwadi_place">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </td>
+          <td>
+            <select name="anganwadi_location">
+              <option value="official">Official</option>
+              <option value="private">Private</option>
+            </select>
+          </td>
+          <td><input type="text" name="anganwadi_area"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_anganwadi").addEventListener("change", function(){
+      document.getElementById("part13").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<!-- Cremation Ground Section -->
+<fieldset>
+  <label>Is there a cremation ground in Tanda?
+    <select id="has_cremation" name="has_cremation">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="part14" style="display: none;">Provide information about the nearest cremation ground</div>
+  <div id="cremation_info">
+    <table>
+      <thead>
+        <tr>
+          <th>Village name</th>
+          <th>Difference</th>
+          <th>Is there a place or not?</th>
+          <th>Location Govt./Private</th>
+          <th>Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="cremation_village"></td>
+          <td>
+            <select name="cremation_difference">
+              <option value="0-3">0 to 3</option>
+              <option value="3-6">3 to 6</option>
+              <option value="6-10">6 to 10</option>
+              <option value="10+">Beyond 10</option>
+            </select>
+          </td>
+          <td>
+            <select name="cremation_place">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </td>
+          <td>
+            <select name="cremation_location">
+              <option value="official">Official</option>
+              <option value="private">Private</option>
+            </select>
+          </td>
+          <td><input type="text" name="cremation_area"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_cremation").addEventListener("change", function(){
+      document.getElementById("part14").style.display = this.value === "no" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<fieldset>
+  <label>Is there a choir in Tanda?
+    <select id="has_choir" name="has_choir">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select></label>
+    <div id="part15" style="display: none;">
+      <table>
+        <thead>
+          <tr>
+            <th>A.No.</th>
+            <th>Name of Bhajani Mandal</th>
+            <th>Number of members</th>
+            <th>Member's name</th>
+            <th>Contact No.</th>
+            <th>Address of correspondence</th>
+            </tr>
+        </thead>
+        <tbody id="choir_list">
+          <tr>
+            <td>1</td>
+            <td><input type="text" name="choir_name_1"></td>
+            <td><input type="number" name="members_1"></td>
+            <td><input type="number" name="members_name_1"></td>
+            <td><input type="tel" name="contact_no_1"></td>
+            <td><input type="text" name="address_1"></td>
+            </tr>
+        </tbody>  
+        </table>  
+    </div>
+    <button type="button" onclick="addChoir()">Add Another</button>
+    <script>
+      document.getElementById("has_choir").addEventListener("change", function(){
+        document.getElementById("part15").style.display = this.value === "yes" ? "block" : "none";
+      });
+    </script>
+</fieldset>
+
+<fieldset>
+  <label style="display: flex; flex-direction: row;">Is there regular power supply in Tanda? <select name="powersupply">
+    <option value="">Select</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select></label>
+  </fieldset>
+  <!-- Regular Water Supply -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there regular water supply in Tanda?
+    <select name="watersupply">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Exercise School -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there an exercise school in Tanda?
+    <select name="exercise_school">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Playground -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there a playground in Tanda?
+    <select name="playground">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Regular Bus -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there a regular bus in Tanda?
+    <select name="regular_bus">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Bus Station -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there a bus station in Tanda?
+    <select name="bus_station">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Road from Main Road -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is the road from the main road to Tanda in order?
+    <select name="mainroad_to_tanda">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Underground Sewer -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there underground sewer in Tanda?
+    <select name="underground_sewer">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+</fieldset>
+
+<!-- Library -->
+<fieldset>
+  <label style="display: flex; flex-direction: row;">
+    Is there a library in Tanda?
+    <select id="has_library" name="has_library">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </label>
+  <div id="library_info" style="display:none;">
+    <table>
+      <thead>
+        <tr>
+          <th>Library name</th>
+          <th>Village name</th>
+          <th>Is there a space</th>
+          <th>Location Govt/Private</th>
+          <th>Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="library_name"></td>
+          <td><input type="text" name="library_village"></td>
+          <td>
+            <select name="library_distance">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+
+            </select>
+          </td>
+          <td><select name="location_G_P">
+            <option value="govt">Govt</option>
+            <option value="private">Private</option>
+          </select></td>
+          <td><input type="text" name="library_area"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.getElementById("has_library").addEventListener("change", function(){
+      document.getElementById("library_info").style.display = this.value === "yes" ? "block" : "none";
+    });
+  </script>
+</fieldset>
+
+<fieldset>
+  <label>Information about important people in Tanda</label>
+  <table>
+    <thead>
+      <tr>
+        <td>A.No.</td>
+        <td>Name</td>
+        <td>Designation</td>
+        <td>Contact number</td>
+      </tr>
+      </thead>
+      <tbody id="important_people">
+        <tr>
+          <td>1</td>
+          <td><input type="text" name="important_person_name_1"></td>
+          <td><select name="important_designation_1">
+            <option value="head_of_panchayat">Head of panchayat</option>
+            <option value="talathi">Talathi</option>
+            <option value="gram_panchayat_officer">Gram Panchayat Officer</option>
+            <option value="police_patil">Police Patil</option>
+            <option value="anganwadi_worker">Anganwadi worker</option>
+            <option value="important_people">Important people</option>
+            <option value="headmaster">Headmaster</option>
+            <option value="professor">Prof.</option>
+            <option value="asha_tai">Asha Tai</option>
+            <option value="saint">Saint</option>
+            <option value="priest">Priest</option>
+            <option value="enlightenment">Enlightenment</option>
+            <option value="journalist">Journalist</option>
+            <option value="arts_and_craft_trained">One trained in arts and craft</option>
+            <option value="writer">Writer</option>
+            <option value="chairman_bhajani_mandal">Chairman, Bhajani Mandal</option>
+            <option value="literary">Literary</option>
+            <option value="artist">Artist</option>
+            <option value="other_posts">Other Posts</option>
+          </select></td>
+          <td><input type="number" name="important_person_number_1"></td>
+          </tr>
+        </tbody>
+    </table>  
+    <button type="button" onclick="createIperson()">Add another</button>
+  </fieldset>
+
+          
+
+      </form>
+
+
+      <script>
+    
+      
+        function createIperson() {
+          const tbody = document.getElementById("important_people");
+          const personCount = tbody.rows.length + 1;
+      
+          const workHTML = `
+        <tr>
+          <td>${personCount}</td>
+          <td><input type="text" name="important_person_name_${personCount}"></td>
+          <td><select name="important_designation_${personCount}">
+            <option value="head_of_panchayat">Head of panchayat</option>
+            <option value="talathi">Talathi</option>
+            <option value="gram_panchayat_officer">Gram Panchayat Officer</option>
+            <option value="police_patil">Police Patil</option>
+            <option value="anganwadi_worker">Anganwadi worker</option>
+            <option value="important_people">Important people</option>
+            <option value="headmaster">Headmaster</option>
+            <option value="professor">Prof.</option>
+            <option value="asha_tai">Asha Tai</option>
+            <option value="saint">Saint</option>
+            <option value="priest">Priest</option>
+            <option value="enlightenment">Enlightenment</option>
+            <option value="journalist">Journalist</option>
+            <option value="arts_and_craft_trained">One trained in arts and craft</option>
+            <option value="writer">Writer</option>
+            <option value="chairman_bhajani_mandal">Chairman, Bhajani Mandal</option>
+            <option value="literary">Literary</option>
+            <option value="artist">Artist</option>
+            <option value="other_posts">Other Posts</option>
+          </select></td>
+          <td><input type="number" name="important_person_number_${personCount}"></td>
+          </tr>
+          `;
+      
+          tbody.insertAdjacentHTML('beforeend', workHTML);
+        }
+        </script>
+
+<script>
+ 
+
+  function addChoir() {
+    const tbody = document.getElementById("choir_list");
+    const choiceCount = tbody.rows.length + 1;
+    const workHTML = `
+          <tr>
+            <td>${choiceCount}</td>
+            <td><input type="text" name="choir_name_${choiceCount}"></td>
+            <td><input type="number" name="members_${choiceCount}"></td>
+            <td><input type="number" name="members_name_${choiceCount}"></td>
+            <td><input type="tel" name="contact_no_${choiceCount}"></td>
+            <td><input type="text" name="address_${choiceCount}"></td>
+            </tr>
+    `;
+
+    tbody.insertAdjacentHTML('beforeend', workHTML);
+  }
+  </script>
+
+          
+<script>
+  function addTemple(){
+    const tbody= document.getElementById("temple_list");
+    const templeCount = tbody.rows.length + 1; 
+    const workHTML = `<tr>
+        <td>
+          <select name="temple_name_${templeCount}">
+            <option value="Sant Sevalal Maharaj Temple">Sant Sevalal Maharaj Temple</option>
+            <option value="Aai Jagdamba Devi Temple">Aai Jagdamba Devi Temple</option>
+            <option value="Hanuman Temple">Hanuman Temple</option>
+            <option value="Other">Other</option>
+          </select>
+        </td>
+        <td>
+          <select name="temple_place_${templeCount}">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </td>
+        <td>
+          <select name="temple_location_${templeCount}">
+            <option value="official">Official</option>
+            <option value="private">Private</option>
+          </select>
+        </td>
+        <td><input type="text" name="temple_area_${templeCount}"></td>
+        <td>
+          <select name="temple_proposal_${templeCount}">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </td>
+        <td><input type="text" name="temple_funding_${templeCount}"></td>
+      </tr>`;
+      tbody.insertAdjacentHTML('beforeend', workHTML);
+  }
+
+  </script>
+
+          <script>
+
+
+            function addWork() {
+              const tbody = document.getElementById("development_works");
+              const workCount = tbody.rows.length + 1; 
+
+              const workHTML = `
+                <tr>
+                  <td>${workCount}</td>
+                    <td><input type="text" name="name_of_work_${workCount}"></td>
+                    <td><select id="status" name="status_${workCount}">
+                      <option value="previous">Previous</option>
+                      <option value="currently_in_operation">Currently in operation</option>
+                      <option value="approved">Approved</option>
+                      <option value="work_to_be_proposed">Work to be proposed</option>
+                    </select></td>
+                    <td><input type="text" name="nature_of_work_${workCount}"></td>
+                    <td><input type="text" name="fund_provision_${workCount}"></td>
+                </tr>
+              `;
+
+              tbody.insertAdjacentHTML('beforeend', workHTML);
+            }
+            </script>
+<script>
+  
+
+  function addMember() {
+    const tbody = document.getElementById('members-tbody');
+    const memberCount = tbody.rows.length + 1; 
+
+    const memberHTML = `
+      <tr>
+        <td>${memberCount}</td>
+        <td><input type="text" name="committee_member_name_${memberCount}"></td>
+        <td><input type="text" name="committee_member_designation_${memberCount}"></td>
+        <td><input type="text" name="committee_member_contact_${memberCount}"></td>
+        <td><input type="text" name="committee_member_address_${memberCount}"></td>
+        <td><input type="email" name="committee_member_email_${memberCount}"></td>
+        <td><input type="date" name="committee_member_dob_${memberCount}"></td>
+      </tr>
+    `;
+
+    tbody.insertAdjacentHTML('beforeend', memberHTML);
+  }
+</script>
+
+    </body></html>

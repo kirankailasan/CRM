@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form 1: Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
+    <link rel="stylesheet" href="{% static 'css/form1.css' %}">
+    <style>
+        .save-row {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-msg {
+    color: green;
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <form class="form-section" id="form1" method="post">
+
+    <div class="container">
+        <h2>Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</h2>
+
+      
+        <div>
+            {% csrf_token %}
+            <h3>General Information</h3><br>
+        
+            <div class="form-row">
+                <label for="taluka-name">Taluka (Administrative Division) Name:</label>
+                <input type="text" id="taluka-name" name="taluka-name" required>
+            </div>
+        
+            <h4 style="text-align: center">Work Report</h4><br>
+        
+            <div class="form-row">
+                <label for="gram-panchayat-name">Name of the Gram Panchayat:</label>
+                <input type="text" id="gram-panchayat-name" name="gram-panchayat-name" required>
+            </div>
+        
+            <div class="form-row">
+                <label for="village-name">Name of the Village:</label>
+                <input type="text" id="village-name" name="village-name" required>
+            </div>
+        
+            <div class="form-row">
+                <label for="zilla-parishad">Name of the Zilla Parishad Constituency:</label>
+                <input type="text" id="zilla-parishad" name="zilla-parishad" required>
+            </div>
+        
+            <div class="form-row">
+                <label for="num-approved-tandas">No. of Approved Tandas:</label>
+                <input type="number" id="num-approved-tandas" name="num-approved-tandas" required>
+            </div>
+        
+            <div class="form-row">
+                <label for="num-proposed-tandas">No. of Proposed New Tandas:</label>
+                <input type="number" id="num-proposed-tandas" name="num-proposed-tandas" required>
+            </div>
+        </div>
+        
+
+        <!-- Tanda Wise Information -->
+        <div class="form-section">
+            <h3>Tanda Wise Information</h3>
+
+            <!-- Table for Tanda Details -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Tanda Name</th>
+                        <th>Gram Panchayat Name</th>
+                        <th>Total Population</th>
+                        <th>Male</th>
+                        <th>Female</th>
+                        <th>Existing Facilities</th>
+                        <th>Whether Electricity is Available</th>
+                        <th>Whether Water Facility is Available</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="tanda-table-body">
+                    <!-- Rows will be dynamically added by JavaScript -->
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" name="tanda-name-1" required></td>
+                        <td><input type="text" name="gram-panchayat-name-1" required></td>
+                        <td><input type="number" name="total-population-1" required></td>
+                        <td><input type="number" name="male-1" required></td>
+                        <td><input type="number" name="female-1" required></td>
+                        <td><input type="text" name="existing-facilities-1" required></td>
+                        <td>
+                            <select name="electricity-available-1" required>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="water-facility-available-1" required>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class ="delete-btn" type="button" onclick="deleteTandaRow(this)">🗑️</button>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    
+                    <!-- More rows can be added dynamically if needed -->
+                </tbody>
+            </table>
+
+            <!-- Button to Add More Tanda Rows -->
+            <button type="button" class="btn" onclick="addTandaRow()">Add Another Tanda</button>
+        </div>
+
+        <div id="successMessage" class="success-message" style="display:none;">
+            Form saved successfully!
+        </div>
+    </div>
+    </form>
+
+    <script>
+        // Function to add new row to the table
+        function addTandaRow() {
+            const tableBody = document.getElementById('tanda-table-body');
+            const rowCount = tableBody.rows.length + 1;
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${rowCount}</td>
+                <td><input type="text" name="tanda-name-${rowCount}" required></td>
+                <td><input type="text" name="gram-panchayat-name-${rowCount}" required></td>
+                <td><input type="number" name="total-population-${rowCount}" required></td>
+                <td><input type="number" name="male-${rowCount}" required></td>
+                <td><input type="number" name="female-${rowCount}" required></td>
+                <td><input type="text" name="existing-facilities-${rowCount}" required></td>
+                <td>
+                    <select name="electricity-available-${rowCount}" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="water-facility-available-${rowCount}" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </td>
+                        <td>
+                            <button class ="delete-btn" type="button" onclick="deleteTandaRow(this)">🗑️</button>
+                        </td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+
+        function deleteTandaRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+
+            // Update serial numbers after deletion
+            const rows = document.querySelectorAll('#tanda-table-body tr');
+            rows.forEach((tr, index) => {
+                tr.children[0].innerText = index + 1;
+            });
+        }
+
+    </script>
+
+
+
+
+    
+
+</body>
+</html>

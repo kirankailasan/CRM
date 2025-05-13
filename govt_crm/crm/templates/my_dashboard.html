@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{%static 'css/user_dashboard.css' %}">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2>Welcome, {{ request.user.username }}</h2>
+<!-- Success Message Modal -->
+<div id="successPopup" class="popup">
+{% if messages %}
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+{% endif %}
+</div>
+
+        <!-- Schemes Button -->
+        <button id="schemes" class="btn btn-primary">
+            Schemes
+        </button>
+
+        <!-- Modal Structure -->
+        <div id="schemeModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Available Schemes</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme
+                            <a href="{% url 'scheme_detail' %}" class="btn btn-sm btn-outline-info">View</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div> <a href="{% url 'submitted_data' %}">view submitted data</a></div>
+
+    <script>
+        // Get the modal element
+        var modal = document.getElementById("schemeModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("schemes");
+
+        // Function to open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks anywhere outside the modal content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const popup = document.getElementById('successPopup');
+      if (popup) {
+        popup.style.display = 'block';
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 3000); // 3 seconds
+      }
+    });
+  </script>
+  
+
+
+</body>
+</html>

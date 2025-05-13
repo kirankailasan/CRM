@@ -1,0 +1,11 @@
+{
+    "noHeader": "क्रमांक",
+    "userNameHeader": "वापरकर्त्याचे नाव",
+    "emailHeader": "ईमेल",
+    "talukaNameHeader": "तालुका नाव",
+    "gramPanchayatHeader": "ग्रामपंचायत",
+    "submittedOnHeader": "सबमिट केलेली तारीख",
+    "viewHeader": "पहा",
+    "downloadHeader": "डाउनलोड",
+    "editHeader": "संपादित करा"
+  }

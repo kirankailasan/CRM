@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+        <link rel="stylesheet" href="{% static 'css/manage_users.css' %}">
+    </head>
+
+    <body>
+        {% include 'navbar.html' %}
+        <div class="user-container" style="margin-top: 10%;">
+            <h2>Regular User Management</h2>
+            <div class="top-panel" style="display: flex; flex-direction: row; gap: 40%;">
+                <input
+                type="text"
+                id="userSearch"
+                placeholder="Search by name or email..."
+                style="margin-bottom: 16px; padding: 8px; width: 300px; border-radius: 4px; border: 1px solid #ccc;">
+                <button class="create-user" type="button" onclick="registerUser()">Create new user</button>
+            </div>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Designated Areas</th>
+                        <th>Assign</th>
+                        <th>Task Details</th>
+                        <th>User Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>
+                            <img class="ru-profile-pic" src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="Profile Picture">
+                        </td>
+                        <td>{{ user.user.first_name }} {{ user.user.last_name }}</td>
+                        <td>{{ user.user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td style="max-height: 60px; height: auto; overflow-y: auto; display: block; ">
+                            {% with assignments=user.user.assignments.all %}
+                                {% if assignments %}
+                                    <ul style="list-style: none; padding-left: 0; margin: 0;">
+                                        {% for assignment in assignments|dictsortreversed:"assigned_at" %}
+                                            <li style="margin-bottom: 5px;">
+        
+                                                {{ assignment.district }}
+                                                {% if assignment.taluka %}, {{ assignment.taluka }}{% endif %}
+                                                {% if assignment.deadline %} ({{ assignment.deadline|date:"d M Y" }}){% endif %}
+                                                {% if assignment.is_completed %}
+                                                <span style="color: green;">✅</span>
+                                            {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    Not Assigned
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                        
+                        
+                        <td>
+                            <button class="appoint-user" type="button" onclick="openAppoint('{{ user.user.id }}')">Appoint</button>
+        
+                        </td>
+                        <td>
+                            <button class="view_task" type="button" onclick="openTaskDetails('{{user.id}}')">View</button>
+        
+        
+                        
+                        </td>
+                        <td>
+                            <button class="view-details-btn" type="button" onclick="openDetails('{{ user.id }}')">View</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align:center;">No registered users found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="appointModal" style="display:none">
+            <form id="appointForm" method="post" action="{% url 'appoint_user' %}" >
+                {% csrf_token %}
+        
+                <span id="closeappoint"><button type="button" onclick="closeAppoint()">X</button></span>
+                <input type="hidden" name="user_id" value="">
+        
+        
+        
+                <label for="district">District:</label>
+                <select name="district" id="district">
+                    <option value="">-- Select District --</option>
+                </select>
+        
+                <label for="taluka">Taluka:</label>
+                <select name="taluka" id="taluka">
+                    <option value="">-- Select Taluka --</option>
+                </select>
+        
+                <label for="region">Region:</label>
+                <select name="region" id="region">
+                    <option value="">Select</option>
+                    <option value="urban">Urban</option>
+                    <option value="rural">Rural</option>
+                    <option value="semiurban">Semi-Urban</option>
+                </select>
+        
+                <label for="tanda">Tanda:</label>
+                <input type="number" id="tanda" name="tanda">
+        
+                <label for="deadline">Deadline:</label>
+                <input type="date" id="deadline" name="deadline">
+        
+                <label for="additional">Additional instructions: </label>
+                <input type="text" name="additional" id="additional"><br>
+        
+                <button type="submit">Appoint</button>
+            </form>
+        </div>
+        
+        
+        <!-- User Details Modal -->
+        <div id="detailsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <button class="btn-close" onclick="closeDetails()">&times;</button>
+                <div id="detailsContent">
+                    <!-- User details will be dynamically filled here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="taskdetails" id="taskdetails" style="display:none">
+            <div class="task-content">
+                {% for user in users %}
+                    {% for assignment in user.user.assignments.all %}      
+                <button class="btn-close" onclick="closeTaskDetails()">&times;</button>
+                <div id="detailsContent" class="task-box">
+                    <p><b>District: </b>{{assignment.district}}</p>
+                    <p><b>Taluka: </b>{{assignment.taluka}}</p>
+                    <p><b>Region: </b>{{assignment.region}}</p>
+                    <p><b>Assigned at: </b>{{assignment.assigned_at}}</p>
+                    <p><b>Deadline: </b>{{assignment.deadline}}</p>
+                    <p>{% if assignment.is_completed %} Completed {% else %} Not Completed {%endif%}</p>
+                </div>
+                  {%endfor %}
+                  {% endfor %}
+            </div>
+        </div>
+        
+        
+        <div class="create_user_model" id="create_user_model" style="display: none;">
+
+            {% if error %}
+                <div style="color: red;">{{ error }}</div>
+            {% endif %}
+            <form method="post" id="create-user-form" action="{% url 'create_user_view' %}">
+                <span>
+                    <h2>Create New User</h2>
+                    <button type="button" onclick="closeCreate()">&times</button>
+                </span>
+                {% csrf_token %}
+                <label for="first_name">First Name:</label><br>
+                <input type="text" name="first_name" id="first_name"><br><br>
+
+                <label for="last_name">Last Name:</label><br>
+                <input type="text" name="last_name" id="last_name"><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" name="email" id="email" required><br><br>
+
+                
+
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" id="password" required><br><br>
+
+                <button type="submit">Create User</button>
+            </form>
+        </div>
+        
+<div class="completed_progress" style="margin-top: 10%">
+    <h2>Tandas Completed by User</h2>
+    <canvas id="userCompletionChart"></canvas>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    
+    <script>
+        var userLabels = JSON.parse('{{ user_labels_json|escapejs }}');
+        var userData = JSON.parse('{{ user_data_json|escapejs }}');
+    
+        // Bar Chart - Tandas Completed by User
+        new Chart(document.getElementById('userCompletionChart'), {
+            type: 'bar',
+            data: {
+                labels: userLabels,
+                datasets: [{
+                    label: 'Tandas Completed',
+                    data: userData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+    
+</div>
+
+        <script>
+
+            function registerUser(){
+                document.getElementById('create_user_model').style.display = "block";
+                
+            }
+            function closeCreate(){
+                document.getElementById('create_user_model').style.display = "none";
+            }
+            function openTaskDetails(userId){
+                document.getElementById('taskdetails').style.display = "block";
+                
+            }
+            function closeTaskDetails(){
+                document.getElementById('taskdetails').style.display = "none";
+            }
+        
+            function openAppoint(userId) {
+                document.getElementById("appointModal").style.display = "block";
+                document.querySelector("#appointForm input[name='user_id']").value = userId;
+            }
+        
+            function closeAppoint() {
+                document.getElementById("appointModal").style.display = "none";
+            }
+        
+            const data = {
+                "Sindhudurg": ["Kankavli", "Vaibhavwadi", "Devgad", "Malwan", "Sawantwadi", "Kudal", "Vengurla", "Dodamarg"],
+                "Ratnagiri": ["Ratnagiri", "Sangameshwar", "Lanja", "Rajapur", "Chiplun", "Guhagar", "Dapoli", "Mandangad", "Khed"],
+                "Raigad": ["Alibaug", "Pen", "Murud", "Panvel", "Uran", "Karjat", "Khalapur", "Mangaon", "Tala", "Roha", "Sudhagad-Pali", "Mahad", "Poladpur", "Shrivardhan", "Mhasala"],
+                "Mumbai City": [], // Mumbai City doesn't have talukas in the traditional sense
+                "Mumbai Suburban": ["Bandra", "Kurla", "Andheri", "Borivali"], // These are administrative divisions
+                "Thane": ["Thane", "Kalyan", "Murbad", "Bhiwandi", "Shahapur", "Ulhasnagar", "Ambarnath"],
+                "Palghar": ["Palghar", "Vasai", "Dahanu", "Talasari", "Jawhar", "Mokhada", "Vada", "Vikramgad"],
+                "Nashik": ["Nashik", "Igatpuri", "Dindori", "Peth", "Trimbakeshwar", "Kalwan", "Deola", "Surgana", "Baglan", "Malegaon", "Nandgaon", "Chandwad", "Niphad", "Sinnar", "Yeola"],
+                "Nandurbar": ["Nandurbar", "Navapur", "Shahada", "Talode", "Akkalkuwa", "Dhadgaon"],
+                "Dhule": ["Dhule", "Sakri", "Sindkheda", "Shirpur"],
+                "Jalgaon": ["Jalgaon", "Jamner", "Erandol", "Dharangaon", "Bhusawal", "Raver", "Muktainagar", "Bodwad", "Yawal", "Amalner", "Parola", "Chopda", "Pachora", "Bhadgaon", "Chalisgaon"],
+                "Buldhana": ["Buldhana", "Chikhli", "Deulgaon Raja", "Jalgaon Jamod", "Sangrampur", "Malkapur", "Motala", "Nandura", "Khamgaon", "Shegaon", "Mehkar", "Sindkhed Raja", "Lonar"],
+                "Akola": ["Akola", "Akot", "Telhara", "Balapur", "Patur", "Murtajapur", "Barshitakli"],
+                "Washim": ["Washim", "Malegaon", "Risod", "Mangrulpir", "Karanja", "Manora"],
+                "Amravati": ["Amravati", "Bhatkuli", "Nandgaon Khandeshwar", "Dharni", "Chikhaldara", "Achalpur", "Chandurbazar", "Morshi", "Warud", "Daryapur", "Anjangaon-Surji", "Chandur", "Dhamangaon", "Tiosa"],
+                "Wardha": ["Wardha", "Deoli", "Seloo", "Arvi", "Ashti", "Karanja", "Hinganghat", "Samudrapur"],
+                "Nagpur": ["Nagpur Urban", "Nagpur Rural", "Kamptee", "Hingna", "Katol", "Narkhed", "Savner", "Kalameshwar", "Ramtek", "Mouda", "Parseoni", "Umred", "Kuhi", "Bhiwapur"],
+                "Bhandara": ["Bhandara", "Tumsar", "Pauni", "Mohadi", "Sakoli", "Lakhani", "Lakhandur"],
+                "Gondia": ["Gondia", "Goregaon", "Salekasa", "Tiroda", "Deori", "Amgaon", "Arjuni Morgaon", "Sadak-Arjuni"],
+                "Gadchiroli": ["Gadchiroli", "Dhanora", "Chamorshi", "Mulchera", "Desaiganj", "Armori", "Kurkheda", "Korchi", "Aheri", "Etapalli", "Bhamragad", "Sironcha"],
+                "Chandrapur": ["Chandrapur", "Saoli", "Mul", "Ballarpur", "Pombhurna", "Gondpimpri", "Warora", "Chimur", "Bhadravati", "Bramhapuri", "Nagbhid", "Sindewahi", "Rajura", "Korpana", "Jiwati"],
+                "Yavatmal": ["Yavatmal", "Arni", "Babhulgaon", "Kalamb", "Darwha", "Digras", "Ner", "Pusad", "Umarkhed", "Mahagaon", "Kelapur", "Ralegaon", "Ghatanji", "Wani", "Maregaon", "Zari Jamani"],
+                "Nanded": ["Nanded", "Ardhapur", "Mudkhed", "Bhokar", "Umri", "Loha", "Kandhar", "Kinwat", "Himayatnagar", "Hadgaon", "Mahur", "Deglur", "Mukhed", "Dharmabad", "Biloli", "Naigaon"],
+                "Hingoli": ["Hingoli", "Sengaon", "Kalamnuri", "Basmath", "Aundha Nagnath"],
+                "Parbhani": ["Parbhani", "Sonpeth", "Gangakhed", "Palam", "Purna", "Sailu", "Jintur", "Manwath", "Pathri"],
+                "Jalna": ["Jalna", "Bhokardan", "Jafrabad", "Badnapur", "Partur", "Ambad", "Ghansawangi", "Mantha"],
+                "Aurangabad": ["Aurangabad", "Kannad", "Soegaon", "Sillod", "Phulambri", "Khuldabad", "Vaijapur", "Gangapur", "Paithan"], // Note: Aurangabad district appears twice in the table, I've merged the talukas.
+                "Beed": ["Beed", "Ashti", "Patoda", "Shirur-Kasar", "Georai", "Majalgaon", "Wadwani", "Kaij", "Dharur", "Parli", "Ambejogai"],
+                "Latur": ["Latur", "Ausa", "Ahmedpur", "Jalkot", "Chakur", "Shirur Anantpal", "Nilanga", "Deoni", "Udgir"],
+                "Osmanabad": ["Osmanabad", "Tuljapur", "Bhum", "Paranda", "Kalamb", "Umarga"],
+                "Solapur": ["Solapur North", "Barshi", "Solapur South", "Akkalkot", "Madha", "Karmala", "Pandharpur", "Mohol", "Malshiras", "Mangalvedhe", "Sangole"],
+                "Ahilyanagar": ["Nagar", "Shevgaon", "Pathardi", "Parner", "Sangamner", "Kopargaon", "Akole", "Shrirampur", "Nevasa", "Rahata", "Rahuri", "Shrigonda", "Karjat", "Jamkhed"], // Using "Ahilyanagar" as the modern name for Ahmednagar
+                "Pune": ["Haveli", "Khed", "Junnar", "Ambegaon", "Maval", "Mulshi", "Shirur", "Purandhar", "Velhe", "Bhor", "Baramati", "Indapur", "Daund"],
+                "Satara": ["Satara", "Jaoli", "Koregaon", "Wai", "Mahabaleshwar", "Khandala", "Phaltan", "Maan", "Khatav", "Patan", "Karad"],
+                "Sangli": ["Miraj", "Kavathemahankal", "Tasgaon", "Jat", "Walwa", "Shirala", "Khanapur", "Atpadi", "Palus", "Kadegaon"],
+                "Kolhapur": ["Karvir", "Panhala", "Shahuwadi", "Kagal", "Hatkanangale", "Shirol", "Radhanagari", "Gaganbawada", "Bhudargad", "Gadhinglaj", "Chandgad", "Ajra"]
+                };
+        
+            const districtSelect = document.getElementById("district");
+            const talukaSelect = document.getElementById("taluka");
+        
+            // Populate District Dropdown
+            for (const district in data) {
+              const option = document.createElement("option");
+              option.value = district;
+              option.textContent = district;
+              districtSelect.appendChild(option);
+            }
+        
+            // Handle District Change
+            districtSelect.addEventListener("change", () => {
+              const selectedDistrict = districtSelect.value;
+              const talukas = data[selectedDistrict] || [];
+        
+              // Clear and repopulate taluka dropdown
+              talukaSelect.innerHTML = '<option value="">-- Select Taluka --</option>';
+              talukas.forEach(taluka => {
+                const option = document.createElement("option");
+                option.value = taluka;
+                option.textContent = taluka;
+                talukaSelect.appendChild(option);
+              });
+            });
+          </script>
+        
+        
+        <script>
+        
+        
+            // Toggle section logic
+            function toggleSection(header) {
+                const icon = header.querySelector('.toggle-icon');
+                const content = header.nextElementSibling;
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    icon.classList.add("open");
+                } else {
+                    content.style.display = "none";
+                    icon.classList.remove("open");
+                }
+            }
+        
+            // User Details Modal logic
+            function openDetails(userId) {
+                fetch(`/get-user-details/${userId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const content = `
+                            <img src="${data.profile_pic}" width="100" style="border-radius:50%; margin-bottom: 10px;">
+                            <h2>${data.name}</h2>
+                            <p><strong>Email:</strong> ${data.email}</p>
+                            <p><strong>Phone:</strong> ${data.phone}</p>
+                            <p><strong>Aadhaar:</strong> ${data.aadhaar}</p>
+                            <p><strong>Address:</strong> ${data.address}</p>
+                            <p><strong>City:</strong> ${data.city}</p>
+                            <p><strong>District:</strong> ${data.district}</p>
+                            <p><strong>Country:</strong> ${data.state}</p>
+                        `;
+                        document.getElementById('detailsContent').innerHTML = content;
+                        document.getElementById('detailsModal').style.display = 'flex';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user details:', error);
+                        alert('Failed to load user details.');
+                    });
+            }
+            function closeDetails() {
+                document.getElementById('detailsModal').style.display = 'none';
+            }
+        </script>
+            <script>
+                document.getElementById('userSearch').addEventListener('input', function() {
+                    var filter = this.value.toLowerCase();
+                    var rows = document.querySelectorAll('.user-table tbody tr');
+                    rows.forEach(function(row) {
+                        // Combine name and email columns for search
+                        var name = row.children[1]?.innerText.toLowerCase() || '';
+                        var email = row.children[2]?.innerText.toLowerCase() || '';
+                        if (name.includes(filter) || email.includes(filter)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+                </script>
+{% include 'footer.html' %}
+    </body>
+</html>

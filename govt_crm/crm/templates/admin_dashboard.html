@@ -1,0 +1,241 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1"></script>
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+
+    <div class="admin-content">
+        <div class="tandas">
+            <h2 id="total-tandas">Total Tandas</h2>
+            <img src="{% static 'images/circle.png' %}">
+            <p>{{total_tandas}}</p>
+        </div>
+        <div class="population">
+            <h2 id="total-population">Total population</h2>
+            <img src="{% static 'images/group.png' %}">
+            <p>{{ total_population }}</p>
+        </div>
+        <div class="housing-demand">
+            <h2 id="housing-demand1">Housing demand</h2>
+            <img src="{% static 'images/building.png' %}">
+            <p>{{ total_housing_demand }}</p>
+        </div>
+        <div class="approved-houses">
+            <h2 id="approved-houses1">Approved houses</h2>
+            <img src="{% static 'images/check1.png' %}">
+            <p>{{approved_houses}}</p>
+        </div>
+
+    </div>
+
+  
+<div class="charts">
+    <div class="chart">
+        <h2 id="district-tanda-distribution"><img src="{% static 'images/percentage.png' %}"> District Wise Tanda Distribution</h2>
+        <div>
+            <canvas id="tandaChart" width="300" height="300"></canvas>
+        </div>
+        
+
+       
+
+        
+        <script>
+            // Get the JSON data passed from Django view
+            var labels = JSON.parse('{{ labels_json|escapejs }}');
+            var data1 = JSON.parse('{{ data_json|escapejs }}');
+            var percentages = JSON.parse('{{ percentages_json|escapejs }}');
+    
+            // Create the doughnut chart
+            var tandaChart = new Chart(document.getElementById('tandaChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels, // Use 'labels' from Django view (x-values)
+                    datasets: [{
+                        data: data1, // Use 'data' from Django view (y-values for slice size)
+                        backgroundColor: [
+                            '#FF6633', '#FFB399', '#FFFF99', '#FF33FF', '#00B3E6',
+                            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+                            '#80B300', '#8080F0', '#E68A8A', '#008080', '#F08080',
+                            '#00FFFF', '#ADD8E6', '#90EE90', '#FAF0E6', '#FFA07A',
+                            '#20B2AA', '#87CEFA', '#778899', '#B0E0E6', '#D3D3D3',
+                            '#A9A9A9', '#696969', '#4682B4', '#6A5ACD', '#7B68EE',
+                            '#483D8B', '#6495ED', '#F0F8FF', '#FAEBD7', '#FFFACD',
+                            '#FFE4B5'
+                        ], 
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw} tandas (${percentages[tooltipItem.dataIndex]})`; // Show percentage in tooltip
+                                }
+                            }
+                        },
+                        datalabels: {
+                            formatter: (value, ctx) => {
+                                return percentages[ctx.dataIndex] + '%'; // Display percentages (z-values) on the chart
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Register the plugin
+            });
+        </script>
+    </div>
+    
+    <div class="chart1">
+        <h2 id="population-demographics"><img src="{% static 'images/percentage.png' %}"> Population Demographics</h2>
+        
+        <canvas id="populationChart" width="300" height="300"></canvas>
+            
+
+   
+        
+        <script>
+            // Get the JSON data passed from Django view
+            var labels_population = JSON.parse('{{ labels_population_json|escapejs }}');
+            var data_population = JSON.parse('{{ data_population_json|escapejs }}');
+            var populationPercentages = JSON.parse('{{ percentages_population_json|escapejs }}');
+    
+            // Calculate total population (already passed percentages, but keeping safe)
+            var totalPopulation = data_population.reduce(function(a, b) { return a + b; }, 0);
+    
+            // Create the doughnut chart for male/female population
+            var populationChart = new Chart(document.getElementById('populationChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels_population,
+                    datasets: [{
+                        data: data_population,
+                        backgroundColor: ['#66b3ff', '#ff99cc'], // Male: blue, Female: pink
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    const percentage = (data_population[tooltipItem.dataIndex] / totalPopulation * 100).toFixed(2);
+                                    return `${tooltipItem.label}: ${tooltipItem.raw} people (${percentage}%)`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            formatter: function(value, context) {
+                                return populationPercentages[context.dataIndex] + '%';
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            anchor: 'center',
+                            align: 'center'
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // IMPORTANT: register DataLabels plugin
+            });
+        </script>
+    </div>
+    
+</div>
+
+
+
+
+  
+
+
+<div class="chart3">
+        <h2 id="house-demand"><img src="{% static 'images/bar-graph.png' %}"> Housing Demand vs. Approval</h2>
+<div class="barchart">
+
+    <canvas id="myBarChart" width="400" height="200"></canvas>
+</div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const housingDemand = Number('{{ total_housing_demand|default:"0" }}');
+    const approvedHouses = Number('{{ approved_houses|default:"0" }}');
+    const remaining = housingDemand - approvedHouses;
+
+    const barLabels = ['Housing Demand', 'Approved Houses', 'Remaining'];
+
+    const barData = {
+      labels: barLabels,
+      datasets: [{
+        label: 'Housing Chart',
+        data: [housingDemand, approvedHouses, remaining],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 159, 64)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: barData,
+      options: {
+        responsive: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    };
+
+    new Chart(document.getElementById('myBarChart'), config);
+  });
+</script>
+
+
+
+   
+
+
+   
+<script src="{% static 'js/translate.js' %}"></script>
+
+{% include 'footer.html' %}
+</body>
+</html>

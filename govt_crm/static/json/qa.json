@@ -1,0 +1,242 @@
+[
+    {
+      "question": "How do I register as a new user?",
+      "answer": "Click on \"Register here\" below the User Login form. Fill in your details, submit the form, and follow the OTP verification process sent to your email."
+    },
+    {
+      "question": "How do I log in as a user or admin?",
+      "answer": "For users: Click \"User Login\", enter your email and password, and submit. For admins: Click \"Admin Login\", enter your admin credentials, and submit."
+    },
+    {
+      "question": "What should I do if I forget my password?",
+      "answer": "Currently, there is no password reset feature implemented. Please contact the portal administrator for assistance."
+    },
+    {
+      "question": "How do I submit forms for the Tanda Prosperity Scheme?",
+      "answer": "After logging in, go to \"Assignment\" or \"All Forms\". Fill out each form section and click \"Submit All Forms\" at the end."
+    },
+    {
+      "question": "How do I track the status of my assignments?",
+      "answer": "On your dashboard, under \"Assignment Progress\" or in the assignment modal, you can see each assignment and whether it is completed."
+    },
+    {
+      "question": "How do I view my submitted data?",
+      "answer": "Go to your dashboard and look for a link or section labeled \"Submitted Data\" or similar. Click to view your previous submissions."
+    },
+    {
+      "question": "How do I contact support or get help?",
+      "answer": "Click the chatbot icon at the bottom right to chat with the AI assistant, or use the \"Assistance\" menu for FAQs and ticket submission."
+    },
+    {
+      "question": "How do I submit a support ticket?",
+      "answer": "Go to the \"Tickets\" section under \"Assistance\", fill out the ticket form with your issue, and submit it."
+    },
+    {
+      "question": "How can I check the status of my support tickets?",
+      "answer": "Visit the \"Tickets\" page to see a list of your submitted tickets and their current status (Open/Closed)."
+    },
+    {
+      "question": "How do admins view and manage user tickets?",
+      "answer": "Admins can access the \"Admin Tickets\" section to view, filter, and close user-submitted tickets."
+    },
+    {
+      "question": "How do I log out?",
+      "answer": "Click the \"Logout\" button in the top navigation bar."
+    },
+    {
+      "question": "How do I use the chatbot?",
+      "answer": "Click the chatbot icon, type your question, and press \"Send\". The bot will reply in the chat window."
+    },
+    {
+      "question": "How do I filter or sort tickets/assignments?",
+      "answer": "Use the dropdown filters and sort options at the top of the tickets or assignments list to filter by issue type, status, or date."
+    },
+     {
+      "question": "What information is required for registration?",
+      "answer": "You need to provide your name, email, phone, Aadhaar number, address, state, district, city, and a profile picture."
+    },
+    {
+      "question": "How do I download my submitted forms as PDF or Excel?",
+      "answer": "Admins can download submitted forms as PDF or Excel from the admin dashboard or completed works section."
+    },
+    {
+      "question": "How do I view or edit my profile?",
+      "answer": "Currently, there is no direct profile edit feature in the UI. Contact the admin for profile updates."
+    },
+    {
+      "question": "What is the purpose of the Tanda Collection Portal?",
+      "answer": "The portal streamlines government services for Tanda communities, including registration, welfare schemes, and resource tracking."
+    },
+    {
+      "question": "How do I know if my form submission was successful?",
+      "answer": "After submitting all forms, you will be redirected to a \"Submitted Data\" page or see a success message."
+    },
+    {
+      "question": "How do I assign tasks as an admin?",
+      "answer": "Go to the \"Assign Task\" section in the admin dashboard, select a user, and assign the relevant task/form."
+    },
+    {
+      "question": "What should I do if I encounter an error or bug?",
+      "answer": "Submit a support ticket or contact the admin using the chatbot or assistance menu."
+    },
+    {
+      "question": "How do I start a new assignment?",
+      "answer": "Go to your dashboard, find your assignment list, and click the \"Start\" button next to the assignment you want to begin."
+    },
+    {
+      "question": "Why can’t I see any assignments on my dashboard?",
+      "answer": "You may not have been assigned any tasks yet. Please contact your admin or check back later."
+    },
+    {
+      "question": "How do I know if my assignment is completed?",
+      "answer": "On your dashboard, completed assignments show a green progress bar or a \"✅Completed\" status. Incomplete ones show \"❌Not Completed\"."
+    },
+    {
+      "question": "Can I edit a form after submitting it?",
+      "answer": "Only admins can edit submitted forms. If you need to make changes, contact your admin."
+    },
+    {
+       "question": "How do I download my submitted form as PDF or Excel?",
+      "answer": "Admins can download any submitted form as PDF or Excel from the admin dashboard under \"Completed Works\"."
+    },
+    {
+      "question": "How do I use the chatbot for help?",
+      "answer": "Click the chatbot icon, type your question, and press \"Send\". The bot will reply with guidance or answers."
+    },
+    {
+      "question": "What should I do if the chatbot doesn’t respond?",
+      "answer": "Check your internet connection. If the problem persists, refresh the page or contact support via the \"Tickets\" section."
+    },
+    {
+      "question": "How do I filter tickets by issue type or status?",
+      "answer": "Use the dropdown filters at the top of the tickets page to select the desired issue type or status, then the list will update automatically."
+    },
+    {
+      "question": "How do I close a ticket as an admin?",
+      "answer": "In the admin tickets list, click the \"Close\" button next to the ticket you want to close. The status will update to \"Closed\"."
+    },
+    {
+      "question": "How do I assign a new task to a user as an admin?",
+      "answer": "Go to the \"Assign Task\" section in the admin dashboard, select the user, and assign the relevant form or task."
+    },
+    {
+      "question": "What does the assignment progress bar show?",
+      "answer": "It shows the completion status of each assignment. If the assignment is completed, the bar is fully blue and shows 100%."
+    },
+    {
+      "question": "How do I view details of a specific user as an admin?",
+      "answer": "In the admin dashboard, click \"User Details\" next to the user’s name to view their profile and assignment information."
+    },
+    {
+      "question": "How do I search for users in the admin dashboard?",
+      "answer": "Use the search bar under \"Regular User Management\" to filter users by name or email."
+    },
+    {
+      "question": "What should I do if I see an error message or something isn’t working?",
+      "answer": "Try refreshing the page. If the issue persists, submit a support ticket or contact your admin."
+    },
+    {
+      "question": "How do I log out of the portal?",
+      "answer": "Click the \"Logout\" button in the top navigation bar to securely log out."
+    },
+    {
+      "question": "How do I reset my password?",
+      "answer": "Currently, there is no password reset feature. Please contact the admin for assistance."
+    },
+    {
+      "question": "Can I view my previous submissions?",
+      "answer": "Yes, go to the \"Submitted Data\" section on your dashboard to view all your past form submissions."
+    },
+    {
+      "question": "How do I know if my data was saved successfully?",
+      "answer": "After submitting, you’ll see a success message or be redirected to a confirmation page."
+    },
+     {
+      "question": "What information is required to submit a support ticket?",
+      "answer": "You need to select an issue type, provide a title, description, and optionally attach any relevant files."
+    },
+    {
+      "question": "Can I use the portal on my mobile device?",
+      "answer": "Yes, the portal is responsive and can be accessed from any modern smartphone or tablet."
+    },
+    {
+       "question": "Why does my form submission fail or show an error?",
+      "answer": "Check that all required fields are filled and your internet connection is stable. If the problem persists, try reloading the page or contact support via the Tickets section."
+    },
+    {
+      "question": "How do I view or download a submitted form as PDF or Excel?",
+      "answer": "Admins can go to the \"Completed Works\" section, select a form, and use the \"Download as PDF\" or \"Download as Excel\" options."
+    },
+    {
+      "question": "How do I edit a submitted form as an admin?",
+      "answer": "Go to the \"Completed Works\" or \"Submitted Data\" section, click \"Edit\" next to the form you want to update, make your changes, and save."
+    },
+    {
+      "question": "What should I do if I see ‘Form not found’ or ‘User not found’ errors?",
+      "answer": "This usually means the form or user was deleted or the link is incorrect. Double-check the link or contact your admin."
+    },
+    {
+      "question": "How do I assign a task to a specific user?",
+      "answer": "As an admin, go to \"Assign Task\", select the user, choose the form/task, and click \"Assign\"."
+    },
+    {
+      "question": "How do I check the progress of all users’ assignments?",
+      "answer": "Admins can view assignment progress and completion statistics in the admin dashboard, including charts for district-wise and user-wise completion."
+    },
+    {
+      "question": "How do I search for a specific form or user?",
+      "answer": "Use the search bar in the admin dashboard under \"Regular User Management\" to filter users by name or email. For forms, use the filters or search options in the \"Completed Works\" section."
+    },
+    {
+      "question": "What does the chatbot use to answer my questions?",
+      "answer": "The chatbot first tries to match your question with a set of frequently asked questions using AI embeddings. If no close match is found, it uses OpenAI’s GPT model to generate a helpful answer."
+    },
+    {
+      "question": "Why does the chatbot sometimes say ‘An error occurred’?",
+      "answer": "This can happen if there is a problem connecting to the AI service or if your session has expired. Try refreshing the page or asking your question again."
+    },
+    {
+      "question": "How do I reset my session or clear chatbot history?",
+      "answer": "Simply refresh the page to start a new chatbot session. The conversation history is stored in your session and will reset on reload."
+    },
+    {
+      "question": "How do I know which taluka or district my assignment is for?",
+      "answer": "Assignment details, including taluka and district, are shown in your dashboard and in the assignment modal."
+    },
+    {
+      "question": "Can I submit multiple forms for the same assignment?",
+      "answer": "No, each assignment is linked to a single form submission. If you need to submit again, contact your admin."
+    },
+    {
+      "question": "How do I update my phone number or email?",
+      "answer": "Currently, users cannot update their profile directly. Please contact your admin for profile changes."
+    },
+    {
+      "question": "What should I do if I get logged out unexpectedly?",
+      "answer": "Log in again using your credentials. If the problem persists, clear your browser cache or contact support."
+    },
+    {
+      "question": "How do I see which assignments are pending?",
+      "answer": "On your dashboard, assignments marked as \"❌Not Completed\" or with a 0% progress bar are pending."
+    },
+    {
+      "question": "How do I close the chatbot window?",
+      "answer": "Click the ✖ button at the top right of the chatbot window to hide it."
+    },
+    {
+      "question": "How do I contact the admin directly?",
+      "answer": "Use the Tickets section to submit a support request, or use the chatbot for quick questions."
+    },
+    {
+      "question": "What browsers are supported?",
+      "answer": "The portal works best on the latest versions of Chrome, Firefox, Edge, and Safari."
+    },
+    {
+      "question": "How do I know if my assignment was assigned by the admin?",
+      "answer": "You will see new assignments appear in your dashboard. You may also receive an email notification if enabled."
+    },
+     {
+      "question": "Can I view assignment statistics for my district?",
+      "answer": "Admins can view district-wise statistics and charts in the admin dashboard."
+    }
+  ]

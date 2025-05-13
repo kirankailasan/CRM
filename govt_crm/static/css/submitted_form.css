@@ -1,0 +1,220 @@
+body {
+    background: #f7f9fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 80%;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    padding: 32px 28px 28px 28px;
+}
+.form-header {
+    background: #e8f0fe;
+    color: #1a237e;
+    font-size: 1.18rem;
+    font-weight: 600;
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    box-shadow: 0 1px 4px rgba(26,35,126,0.04);
+}
+.form-header:hover {
+    background: #d2e3fc;
+}
+.toggle-icon {
+    margin-right: 12px;
+    color: #3949ab;
+    font-size: 1.5em;
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1), color 0.2s;
+}
+.open {
+    transform: rotate(90deg);
+    color: #1976d2;
+}
+.form-section-content {
+    display: none;
+    margin-bottom: 18px;
+    animation: fadeIn 0.4s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+.form-section {
+    background: #f5f7fa;
+    border-radius: 7px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(60,60,60,0.04);
+}
+.form-section h3, .form-section h4 {
+    color: #283593;
+    margin-top: 0;
+}
+.form-section p {
+    margin: 7px 0 7px 0;
+    font-size: 1.04em;
+}
+.form-container h2 {
+    color: #1565c0;
+    margin-bottom: 6px;
+}
+.subtitle {
+    color: #607d8b;
+    font-size: 1em;
+    margin-bottom: 18px;
+}
+table, .form-table, .table {
+
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    background: #fff;
+}
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 10px 8px;
+    text-align: left;
+}
+th {
+    background: #e3eafc;
+    color: #1a237e;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background: #f4f8fd;
+}
+tr:hover {
+    background: #e3eafc;
+}
+.committee-member {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    border-radius: 6px;
+    padding: 10px 18px;
+    margin-bottom: 10px;
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 10px 2vw;
+    }
+    .form-section, .committee-member {
+        padding: 10px 6px;
+    }
+    th, td {
+        font-size: 0.98em;
+        padding: 7px 4px;
+    }
+}
+
+
+.toggle-icon {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+}
+.open {
+    transform: rotate(90deg);
+}
+.form-section-content {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Form 1 Styles */
+.form1-style {
+    background: #e3f2fd;
+    border-left: 6px solid #1976d2;
+    border-radius: 8px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+}
+.form1-style h3, .form1-style h4 {
+    color: #1565c0;
+}
+
+/* Form 2 Styles */
+.form2-style {
+    background: #fffde7;
+    border-left: 6px solid #fbc02d;
+    border-radius: 8px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+}
+.form2-style h3, .form2-style h4 {
+    color: #f9a825;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    margin-bottom: 16px; /* ensures space below the scrollbar */
+    padding: 0;     
+}
+.table {
+    min-width: 900px;
+}
+
+/* Form 3 Styles */
+.form3-style {
+    background: #e8f5e9;
+    border-left: 6px solid #388e3c;
+    border-radius: 8px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+}
+.form3-style h3, .form3-style h4 {
+    color: #2e7d32;
+}
+
+/* Form 4 Styles */
+.form4-style {
+    background: #fce4ec;
+    border-left: 6px solid #d81b60;
+    border-radius: 8px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+}
+.form4-style h3, .form4-style h4 {
+    color: #ad1457;
+}
+
+/* Form 5 Table Styles */
+.form5-style table {
+    background: #ede7f6;
+    border: 2px solid #7e57c2;
+}
+.form5-style th {
+    background: #d1c4e9;
+    color: #512da8;
+    border-color: #7e57c2;
+}
+.form5-style td {
+    border-color: #d1c4e9;
+}
+.form5-style h3, .form5-style h4 {
+    color: #512da8;
+}
+
+/* Form 6 Styles */
+.form6-style {
+    background: #fff3e0;
+    border-left: 6px solid #f57c00;
+    border-radius: 8px;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 16px;
+}
+.form6-style h3, .form6-style h4 {
+    color: #e65100;
+}

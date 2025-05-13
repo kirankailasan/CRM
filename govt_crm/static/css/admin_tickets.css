@@ -1,0 +1,100 @@
+body {
+    background: #f4f6fb;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.ticket-section {
+  
+    margin: 40px auto;
+    padding: 32px;
+    background: #fff;
+    border-radius: 10px;
+    
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s ease-in-out;
+}
+.ticket-section:hover{
+    transform: scale(1.04);
+    transition: transform 0.3s ease-in-out;
+}
+.ticket-list button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ticket-list button:hover {
+  background-color: #0056b3;
+}
+
+.hc h2 {
+    margin: 0 0 24px 0;
+    font-size: 2rem;
+    color: #2d3a4b;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.ticket-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.ticket-list th, .ticket-list td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 1rem;
+}
+
+.ticket-list th {
+    background: #f7f9fb;
+    color: #2d3a4b;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.ticket-list tr:last-child td {
+    border-bottom: none;
+}
+
+.ticket-list tr:hover {
+    background: #f0f4fa;
+    transition: background 0.2s;
+}
+
+.ticket-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background: #f1c40f; /* Default: Pending */
+    vertical-align: middle;
+}
+
+.ticket-status.closed {
+    background: #27ae60; /* Closed: Green */
+}
+
+.ticket-status:not(.closed) {
+    background: #e67e22; /* Open or other: Orange */
+}
+
+@media (max-width: 800px) {
+    .ticket-section {
+        padding: 16px;
+    }
+    .ticket-list th, .ticket-list td {
+        padding: 8px 5px;
+        font-size: 0.95rem;
+    }
+}

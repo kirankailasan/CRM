@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tickets</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+  <!-- Ticket Section -->
+  <div class="ticket-section" style="width: fit-content;margin:40px auto;padding:32px;background:#fff;border-radius:10px;box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);;">
+    <div class="hc">
+        <h2>Ticket List</h2>
+        <span><a href="#" onclick="createTicket();return false;">+ Create Ticket</a></span>
+    </div>
+    <div class="ticket-list">
+      <table>
+        <thead>
+            <tr>
+                <th>Ticket No:</th>
+                <th>Issue Type</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Created at</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in user_tickets %}
+                <tr>
+                    <td>#{{ticket.id}}</td>
+                    <td>{{ticket.issue_type}}</td>
+                    <td>{{ticket.title}}</td>
+                    <td>{{ticket.description}}</td>
+                    <td>
+                        <span class="ticket-status{% if ticket.status == 'Closed' %} closed{% endif %}"></span>
+                        {{ticket.status}}
+                    </td>
+                    <td>{{ticket.created_at|date:"M d, Y H:i"}}</td>
+                </tr>
+            {% empty %}
+            <tr>
+                <td colspan ="6" style="text-align: center;">No tickets</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Ticket Popup Modal -->
+  <div id="ticket-popup" class="ticket-popup" style="display: none;">
+    <form method="post" action="{% url 'tickets' %}">
+      {% csrf_token %}
+      <button type="button" class="close-btn" onclick="ticketClose()" aria-label="Close">&times;</button>
+      <div style="margin-bottom:18px;">
+        <label for="subject" style="display:block;font-weight:600;margin-bottom:6px;">Title</label>
+        <input type="text" id="subject" name="subject" required style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;">
+      </div>
+      <div style="margin-bottom:18px;">
+        <label for="category" style="display:block;font-weight:600;margin-bottom:6px;">Issue Type</label>
+        <select id="category" name="category" required style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;">
+          <option value="">Select a category</option>
+          <option value="Technical">Technical</option>
+          <option value="Assignment">Assignment</option>
+          <option value="Tanda">Tanda</option>
+          <option value="Account">Account</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label for="description" style="display:block;font-weight:600;margin-bottom:6px;">Description</label>
+        <textarea id="description" name="description" rows="5" required style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;"></textarea>
+      </div>
+      <button type="submit" style="background:#3578e5;color:#fff;padding:10px 28px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;">Submit Ticket</button>
+    </form>
+  </div>
+
+  <script>
+    function createTicket(){
+      document.getElementById('ticket-popup').style.display = "flex";
+    }
+    function ticketClose(){
+      document.getElementById('ticket-popup').style.display = "none";
+    }
+  </script>
+
+{% include 'footer.html' %}
+</body>
+</html>

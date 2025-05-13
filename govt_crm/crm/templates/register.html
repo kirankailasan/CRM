@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="form-container">
+        <h2>User Registration</h2>
+        <form method="POST" enctype="multipart/form-data" id="register-form">
+            {% csrf_token %}
+
+        <!-- Profile Picture Display + Upload -->
+        <div class="profile-pic-wrapper">
+            <img id="profile-pic-preview" src="{% static 'images/user.png' %}" alt="Profile Picture">
+            <div class="edit-overlay" onclick="openImageUploadPopup()">Edit</div>
+        </div>
+
+        <!-- Hidden input to store actual file for form -->
+        <input type="file" name="profile_pic" id="profile_pic_input" accept="image/*" style="display:none;">
+
+        <!-- Image Upload Popup -->
+        <div id="image-upload-popup" class="image-upload-popup">
+            <div class="popup-content-1">
+                <span class="close-btn" onclick="closeImageUploadPopup()">&times;</span>
+                <h3>Upload Profile Image</h3>
+                <input type="file" id="popup-image-input" accept="image/*">
+                <br><br>
+                <button type="button" onclick="setProfileImage()">Upload</button>
+            </div>
+        </div><br><br>
+
+
+
+
+            <!-- Name -->
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" required><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" required><br>
+
+            <!-- Email Verification -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button class="design" id="verify-button" type="button" onclick="sendOtpAndOpenPopup()">Verify</button>
+            <span id="email-verified" style="color: green; display: none;">✔ Verified</span><br><br>
+
+            <!-- OTP Popup Modal -->
+            <div id="popup-overlay" class="popup-overlay" style="display:none;"></div>
+            <div id="otp-popup" class="popup" style="display:none;">
+                <div class="popup-content">
+                    <span class="close" onclick="closeOtpPopup()">&times;</span>
+                    <h3>OTP Verification</h3>
+                    <p>Enter OTP sent to <span id="user-email"></span></p>
+
+                </div>
+            </div>
+
+
+            <!-- Password -->
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" required><br>
+
+            <!-- Phone -->
+            <label for="phone">Mobile Number:</label>
+            <input type="text" name="phone" maxlength="10" placeholder="Enter 10-digit number" required><br>
+
+            <!-- Aadhaar Validation -->
+            <label for="aadhaar">Aadhaar Number:</label>
+            <input type="text" id="aadhaar" name="aadhaar" maxlength="14" placeholder="XXXX XXXX XXXX" required  oninput="formatAadhaar(this); validateAadhaar()">
+            <span id="aadhaar-error" style="color: red;"></span><br><br>
+
+            <!-- Hidden fields for lat/lon if needed -->
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+
+            <!-- Address Section -->
+            <div class="add">
+                <label for="address">Address:</label>
+                <a class="reload">
+                    <button style="border: none; background: none" type="button" onclick="reloadLocation()">🔄</button>Reload location
+                </a>
+            </div>
+            <input type="text" id="address" name="address" placeholder="Fetching..." readonly>
+
+            <div class="place_1">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" placeholder="Fetching..." readonly>
+
+                <label for="district">District:</label>
+                <input type="text" id="district" name="district" placeholder="Fetching..." readonly>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" placeholder="Fetching..." readonly>
+            </div>
+
+
+
+            <br>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script src="{% static 'js/verify.js' %}"></script>
+    <script>
+function sendOtpAndOpenPopup() {
+    const email = document.getElementById("email").value;
+    if (!email) {
+        alert("Please enter an email first.");
+        return;
+    }
+
+    // 1. Show loading popup first
+    document.getElementById("otp-popup").style.display = "block";
+    document.getElementById("popup-overlay").style.display = "block";
+
+
+    const popupContent = document.getElementById("otp-popup").querySelector(".popup-content");
+
+    popupContent.innerHTML = `
+        <span class="close" onclick="closeOtpPopup()">&times;</span>
+        <h3>OTP Verification</h3>
+        <p id="otp-loading-message">Sending OTP to <strong>${email}</strong>...</p>
+    `;
+
+    // 2. Let the DOM update before running the fetch (small timeout)
+    setTimeout(() => {
+        fetch('/send_otp/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                
+                // 3. Replace content with OTP form
+                popupContent.innerHTML = `
+                    <span class="close" onclick="closeOtpPopup()">&times;</span>
+                    <h3>OTP Verification</h3>
+                    <p>Enter OTP sent to <strong id="user-email">${email}</strong></p>
+                    <input type="text" id="otp" placeholder="Enter OTP">
+                    <button type="button" onclick="verifyOtp()">Verify OTP</button>
+                `;
+            } else {
+                alert("Failed to send OTP");
+                closeOtpPopup();
+            }
+        });
+    }, 200); // 200ms delay so DOM has time to render the loading state
+}
+
+
+function verifyOtp() {
+    const email = document.getElementById("email").value;
+    const otp = document.getElementById("otp").value;
+   
+
+    fetch('/verify_otp/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+        },
+        body: JSON.stringify({ email: email, otp: otp })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.verified) {
+            document.getElementById("email-verified").style.display = "inline";
+            document.getElementById("otp-popup").style.display = "none";
+            document.getElementById("popup-overlay").style.display = "none";
+            document.getElementById("email").readOnly = true;
+            document.getElementById("verify-button").style.display = "none";
+        } else {
+            alert("Incorrect OTP");
+        }
+    });
+}
+
+function closeOtpPopup() {
+    document.getElementById("otp-popup").style.display = "none";
+    document.getElementById("popup-overlay").style.display = "none";
+}
+
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
+    </script>
+{% include 'footer.html' %}
+</body>
+</html>

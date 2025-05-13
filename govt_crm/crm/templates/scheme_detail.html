@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
+    <style>
+        /* Basic Styling */
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .scheme-description {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .form-section {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .form-section h3 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h2>Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</h2>
+
+        <div class="scheme-description">
+            <p>
+                This is a detailed description of the Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme. It provides all the information you need to apply for the scheme.
+            </p>
+        </div>
+        <div class="form-section">
+            <a href="{% url 'all_forms' %}">form</a>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

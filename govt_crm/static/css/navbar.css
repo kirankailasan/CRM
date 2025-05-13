@@ -1,0 +1,394 @@
+/* General reset */
+#navbarfile * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#navbarfile body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header Section */
+#navbarfile .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(18, 18, 18, 0.4);
+    background-image: url('/static/images/nav.jpg');
+    box-shadow:rgba(1, 1, 1, 0.7);
+    color: #fff;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: slideDown 0.6s ease-out; /* Animation for smooth appearance */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Added box shadow */
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9); /* Subtle border for cleaner look */
+
+}
+
+.anav{
+ 
+   animation: fadein 1s ease-in; 
+   background-color: grey;
+   background-image: linear-gradient(to bottom, rgb(180, 179, 179), rgb(85, 84, 84));
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 15px;
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+   
+}
+
+
+
+@keyframes fadein{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+#navbarfile .header .title h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#navbarfile .header .title h3 {
+    font-size: 18px;
+    justify-content: center;
+    display: flex;
+}
+
+#navbarfile .header .ashok {
+    height: 80px;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#navbarfile .header .logomain {
+    background-color:white;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+#navbarfile .header .logomain:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+#navbarfile .header img.logo {
+    height: 80px;
+    width: auto;
+}
+
+
+/* Navbar Section */
+#navbarfile nav {
+    margin-top: 100px;
+    background-color: transparent;
+    padding: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+#navbarfile ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0 20px;
+}
+
+#navbarfile .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+/* Smooth transition for logo and hover effect */
+#navbarfile .nav-left img {
+    height: 40px;
+    width: auto;
+    border-radius: 50%;
+    background-color: white;
+    padding: 0.5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#navbarfile .nav-left img:hover,
+#navbarfile .header .ashok:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation links and dropdown */
+#navbarfile .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+#navbarfile .nav-right li {
+    margin-right: 20px;
+}
+
+/* Smooth link transition */
+#navbarfile .nav-link {
+  color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#navbarfile .nav-link:hover {
+    background-color: #f1f1f1;
+    color: rgba(0, 0, 0, 0.777);
+}
+
+/* Profile Dropdown */
+#navbarfile .nav-profile-dropdown {
+    position: relative;
+
+}
+
+#navbarfile .profile-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    width: 150px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+#navbarfile .nav-profile-dropdown:hover .profile-dropdown-content {
+    display: block;
+    opacity: 1;
+
+}
+
+#navbarfile .profile-dropdown-content a,
+#navbarfile .dropdown-content a, 
+#navbarfile .admin-dropdown-content a{
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+/* Language Selector */
+#navbarfile #language-selector {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+#navbarfile #language-selector:hover {
+    background-color: #f1f1f1;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    #navbarfile .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #navbarfile .header .title {
+        margin-left: 15px;
+        text-align: left;
+    }
+
+    #navbarfile .header img.logo,
+    #navbarfile .header .ashok {
+        height: 40px;
+    }
+
+    #navbarfile ul {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    #navbarfile .nav-right {
+        margin-top: 10px;
+    }
+
+    #navbarfile .nav-left {
+        margin-bottom: 10px;
+    }
+
+    #navbarfile #language-selector {
+        margin-top: 10px;
+    }
+}
+
+
+
+/* Toggle Button */
+#menuToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+#menuToggle .bar {
+    width: 30px;
+    height: 3px;
+    margin: 6px 0;
+    background-color: #fff;
+    transition: 0.4s;
+}
+
+/* Sidebar Navigation */
+#sidebarMenu {
+    position: fixed;
+    right: -250px; /* Hide initially */
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #2d2d2d;
+    padding-top: 60px;
+    z-index: 1500;
+    transition: 0.4s;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+}
+
+#sidebarMenu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebarMenu ul li {
+    padding: 15px 20px;
+}
+
+#sidebarMenu ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+#sidebarMenu ul li a:hover {
+    background-color: #444;
+}
+
+/* Animation for toggle */
+.menu-active #sidebarMenu {
+    right: 0;
+}
+
+.menu-active #menuToggle .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-active #menuToggle .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-active #menuToggle .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+/* Navbar Styling */
+
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-weight: bold;
+  }
+
+  .admin-dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-weight: bold;
+
+  }
+.admin-dropdown-content a{
+    color: white !important;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+  .dropdown-content a{
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+  }
+
+   #navbarfile .admin-dropdown-content a:hover
+   {
+    background-color: rgba(0, 0, 0, 0.393);
+    border-radius: 20px;
+    color: white !important;
+   }
+  #navbarfile .profile-dropdown-content a:hover,
+  #navbarfile .dropdown-content a:hover
+  {
+    background-color: rgba(0, 0, 0, 0.393);
+    border-radius: 20px;
+    color: white;
+  }
+
+  .dropdown:hover .dropdown-content,
+  .admin-dropdown:hover .admin-dropdown-content {
+    display: block;
+  }
+#navbarfile .profile-dropdown-content, 
+#navbarfile .dropdown-content,
+#navbarfile .admin-dropdown-content
+{
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.575);
+    padding: 15px;
+    
+
+}

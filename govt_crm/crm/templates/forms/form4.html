@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form 4 - Tanda Facilities</title>
+    <link rel="stylesheet" href="{% static 'css/form4.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Sant Sevalal Maharaj Banjara Lambhan Tanda Comprehensive Scheme</h2>
+        <h4>(Form 4 - Tanda Facilities)</h4>
+
+        <form class="form-section" id="form4" method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Is there a primary/secondary school in the Tanda or at what distance?</td><td><input type="text" name="school_primary"></td></tr>
+                    <tr><td>2</td><td>Is there a higher secondary school and what is the distance to the nearest?</td><td><input type="text" name="school_secondary"></td></tr>
+                    <tr><td>3</td><td>What is the distance to the nearest college?</td><td><input type="text" name="college_distance"></td></tr>
+                    <tr><td>4</td><td>Is there a bus stand in the village?</td><td><input type="text" name="bus_stand"></td></tr>
+                    <tr><td>5</td><td>What is the distance to the nearest primary health center?</td><td><input type="text" name="health_center"></td></tr>
+                    <tr><td>6</td><td>What is the distance to the nearest veterinary dispensary?</td><td><input type="text" name="veterinary_disp"></td></tr>
+                    <tr><td>7</td><td>What is the number of livestock in the Tanda?</td><td><input type="text" name="livestock_count"></td></tr>
+                    <tr><td>8</td><td>Is there a milk collection center? (If yes, mention the name and number)</td>
+                        <td>        
+                        <select name="has_milk_center" onchange="toggleMilkCenterDetails(this.value)" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                
+                        <div id="milk-center-details" style="display:none; margin-top: 5px;">
+                            <input type="text" name="milk_center_name" placeholder="Milk Center Name" style="display: block; margin-top: 5px;">
+                            <input type="text" name="milk_center_number" placeholder="Milk Center Number" style="display: block; margin-top: 5px;">
+                        </div>
+                        </td>
+                    </tr>
+                    <tr><td>9</td><td>Is there a goshala (cattle shed)? (If yes, mention the name and number)</td>
+                        <td>
+                            <select name="cattle_details" onchange="cattleDetails(this.value)" required>
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div id="cattle-details" style="display: none; margin-top: 5px;">
+                                <input type="text" name="shed_name" placeholder="Goshala name" style="display: block; margin-top: 5px;">
+                                <input type="text" name="shed_number" placeholder="Goshala number" style="display: block; margin-top: 5px;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td>10</td><td>Is the electricity supply regular?</td><td><input type="text" name="electricity"></td></tr>
+                    <tr><td>11</td><td>Is there a ration shop in the Tanda? (If yes, mention the name and number)</td><td>
+                        <select name="ration_shop" onchange="rationDetails(this.value)" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div id="ration-details" style="display: none; margin-top: 5px;">
+                            <input type="text" name="ration_name" placeholder="Ration name" style="display: block; margin-top: 5px;">
+                            <input type="text" name="ration_number" placeholder="Ration number" style="display: block; margin-top: 5px;">
+                        </div>
+                    </td></tr>
+                    <tr><td>12</td><td>Is there a drinking water facility? (If yes, mention the name and number)</td><td>
+                        <select name="water" onchange="waterDetails(this.value)" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div id="water-details" style="display: none; margin-top: 5px;">
+                            <input type="text" name="water_name" placeholder="Facility name" style="display: block; margin-top: 5px;">
+                            <input type="text" name="water_number" placeholder="Facility number" style="display: block; margin-top: 5px;">
+                        </div>
+                    </td></tr>
+                    <tr><td>13</td><td>Is there a Tanda FPO (Farmer Producer Organization)? (If yes, mention the name and number)</td><td>
+                        <select name="fpo" onchange="fpoDetails(this.value)" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div id="fpo-details" style="display: none; margin-top: 5px;">
+                            <input type="text" name="fpo_name" placeholder="FPO name" style="display: block; margin-top: 5px;">
+                            <input type="text" name="fpo_number" placeholder="FPO number" style="display: block; margin-top: 5px;">
+                        </div>
+                    </td></tr>
+                    <tr><td>14</td><td>Is there a religious place or community hall in the Tanda? Give details.</td><td>
+                        <select name="hall" onchange="hallDetails(this.value)" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div id="hall-details" style="display: none; margin-top: 5px;">
+                            <input type="text" name="hall_name" placeholder="Hall name" style="display: block; margin-top: 5px;">
+                            <input type="text" name="hall_number" placeholder="Hall" number" style="display: block; margin-top: 5px;">
+                        </div>
+                    </td></tr>
+                </tbody>
+            </table>
+
+            <div id="successMessage" class="success-message" style="display:none;">
+                Form saved successfully!
+            </div>
+        </form>
+
+        
+    </div>
+    <script>
+        function toggleMilkCenterDetails(value) {
+            const detailsDiv = document.getElementById('milk-center-details');
+            detailsDiv.style.display = value === 'yes' ? 'block' : 'none';
+        }
+        function cattleDetails(value) {
+            const cattleDetails = document.getElementById('cattle-details');
+            cattleDetails.style.display = value === 'yes' ? 'block' : 'none';
+        }
+        function rationDetails(value) {
+            const cattleDetails = document.getElementById('ration-details');
+            cattleDetails.style.display = value === 'yes' ? 'block' : 'none';
+        }
+        function waterDetails(value) {
+            const cattleDetails = document.getElementById('water-details');
+            cattleDetails.style.display = value === 'yes' ? 'block' : 'none';
+        }
+        function fpoDetails(value) {
+            const cattleDetails = document.getElementById('fpo-details');
+            cattleDetails.style.display = value === 'yes' ? 'block' : 'none';
+        }
+        function hallDetails(value) {
+            const cattleDetails = document.getElementById('hall-details');
+            cattleDetails.style.display = value === 'yes' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

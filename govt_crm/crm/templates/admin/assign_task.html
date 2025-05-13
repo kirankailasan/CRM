@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Task</title>
+    <style>
+        .user-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .user-box {
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            background: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .user-box img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .user-box h3 {
+            margin: 10px 0 5px;
+        }
+
+        .user-box p {
+            margin: 5px 0;
+        }
+
+        .user-box button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .view-details-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .assign-btn {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+<h2 style="text-align:center; margin-top: 20px;">Assign Form Tasks to Users</h2>
+
+<div class="user-container">
+    {% for user in users %}
+        <div class="user-box">
+            <img src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="Profile Picture">
+            <h3>{{ user.user.first_name }} {{ user.user.last_name }}</h3>
+            <p>Email: {{ user.user.email }}</p>
+            <p>Mobile: {{ user.phone }}</p>
+
+
+            <form method="post" class="assign-form" data-user-id="{{ user.user.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="form_name" value="{{ task_name }}">
+            
+                {% if user.user.id in assigned_user_ids %}
+                    <button class="assign-btn" type="submit" disabled>Assigned</button>
+                {% else %}
+                    <button class="assign-btn" type="submit">Assign Task</button>
+                {% endif %}
+            </form>
+        </div>
+    {% empty %}
+        <p>No registered users found.</p>
+    {% endfor %}
+</div>
+
+
+<script>
+    document.querySelectorAll('.assign-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            const userId = form.dataset.userId;
+            const formName = form.querySelector('input[name="form_name"]').value;
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+            const button = form.querySelector('button.assign-btn');
+    
+            fetch("{% url 'submit_assignment' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    form_name: formName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    button.textContent = 'Assigned';
+                    button.disabled = true;
+           
+                } else {
+                    alert("Failed: " + data.status);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Something went wrong.');
+            });
+        });
+    });
+    </script>
+    
+    
+</body>
+</html>

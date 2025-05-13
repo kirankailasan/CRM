@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form 2 - Sant Sevalal Scheme</title>
+    <link rel="stylesheet" href="{% static 'css/form2.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Sant Sevalal Maharaj Banjara Lambhan Tanda Comprehensive Scheme</h2>
+        <p class="subtitle">
+            (Government Decision No. Tanda Sudhar-2019/P.K.39/Aadha-5, Dated 23 February 2021)
+        </p>
+
+        <h3>General Information of the Tanda</h3>
+
+        <form class="form-section" id="form2" method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Information</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Name of the Tanda</td><td><input type="text" name="tanda_name"></td></tr>
+                    <tr><td>2</td><td>Taluka (Administrative Division)</td><td><input type="text" name="taluka"></td></tr>
+                    <tr><td>3</td><td>District</td><td><input type="text" name="district"></td></tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Population</td>
+                        <td>
+                            Female: <input type="number" name="female_population"><br>
+                            Male: <input type="number" name="male_population"><br>
+                            Total: <input type="number" name="total_population">
+                        </td>
+                    </tr>
+                    <tr><td>5</td><td>Name of the Gram Panchayat</td><td><input type="text" name="gp_name" required></td></tr>
+                    <tr><td>6</td><td>Is there a separate Gram Panchayat building?</td><td><input type="text" name="separate_gp_building"required></td></tr>
+                    <tr><td>7</td><td>Is there a separate Tanda?</td><td><input type="text" name="separate_tanda"required></td></tr>
+                    <tr><td>8</td><td>Is there a Gram Panchayat office in the Tanda?</td><td><input type="text" name="gp_office_in_tanda"required></td></tr>
+                    <tr><td>9</td><td>Proposal submitted to Planning Department?</td><td><input type="text" name="proposal_submitted"required></td></tr>
+                    <tr>
+                        <td>10</td>
+                        <td>How many houses are sanctioned in the Tanda?</td>
+                        <td>
+                            Sanctioned: <input type="number" name="houses_sanctioned"required><br>
+                            Remaining: <input type="number" name="houses_remaining"required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+ 
+            <div id="successMessage" class="success-message" style="display:none;">
+                Form saved successfully!
+            </div>
+        </form>
+    </div>
+</body>
+</html>

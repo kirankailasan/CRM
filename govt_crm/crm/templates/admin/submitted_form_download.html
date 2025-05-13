@@ -1,0 +1,844 @@
+{% load custom_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Submitted Forms - Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 13px; color: #222; margin: 0; padding: 0; }
+        h2, h3, h4 { margin: 20px 0 10px 0; }
+        .container { width: 90%; margin: 0 auto; padding: 20px; }
+        .form-section-content { margin-bottom: 25px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #888; padding: 6px 8px; text-align: left; }
+        th { background: #f0f0f0; }
+        th.sr-no, td.sr-no { width: 50px; }
+        .section-header { background-color: #e0e0e0; padding: 10px; border-radius: 5px; }
+        .section-content { background-color: #f9f9f9; padding: 15px; border-radius: 5px; }
+        .table-responsive { overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Form 1 -->
+        <div class="section-header">
+            <h2>General Information</h2>
+        </div>
+        <div class="section-content">
+            <div class="form-section-content">
+                <p><strong>Taluka (Administrative Division) Name:</strong> {{ form1_data|get_item:"taluka-name" }}</p>
+                <p><strong>Name of the Gram Panchayat:</strong> {{ form1_data|get_item:"gram-panchayat-name" }}</p>
+                <p><strong>Name of the Village:</strong> {{ form1_data|get_item:"village-name" }}</p>
+                <p><strong>Name of the Zilla Parishad Constituency:</strong> {{ form1_data|get_item:"zilla-parishad" }}</p>
+                <p><strong>No. of Approved Tandas:</strong> {{ form1_data|get_item:"num-approved-tandas" }}</p>
+                <p><strong>No. of Proposed New Tandas:</strong> {{ form1_data|get_item:"num-proposed-tandas" }}</p>
+            </div>
+            <h3>Tanda Wise Information</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr. No.</th>
+                            <th>Tanda Name</th>
+                            <th>Gram Panchayat Name</th>
+                            <th>Total Population</th>
+                            <th>Male</th>
+                            <th>Female</th>
+                            <th>Existing Facilities</th>
+                            <th>Electricity Available</th>
+                            <th>Water Facility Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in tanda_count|make_range %}
+                        <tr>
+                            <td class="sr-no">{{ i|add:1 }}</td>
+                            <td>{% get_key_value form1_data "tanda-name" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "gram-panchayat-name" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "total-population" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "male" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "female" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "existing-facilities" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "electricity-available" i|add:1 %}</td>
+                            <td>{% get_key_value form1_data "water-facility-available" i|add:1 %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Form 2 -->
+        <div class="section-header">
+            <h2>General Information of the Tanda</h2>
+        </div>
+        <div class="section-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sr-no">Sr. No.</th>
+                        <th>Information</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="sr-no">1</td><td>Name of the Tanda</td><td>{{ form2_data.tanda_name }}</td></tr>
+                    <tr><td class="sr-no">2</td><td>Taluka (Administrative Division)</td><td>{{ form2_data.taluka }}</td></tr>
+                    <tr><td class="sr-no">3</td><td>District</td><td>{{ form2_data.district }}</td></tr>
+                    <tr>
+                        <td class="sr-no">4</td>
+                        <td>Population</td>
+                        <td>
+                            Female: {{ form2_data.female_population }}<br>
+                            Male: {{ form2_data.male_population }}<br>
+                            Total: {{ form2_data.total_population }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">5</td><td>Name of the Gram Panchayat</td><td>{{ form2_data.gp_name }}</td></tr>
+                    <tr><td class="sr-no">6</td><td>Is there a separate Gram Panchayat building?</td><td>{{ form2_data.separate_gp_building }}</td></tr>
+                    <tr><td class="sr-no">7</td><td>Is there a separate Tanda?</td><td>{{ form2_data.separate_tanda }}</td></tr>
+                    <tr><td class="sr-no">8</td><td>Is there a Gram Panchayat office in the Tanda?</td><td>{{ form2_data.gp_office_in_tanda }}</td></tr>
+                    <tr><td class="sr-no">9</td><td>Proposal submitted to Planning Department?</td><td>{{ form2_data.proposal_submitted }}</td></tr>
+                    <tr>
+                        <td class="sr-no">10</td>
+                        <td>How many houses are sanctioned in the Tanda?</td>
+                        <td>
+                            Sanctioned: {{ form2_data.houses_sanctioned }}<br>
+                            Remaining: {{ form2_data.houses_remaining }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form 3 -->
+        <div class="section-header">
+            <h2>Committee Members Information</h2>
+        </div>
+        <div class="section-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sr-no">Sr. No.</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Contact No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in form3_data %}
+                    <tr>
+                        <td class="sr-no">{{ forloop.counter }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.designation }}</td>
+                        <td>{{ member.contact }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No committee members data available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form 4 -->
+        <div class="section-header">
+            <h2>Tanda Facilities</h2>
+        </div>
+        <div class="section-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sr-no">Sr. No.</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="sr-no">1</td><td>Is there a primary/secondary school in the Tanda or at what distance?</td><td>{{ form4_data.school_primary }}</td></tr>
+                    <tr><td class="sr-no">2</td><td>Is there a higher secondary school and what is the distance to the nearest?</td><td>{{ form4_data.school_secondary }}</td></tr>
+                    <tr><td class="sr-no">3</td><td>What is the distance to the nearest college?</td><td>{{ form4_data.college_distance }}</td></tr>
+                    <tr><td class="sr-no">4</td><td>Is there a bus stand in the village?</td><td>{{ form4_data.bus_stand }}</td></tr>
+                    <tr><td class="sr-no">5</td><td>What is the distance to the nearest primary health center?</td><td>{{ form4_data.health_center }}</td></tr>
+                    <tr><td class="sr-no">6</td><td>What is the distance to the nearest veterinary dispensary?</td><td>{{ form4_data.veterinary_disp }}</td></tr>
+                    <tr><td class="sr-no">7</td><td>What is the number of livestock in the Tanda?</td><td>{{ form4_data.livestock_count }}</td></tr>
+                    <tr><td class="sr-no">8</td><td>Is there a milk collection center? (If yes, mention the name and number)</td>
+                        <td>
+                            {{ form4_data.has_milk_center }}<br>
+                            Milk Center Name: {{ form4_data.milk_center_name }}<br>
+                            Milk Center Number: {{ form4_data.milk_center_number }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">9</td><td>Is there a goshala (cattle shed)? (If yes, mention the name and number)</td>
+                        <td>
+                            {{ form4_data.cattle_details }}<br>
+                            Goshala Name: {{ form4_data.shed_name }}<br>
+                            Goshala Number: {{ form4_data.shed_number }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">10</td><td>Is the electricity supply regular?</td><td>{{ form4_data.electricity }}</td></tr>
+                    <tr><td class="sr-no">11</td><td>Is there a ration shop in the Tanda? (If yes, mention the name and number)</td>
+                        <td>
+                            {{ form4_data.ration_shop }}<br>
+                            Ration Name: {{ form4_data.ration_name }}<br>
+                            Ration Number: {{ form4_data.ration_number }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">12</td><td>Is there a drinking water facility? (If yes, mention the name and number)</td>
+                        <td>
+                            {{ form4_data.water }}<br>
+                            Facility Name: {{ form4_data.water_name }}<br>
+                            Facility Number: {{ form4_data.water_number }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">13</td><td>Is there a Tanda FPO (Farmer Producer Organization)? (If yes, mention the name and number)</td>
+                        <td>
+                            {{ form4_data.fpo }}<br>
+                            FPO Name: {{ form4_data.fpo_name }}<br>
+                            FPO Number: {{ form4_data.fpo_number }}
+                        </td>
+                    </tr>
+                    <tr><td class="sr-no">14</td><td>Is there a religious place or community hall in the Tanda? Give details.</td>
+                        <td>
+                            {{ form4_data.hall }}<br>
+                            Hall Name: {{ form4_data.hall_name }}<br>
+                            Hall Number: {{ form4_data.hall_number }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form 5 -->
+        <div class="section-header">
+            <h2>Important People in Tanda</h2>
+        </div>
+        <div class="section-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sr-no">Sr. No.</th>
+                        <th>Name</th>
+                        <th>Position/Profession</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in form5_data %}
+                    <tr>
+                        <td class="sr-no">{{ forloop.counter }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.position }}</td>
+                        <td>{{ member.contact }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No members found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form 6 -->
+        <div class="section-header">
+            <h2>Development Works</h2>
+        </div>
+        <div class="section-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sr-no">Sr. No.</th>
+                        <th>Development Work</th>
+                        <th>Available (Yes/No)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="sr-no">1</td><td>Cremation Ground</td><td>{{ form6_data.work_1 }}</td></tr>
+                    <tr><td class="sr-no">2</td><td>Community Hall</td><td>{{ form6_data.work_2 }}</td></tr>
+                    <tr><td class="sr-no">3</td><td>School Building</td><td>{{ form6_data.work_3 }}</td></tr>
+                    <tr><td class="sr-no">4</td><td>Water Supply Scheme</td><td>{{ form6_data.work_4 }}</td></tr>
+                    <tr><td class="sr-no">5</td><td>Gymnasium</td><td>{{ form6_data.work_5 }}</td></tr>
+                    <tr><td class="sr-no">6</td><td>Library</td><td>{{ form6_data.work_6 }}</td></tr>
+                    <tr><td class="sr-no">7</td><td>Bus Stop</td><td>{{ form6_data.work_7 }}</td></tr>
+                    <tr><td class="sr-no">8</td><td>Playground</td><td>{{ form6_data.work_8 }}</td></tr>
+                    <tr><td class="sr-no">9</td><td>Cement Concrete Roads</td><td>{{ form6_data.work_9 }}</td></tr>
+                </tbody>
+            </table>
+            <div class="form-section">
+                <h4>10. Required Roads/Works</h4>
+                <p>{{ form6_data.needed_roads }}</p>
+            </div>
+            <div class="form-section">
+                <h4>11. Proposed Works</h4>
+                <p>{{ form6_data.proposed_works }}</p>
+            </div>
+        </div>
+    
+        <!-- Form 7 Toggle -->
+<div id="form7" class="form-section-content" >
+    <!-- Location Information -->
+    <div class="form-section">
+        <h3>Location Information</h3>
+        <table>
+            <tr>
+                <th>District Name</th>
+                <th>Taluka</th>
+                <th>Gram Panchayat Name</th>
+                <th>Tanda Name</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.district_name }}</td>
+                <td>{{ form7_data.taluka }}</td>
+                <td>{{ form7_data.gram_panchayat_name }}</td>
+                <td>{{ form7_data.tanda_name }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Population Details -->
+    <div class="form-section">
+        <h3>Population Details</h3>
+        <table>
+            <tr>
+                <th>Number of Women</th>
+                <th>Number of Men</th>
+                <th>Children</th>
+                <th>Little Girls</th>
+                <th>Other</th>
+                <th>Total Population</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.number_of_women }}</td>
+                <td>{{ form7_data.number_of_men }}</td>
+                <td>{{ form7_data.number_of_children }}</td>
+                <td>{{ form7_data.number_of_little_girls }}</td>
+                <td>{{ form7_data.other }}</td>
+                <td>{{ form7_data.total_population }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Gram Panchayat Infrastructure -->
+    <div class="form-section">
+        <h3>Gram Panchayat Information</h3>
+        <p><strong>Is there a separate building for the gram panchayat?</strong> {{ form7_data.separate_building }}</p>
+        <table>
+            <tr>
+                <th>Place Name</th>
+                <th>Public/Private</th>
+                <th>Area</th>
+                <th>Proposal Submitted</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.separate_place_name }}</td>
+                <td>{{ form7_data.public_private }}</td>
+                <td>{{ form7_data.place_area }}</td>
+                <td>{{ form7_data.proposal_submitted }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Independent Gram Panchayat Status -->
+    <div class="form-section">
+        <h3>Independent Gram Panchayat Status</h3>
+        <p><strong>Is Tanda a separate Gram Panchayat of Tanda?</strong> {{ form7_data.separate_gp }}</p>
+        <p><strong>Is gram panchayat eligible for revenue status?</strong> {{ form7_data.revenue_status_eligibility }}</p>
+        <p><strong>Is proposal submitted?</strong> {{ form7_data.proposal_submitted_gp }}</p>
+        <table>
+            <tr>
+
+                <th>Resolution Date</th>
+                <th>Submission Date</th>
+                <th>Concerned Officer</th>
+                <th>Pending</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.resolution_date }}</td>
+                <td>{{ form7_data.submission_date }}</td>
+                <td>{{ form7_data.concerned_officer }}</td>
+                <td>{{ form7_data.pending }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Housing Plan Information -->
+    <div class="form-section">
+        <h3>Housing Plan Information</h3>
+        <table>
+            <tr>
+                <th>Total Houses</th>
+                <th>Total Household Information</th>
+                <th>Approved Houses</th>
+                <th>Balance Houses</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.total_houses }}</td>
+                <td>{{ form7_data.total_household_information }}</td>
+                <td>{{ form7_data.approved_houses }}</td>
+                <td>{{ form7_data.balance_houses }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Committee Members -->
+    <div class="form-section">
+        <h3>Committee Members</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>A.No.</th>
+                    <th>Member's Name</th>
+                    <th>Designation</th>
+                    <th>Contact No.</th>
+                    <th>Address</th>
+                    <th>Email ID</th>
+                    <th>Date of Birth</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in form7_data.committee_members %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.designation }}</td>
+                    <td>{{ member.contact }}</td>
+                    <td>{{ member.address }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.dob }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7">No committee members data available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Facilities in Tanda -->
+    <div class="form-section">
+        <h3>Facilities in Tanda</h3>
+        <p><strong>Is there a school?</strong> {{ form7_data.has_school }}</p>
+        <table>
+            <tr>
+
+                <th>School Name</th>
+                <th>Primary/Secondary</th>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Principal's Name</th>
+                <th>Contact Number</th>
+            </tr>
+            <tr>
+
+                <td>{{ form7_data.school_name }}</td>
+                <td>{{ form7_data.primary_secondary }}</td>
+                <td>{{ form7_data.village_name }}</td>
+                <td>{{ form7_data.school_distance }}</td>
+                <td>{{ form7_data.principals_name }}</td>
+                <td>{{ form7_data.contact_number }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Milk Collection Center -->
+    <div class="form-section">
+        <h3>Milk Collection Center</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Owner's Name</th>
+                <th>Contact Number</th>
+                <th>Milk Collection Capacity</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.center_name }}</td>
+                <td>{{ form7_data.owner_name }}</td>
+                <td>{{ form7_data.contact_number1 }}</td>
+                <td>{{ form7_data.collection_capacity }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Development Works </h3>
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Names of works</th>
+              <th>Status</th>
+              <th>Nature of work</th>
+              <th>Funding provision</th>
+            </tr>
+          </thead>
+          <tbody id="development_works">
+            {% for work in form7_data.development_works %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ work.name }}</td>
+                <td>{{ work.status }}</td>
+                <td>{{ work.nature }}</td>
+                <td>{{ work.fund }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No development works data available.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+    <!-- Cow Shed -->
+    <div class="form-section">
+        <h3>Cow Shed</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Owner's Name</th>
+                <th>Contact Number</th>
+                <th>Founding Year</th>
+                <th>Number of Livestock</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.gaushala_name }}</td>
+                <td>{{ form7_data.owner_name2 }}</td>
+                <td>{{ form7_data.contact_number2 }}</td>
+                <td>{{ form7_data.founding_year }}</td>
+                <td>{{ form7_data.number_of_livestock }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Ration Shop -->
+    <div class="form-section">
+        <h3>Ration Shop</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Owner's Name</th>
+                <th>Contact Number</th>
+                <th>Number of Card Holders</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.shop_name }}</td>
+                <td>{{ form7_data.owner_name3 }}</td>
+                <td>{{ form7_data.contact_number3 }}</td>
+                <td>{{ form7_data.number_of_cardholder }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- College, Health Centre, Veterinary Hospital, FPO, Medicine Shop -->
+    <div class="form-section">
+
+    <!-- College -->
+    <h4>College</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>College Name</th>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Principal's Name</th>
+                <th>Contact Numbers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ form7_data.college_name }}</td>
+                <td>{{ form7_data.college_village }}</td>
+                <td>{{ form7_data.college_difference }}</td>
+                <td>{{ form7_data.college_principal }}</td>
+                <td>{{ form7_data.college_contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Health Centre -->
+    <h4>Health Centre</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Health Officer's Name</th>
+                <th>Contact Numbers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ form7_data.health_village }}</td>
+                <td>{{ form7_data.health_difference }}</td>
+                <td>{{ form7_data.health_officer }}</td>
+                <td>{{ form7_data.health_contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Veterinary Hospital -->
+    <h4>Veterinary Hospital</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Veterinary Officer's Name</th>
+                <th>Contact Numbers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ form7_data.vet_village }}</td>
+                <td>{{ form7_data.vet_difference }}</td>
+                <td>{{ form7_data.vet_officer }}</td>
+                <td>{{ form7_data.vet_contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- FPO -->
+    <h4>FPO</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>FPO Name</th>
+                <th>Distance</th>
+                <th>Director's Name</th>
+                <th>Contact Numbers</th>
+                <th>Number of Members</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ form7_data.fpo_name }}</td>
+                <td>{{ form7_data.fpo_difference }}</td>
+                <td>{{ form7_data.fpo_director }}</td>
+                <td>{{ form7_data.fpo_contact }}</td>
+                <td>{{ form7_data.fpo_members }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Medicine Shop -->
+    <h4>Medicine Shop</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Shop Name</th>
+                <th>Distance</th>
+                <th>Director's Name</th>
+                <th>Contact Numbers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ form7_data.medicine_name }}</td>
+                <td>{{ form7_data.medicine_difference }}</td>
+                <td>{{ form7_data.medicine_director }}</td>
+                <td>{{ form7_data.medicine_contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <!-- Religious Places -->
+    <div class="form-section">
+        <h3>Religious Places</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Temple Name</th>
+                    <th>Is there a place?</th>
+                    <th>Location Govt./Private</th>
+                    <th>Area</th>
+                    <th>Proposal Submitted?</th>
+                    <th>Funding</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for temple in form7_data.temple_list %}
+                <tr>
+                    <td>{{ temple.name }}</td>
+                    <td>{{ temple.place }}</td>
+                    <td>{{ temple.location }}</td>
+                    <td>{{ temple.area }}</td>
+                    <td>{{ temple.proposal }}</td>
+                    <td>{{ temple.funding }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">No religious places data available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Social Hall -->
+    <div class="form-section">
+        <h3>Social Hall</h3>
+        <table>
+            <tr>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Is there a place?</th>
+                <th>Location Govt./Private</th>
+                <th>Area</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.socialhall_village }}</td>
+                <td>{{ form7_data.socialhall_difference }}</td>
+                <td>{{ form7_data.socialhall_place }}</td>
+                <td>{{ form7_data.socialhall_location }}</td>
+                <td>{{ form7_data.socialhall_area }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Anganwadi -->
+    <div class="form-section">
+        <h3>Anganwadi</h3>
+        <table>
+            <tr>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Is there a place?</th>
+                <th>Location Govt./Private</th>
+                <th>Area</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.anganwadi_village }}</td>
+                <td>{{ form7_data.anganwadi_difference }}</td>
+                <td>{{ form7_data.anganwadi_place }}</td>
+                <td>{{ form7_data.anganwadi_location }}</td>
+                <td>{{ form7_data.anganwadi_area }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Cremation Ground -->
+    <div class="form-section">
+        <h3>Cremation Ground</h3>
+        <table>
+            <tr>
+                <th>Village Name</th>
+                <th>Distance</th>
+                <th>Is there a place?</th>
+                <th>Location Govt./Private</th>
+                <th>Area</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.cremation_village }}</td>
+                <td>{{ form7_data.cremation_difference }}</td>
+                <td>{{ form7_data.cremation_place }}</td>
+                <td>{{ form7_data.cremation_location }}</td>
+                <td>{{ form7_data.cremation_area }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Choir (Bhajani Mandal)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>A.No.</th>
+                    <th>Name of Bhajani Mandal</th>
+                    <th>Number of members</th>
+                    <th>Member's name</th>
+                    <th>Contact No.</th>
+                    <th>Address of correspondence</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for choir in form7_data.choir_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ choir.name }}</td>
+                    <td>{{ choir.members }}</td>
+                    <td>{{ choir.members_name }}</td>
+                    <td>{{ choir.contact_no }}</td>
+                    <td>{{ choir.address }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">No choir data available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Other Facilities -->
+    <div class="form-section">
+        <h3>Other Facilities</h3>
+        <table>
+            <tr>
+                <th>Regular Power Supply</th>
+                <th>Regular Water Supply</th>
+                <th>Exercise School</th>
+                <th>Playground</th>
+                <th>Regular Bus</th>
+                <th>Bus Station</th>
+                <th>Main Road to Tanda</th>
+                <th>Underground Sewer</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.powersupply }}</td>
+                <td>{{ form7_data.watersupply }}</td>
+                <td>{{ form7_data.exercise_school }}</td>
+                <td>{{ form7_data.playground }}</td>
+                <td>{{ form7_data.regular_bus }}</td>
+                <td>{{ form7_data.bus_station }}</td>
+                <td>{{ form7_data.mainroad_to_tanda }}</td>
+                <td>{{ form7_data.underground_sewer }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Library -->
+    <div class="form-section">
+        <h3>Library</h3>
+        <table>
+            <tr>
+                <th>Library Name</th>
+                <th>Village Name</th>
+                <th>Is there a space</th>
+                <th>Location Govt/Private</th>
+                <th>Area</th>
+            </tr>
+            <tr>
+                <td>{{ form7_data.library_name }}</td>
+                <td>{{ form7_data.library_village }}</td>
+                <td>{{ form7_data.library_distance }}</td>
+                <td>{{ form7_data.location_G_P }}</td>
+                <td>{{ form7_data.library_area }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Important People -->
+    <div class="form-section">
+        <h3>Important People in Tanda</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>A.No.</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Contact Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in form7_data.important_people %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.designation }}</td>
+                    <td>{{ person.number }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No important people data available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+    </div>
+</body>
+</html>

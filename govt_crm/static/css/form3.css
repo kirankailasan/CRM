@@ -1,0 +1,76 @@
+.form3-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h2, h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 25px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+        /* Add any specific CSS for the add/remove functionality if needed */
+        .add-btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .add-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover {
+            background: none
+        }

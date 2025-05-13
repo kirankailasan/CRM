@@ -1,0 +1,40 @@
+<form class="form-section" id="form5" method="post">
+    {% csrf_token %}
+    <div class="form-container">
+        <div class="form-title">Form 5 - Important People in the Tanda</div>
+        <div class="form-subtitle">(टांड्यातील महत्वाचे व्यक्ती)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Name</th>
+                    <th>Position/Profession</th>
+                    <th>Contact No.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td><input type="text" name="name_1"></td><td><input type="text" name="position_1" value="Sarpanch (Head of the Village Council)" readonly></td><td><input type="text" name="contact_1"></td></tr>
+                <tr><td>2</td><td><input type="text" name="name_2"></td><td><input type="text" name="position_2" value="Gram Sevak (Village Servant/Administrator)" readonly></td><td><input type="text" name="contact_2"></td></tr>
+                <tr><td>3</td><td><input type="text" name="name_3"></td><td><input type="text" name="position_3" value="Talathi (Village Revenue Officer)" readonly></td><td><input type="text" name="contact_3"></td></tr>
+                <tr><td>4</td><td><input type="text" name="name_4"></td><td><input type="text" name="position_4" value="Police Patil (Village Police Head)" readonly></td><td><input type="text" name="contact_4"></td></tr>
+                <tr><td>5</td><td><input type="text" name="name_5"></td><td><input type="text" name="position_5" value="Mukhyadhyapak (Headmaster)" readonly></td><td><input type="text" name="contact_5"></td></tr>
+                <tr><td>6</td><td><input type="text" name="name_6"></td><td><input type="text" name="position_6" value="Pradhyapak (Teacher)" readonly></td><td><input type="text" name="contact_6"></td></tr>
+                <tr><td>7</td><td><input type="text" name="name_7"></td><td><input type="text" name="position_7" value="Asha Tai (Accredited Social Health Activist)" readonly></td><td><input type="text" name="contact_7"></td></tr>
+               
+                <tr><td>10</td><td><input type="text" name="name_10"></td><td><input type="text" name="position_10" value="Sant (Saint/Religious Figure)" readonly></td><td><input type="text" name="contact_10"></td></tr>
+                <tr><td>11</td><td><input type="text" name="name_11"></td><td><input type="text" name="position_11" value="Pujari (Priest)" readonly></td><td><input type="text" name="contact_11"></td></tr>
+                <tr><td>12</td><td><input type="text" name="name_12"></td><td><input type="text" name="position_12" value="Pravachankar (Religious Speaker/Preacher)" readonly></td><td><input type="text" name="contact_12"></td></tr>
+                <tr><td>13</td><td><input type="text" name="name_13"></td><td><input type="text" name="position_13" value="Patrakar (Journalist)" readonly></td><td><input type="text" name="contact_13"></td></tr>
+                <tr><td>14</td><td><input type="text" name="name_14"></td><td><input type="text" name="position_14" value="Kalavant (Artist)" readonly></td><td><input type="text" name="contact_14"></td></tr>
+                <tr><td>15</td><td><input type="text" name="name_15"></td><td><input type="text" name="position_15" value="Lekhak (Writer)" readonly></td><td><input type="text" name="contact_15"></td></tr>
+                <tr><td>16</td><td><input type="text" name="name_16"></td><td><input type="text" name="position_16" value="Adhyaksh, Bhajani Mandal (President, Bhajan Group)" readonly></td><td><input type="text" name="contact_16"></td></tr>
+                <tr><td>17</td><td><input type="text" name="name_17"></td><td><input type="text" name="position_17" value="Sahityik (Literary Person)" readonly></td><td><input type="text" name="contact_17"></td></tr>
+                <tr><td>18</td><td><input type="text" name="name_18"></td><td><input type="text" name="position_18" value="Kalavant/Kalakar (Artist)" readonly></td><td><input type="text" name="contact_18"></td></tr>
+            </tbody>
+        </table>
+
+        <div id="successMessage" class="success-message" style="display:none;">
+            Form saved successfully!
+        </div>
+    </div>
+</form>

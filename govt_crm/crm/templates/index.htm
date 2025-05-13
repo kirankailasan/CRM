@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maharashtra Government CRM Portal</title>
+  <style>
+
+  </style>
+  <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+  
+
+
+ <!-- Add margin above and below the section -->
+<div class="main-section" style="margin: 40px 0;">
+
+    <!-- Main Content Section -->
+    <div class="section1" >
+  
+      <!-- Left info section (white text inside wine background) -->
+      <div class="info-left" style="flex: 1.5; color: white;">
+        <h1 id="scheme-title" style="color: white;">Saint Sevalal Maharaj Banjara Laman Tanda Prosperity Scheme</h1>
+        <p id="scheme-desc">Welcome to Maharashtra's Digital Collection Portal - a comprehensive platform designed to streamline government services and support citizens across the state.</p>
+        <ul style="list-style-type: none;">
+          <li id="feature-registration"><img src="{% static 'images/check.png' %}" style="width: 15px;"> Simple registration and profile management system</li><br>
+          <li id="feature-schemes"><img src="{% static 'images/check.png' %}" style="width: 15px;"> Access and track government welfare schemes</li><br>
+          <li id="feature-education"><img src="{% static 'images/check.png' %}" style="width: 15px;"> Educational resources and employment opportunities</li><br>
+          <li id="feature-education"><img src="{% static 'images/check.png' %}" style="width: 15px;"> Real-time updates and notifications</li><br>
+          <li><div><p><strong>Important Notice:</strong> All registered citizens can access government schemes, educational support, and employment opportunities through this portal. For assistance, please contact your local administrative office.</p></div></li>
+        </ul>
+      </div>
+  
+      <!-- Right access section -->
+      <div class="right-box" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Admin Access -->
+        <div class="access-box" style=" padding: 20px; border-radius: 8px; text-align: center;">
+          <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px; margin-bottom: 10px;">
+          <h2 id="admin-access-title">Administrative Access</h2>
+          <button id="admin-login-btn" onclick="openAdminLoginPopup()">Admin Login</button>
+        </div>
+  
+        <!-- User Access -->
+        <div class="access-box" style=" padding: 20px; border-radius: 8px; text-align: center;">
+          <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px; margin-bottom: 10px;">
+          <h2 id="user-access-title">User Access</h2>
+          <button id="user-login-btn" onclick="openLoginPopup()" >User Login</button>
+        </div>
+  
+      </div>
+    </div>
+  
+  </div>
+  
+<!-- Login Popup -->
+<div id="loginPopup">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closeLoginPopup()">&times;</button>
+          <div class="top1">
+            <div class="logintop">
+          <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px;">
+
+        </div>
+        <h3 style="text-align: center;" id="user-login-title">User Login</h3>
+        <p style="text-align: center;">Access your department portal</p>
+          </div>
+        <form method="post" action="{% url 'user_login' %}">
+            {% csrf_token %}
+            <label id="user-email-label">Email:</label><br>
+            <input type="email" name="email" required><br>
+            <label id="user-password-label">Password:</label><br>
+            <input type="password" name="password" required><br>
+            <button type="submit" id="user-login-submit">Login</button>
+        </form>
+        <p style="margin-top:15px;">New user? <a id="register-link" href="/register">Register here</a></p>
+    </div>
+</div>
+
+<!-- Admin Login Popup -->
+<div id="adminLoginPopup" style="display:none;">
+  <div class="popup-content">
+    <button class="close-btn" onclick="closeAdminLoginPopup()">&times;</button>
+    <div class="top1">
+      <div class="logintop">
+          <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px;">
+
+      </div>
+        <h3 style="text-align: center;" id="admin-login-title"></h3>
+        <p style="text-align: center;">Access administrative controls and settings</p>
+    </div>
+
+    <form id="adminLoginForm">
+      {% csrf_token %}
+      <label id="admin-email-label">Email:</label><br>
+      <input type="email" name="email" required><br>
+      <label id="admin-password-label">Password:</label><br>
+      <input type="password" name="password" required><br>
+      <button type="submit" id="admin-login-submit">Login</button>
+      <p id="admin-login-error" style="color:red;"></p>
+    </form>  
+  </div>
+</div>
+
+
+<div id="chatbot-icon" style="z-index: 4000;" onclick="toggleChat()">
+        
+  <img src="{% static 'images/chatbot.png' %}" alt="Chatbot">
+</div>
+
+
+<div id="chat-container" style="z-index: 4000;" >
+  <div id="chat-header">
+      <span id="chat-header-title">Chat with AI</span>
+      <button onclick="toggleChat()">✖</button>
+  </div>
+  <div id="chat-messages">
+      <div class="message-bot-message"><strong>Bot: </strong>Hello! I'm your assistant. Ask me anything.</div>
+  </div>
+  <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button id="send-button">Send</button>
+  </div>
+</div>
+
+
+
+
+
+
+  
+
+  <!-- Tanda Collection Portal Section -->
+
+    <h2 id="tanda-info-title" style="color: black; text-align: center; margin-top: 100px;">Tanda Collection Portal Information</h2>
+    
+    <div style="display: flex; justify-content: center; gap: 2vw;">
+  
+      <!-- Marathi Box -->
+      <div class="bot-box" style="flex: 1">
+        <h3 id="marathi-features-title" style="color:#4b494a;">मुख्य वैशिष्ट्ये</h3>
+        <ul style="display: flex; flex-direction: column; padding-left: 20px;">
+          <li id="marathi-feature-1">नोंदणी प्रणाली - टांडा आणि सदस्यांची नोंदणी</li>
+          <li id="marathi-feature-2">सदस्य डेटाबेस - कौटुंबिक, व्यवसाय व स्थलांतर माहिती</li>
+          <li id="marathi-feature-3">आर्थिक मदत ट्रॅकिंग - शासकीय योजना लाभ</li>
+          <li id="marathi-feature-4">शिक्षण आणि रोजगार सहाय्य - नोकरी सूची व संसाधने</li>
+        </ul>
+      </div>
+  
+      <!-- English Box -->
+      <div class="bot-box" style="flex: 1">
+        <h3 id="english-features-title" style="color: #4b494a;">Key Features</h3>
+        <ul style="display: flex; flex-direction: column; padding-left: 20px;">
+          <li id="english-feature-1">Registration System – Register Tanda and Members</li>
+          <li id="english-feature-2">Member Database – Family, Occupation & Migration Details</li>
+          <li id="english-feature-3">Financial Aid Tracking – Government Scheme Benefits</li>
+          <li id="english-feature-4">Education & Employment Support – Job Listings and Resources</li>
+        </ul>
+      </div>
+  
+    </div>
+  </div>
+
+  
+  <script src="{% static 'js/translate.js' %}"></script>
+  <script src="{% static 'js/chatbot.js' %}"></script>
+  <script>
+    document.getElementById("loginPopup").addEventListener("submit", function (e) {
+        e.preventDefault();
+    
+        const form = e.target;
+        const formData = new FormData(form);
+    
+        fetch("/login/", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => {
+            console.log("Raw response:", response);
+            return response.json();  // Might fail here if backend didn't return JSON
+        })
+        .then(data => {
+            console.log("Parsed data:", data);
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                alert(data.message || "Login failed.");
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);  // <-- See what exactly failed
+            alert("Something went wrong.");
+        });
+    });
+    
+    
+    
+    </script>
+    <script>
+      function openAdminLoginPopup() {
+        document.getElementById("adminLoginPopup").style.display = "block";
+      }
+    
+      function closeAdminLoginPopup() {
+        document.getElementById("adminLoginPopup").style.display = "none";
+        document.getElementById("admin-login-error").innerText = "";
+      }
+    
+      document.getElementById("adminLoginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+    
+        fetch("{% url 'admin_login' %}", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          body: formData,
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            window.location.href = "{% url 'admin_dashboard' %}";  // Change to your admin dashboard
+          } else {
+            document.getElementById("admin-login-error").innerText = data.message;
+          }
+        });
+      });
+    </script>
+
+
+{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maharashtra Government Portal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* First container (image) animation */
+    .morph-container {
+      text-align: center;
+      animation: zoomInEffect 5s ease-in-out forwards;
+      opacity: 0;
+      transform: scale(1.5); /* Initially larger image */
+    }
+
+   /* Zoom-in effect for the image */
+   @keyframes zoomInEffect {
+      0% {
+        opacity: 0;
+        transform: scale(1.5); /* Start with a zoomed-in image */
+      }
+      70% {
+        opacity: 1;
+        transform: scale(1); /* End at normal size */
+      }
+      100%{
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+
+    /* Second container (text) animation */
+    .morph-container2 {
+      display: none; /* Initially hidden */
+      opacity: 0; /* Initially invisible */
+      animation: fadeInEffect 4s ease-in-out forwards; /* Start after 4 seconds */
+    }
+
+    /* Fade-in effect for the second container */
+    @keyframes fadeInEffect {
+      0% {
+        opacity: 0;
+        transform: scale(0.8); /* Start smaller */
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1); /* End at normal size */
+      }
+    }
+
+    /* Style for the text inside morph-container2 */
+    .morph-text {
+      color: brown;
+      font-size: 2.5rem;
+    }
+
+    /* Optional: To add zoom-out effect on image when transitioning */
+    .morph-container img {
+      width: 100vw; /* Image will fill the screen width */
+      height: 100vh; /* Image will fill the screen height */
+      object-fit: cover; /* Ensures the image covers the full screen while maintaining aspect ratio */
+      transition: transform 4s ease-in-out; /* Adds the smooth zoom effect */
+    }
+    .morph-container2{
+      width: 40vw;
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- First container: Image -->
+  <div class="morph-container">
+    <img src="{% static 'images/img.jpeg' %}" alt="State Logo">
+  </div>
+
+  <!-- Second container: Text (initially hidden) -->
+  <div class="morph-container2">
+    <h1>महाराष्ट् शासनाच्या पोर्टलवर आपले स्वागत आहे</h1>
+    <p>नमस्कार! महाराष्ट्र शासनाच्या अधिकृत नागरिक संबंध व्यवस्थापन पोर्टलवर आपले स्वागत आहे. आम्ही पारदर्शकता, कार्यक्षमत्ता आणि समर्पणासह आमच्या नागरिकांची सेवा करण्यास वचनबद्ध आहोत. हे व्यासपीठ आपल्याला विविध शासकीय सेवा आणि माहिती आपल्या बोटांच्या टोकावर जोडते.</p>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      // Show the second container after the first one fades out
+      document.querySelector('.morph-container').style.display = 'none';
+      document.querySelector('.morph-container2').style.display = 'block';
+    }, 5000); // Wait for the first animation to complete (4 seconds)
+    
+    setTimeout(() => {
+      window.location.href = "{% url 'index' %}";
+    }, 15000); // Redirect after 10 seconds
+  </script>
+
+</body>
+</html>

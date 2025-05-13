@@ -1,0 +1,157 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        <meta name="csrf-token" content="{{ csrf_token }}">
+
+    </head>
+   <div id="navbarfile">
+    <body>
+      <nav >
+      <!-- Header -->
+      <div class="header">
+        <div class="logomain"><img src="{% static 'images/icon.png' %}" alt="State Logo" class="logo"></div>
+        <div class="title">
+          <h1 id="header-title1">संत सेवालाल महाराज बंजारा/लमाण तांडा समृद्धी योजना</h1>
+          <h3 id="header-subtitle">CRM Portal</h3>
+        </div>
+        <img src="{% static 'images/img2.jpeg' %}" alt="Ashok Stambh" class="ashok">
+      </div>
+      <div class="anav">
+                  <ul style="padding: 10px; margin-top: 10px;">
+              <div class="nav-left">
+                {% if user.is_authenticated %}
+
+                  
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
+                      <div id="welcome-msg" style="color: white; margin-left: 2vw;"><h3>Welcome, Admin</h3></div>
+                    {% else %}
+                      <li class="nav-profile-dropdown">
+                          <div class="profile-pic-wrapper-navbar" onclick="toggleProfileDropdown()">
+                            <img src="{% if user.userprofile.profile_pic %}{{ user.userprofile.profile_pic.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="Profile Pic">
+
+                              </div>
+                          <div class="profile-dropdown-content" id="profileDropdown">
+                              <a href="{% url 'faqs' %}">FAQ</a>
+                              <a href="{% url 'tickets' %}">Tickets</a>
+                              <a href="{% url 'logout' %}">Logout</a>
+                          </div>
+                      </li>
+                      <div id="welcome-msg" style="color: white; margin-left: 2vw;"><h3>Welcome, {{ user.username }}</h3></div>
+                    {%endif%}
+                  {% else %}
+                    <div id="welcome-msg" style="color: white; margin-left: 2vw;"><h3>Welcome to Maharashtra CRM Portal</h3></div>
+                  {%endif%}
+              </div>
+              <div class="nav-right">
+                  <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                  {% if user.is_authenticated %}
+                      {% if request.user.is_authenticated and request.user.is_superuser %}
+                      
+                        <li class="admin-dropdown"><a class="nav-link">Menu</a>
+                          <div class="admin-dropdown-content">
+                            <a href="{% url 'admin_dashboard' %}" >Admin Dashboard</a>
+                            <a href="{% url 'completed_works' %}" >Form Submissions</a>
+                            <a href="{% url 'manage_users' %}" >Manage Users</a>
+                          </div>
+                        </li>
+                        <li class="admin-dropdown"><a class="nav-link">Support</a>
+                          <div class="admin-dropdown-content">
+                              <a href="{% url 'admin_tickets' %}">Tickets</a>
+                              <a href="{% url 'faqs' %}">FAQ</a>
+                          </div>
+                        </li>
+                        <li><a href="{% url 'admin_logout' %}" class="nav-link">Logout</a></li>
+                        
+                      {% else %}
+                      <li class="dropdown">
+                        <a class="nav-link">Menu</a>
+                        <div class="dropdown-content">
+                          <a href="{% url 'dashboard' %}">Dashboard</a>
+                          {% if request.resolver_match.url_name == 'dashboard' %}
+                            <a href="#" onclick="openModal()">Assignments</a>
+            
+                          {%endif%}
+                            <a href="{% url 'submitted_data' %}">Form Submission</a>
+                        </div>
+                      </li>
+
+                      {% endif %}
+
+                  
+                  
+                  {% endif %}
+                  <select id="language-selector">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="mr">Marathi</option>
+                  </select>
+
+              </div>
+          </ul>
+      </div>
+      </nav>
+
+
+
+
+
+      
+
+<script type="text/javascript">
+
+
+  function openLoginPopup() {
+    document.getElementById("loginPopup").style.display = "block";
+  }
+
+
+  function closeLoginPopup() {
+    document.getElementById("loginPopup").style.display = "none";
+  }
+  document.getElementById("menuToggle").onclick = function () {
+    document.body.classList.toggle("menu-active");
+};
+
+</script>
+
+
+      <script>
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById("profileDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+    
+        // Hide dropdown if clicked outside
+        document.addEventListener("click", function(event) {
+            const profileDropdown = document.getElementById("profileDropdown");
+            const profileWrapper = document.querySelector(".profile-pic-wrapper-navbar");
+            if (!profileWrapper.contains(event.target)) {
+                profileDropdown.style.display = "none";
+            }
+        });
+    </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  navLinks.forEach(link => {
+    const linkPath = link.getAttribute('href');
+
+    // Match exact or root path for Home
+    if (currentPath === linkPath || currentPath.startsWith(linkPath + '/') || (linkPath === '/' && (currentPath === '/' || currentPath === '/index/' || currentPath === '/home/'))) {
+  link.classList.add('active');
+}
+
+  });
+});
+</script>
+
+
+    
+<script src="{% static 'js/translate.js' %}"></script>  
+  </body>
+   </div>
+</html>

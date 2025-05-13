@@ -1,0 +1,113 @@
+/* Popup Modal Styles */
+.create_user_model {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.4); /* Dim background */
+    justify-content: center;
+    align-items: center;
+}
+
+.create_user_model[style*="display: block"] {
+    display: flex !important;
+}
+
+.create_user_model > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.create_user_model form {
+    background: #fff;
+    margin: auto;
+    padding: 32px 32px 24px 32px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    min-width: 320px;
+    max-width: 400px;
+    position: relative;
+}
+
+.create_user_model h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.create_user_model label {
+    font-weight: 500;
+    color: #222;
+}
+
+.create_user_model input[type="text"],
+.create_user_model input[type="email"],
+.create_user_model input[type="password"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.create_user_model button[type="submit"] {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+.create_user_model button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+.create_user_model button[type="button"] {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    color: #888;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 18px;
+}
+
+.create_user_model button[type="button"]:hover {
+    color: #333;
+}
+
+
+.create-user{
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    width:fit-content;
+    height: fit-content;
+    border-radius: 6px;
+    padding: 7px;
+    font-size: 1rem;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  }
+.create-user:hover{
+    background: #1256a3;
+    cursor: pointer;
+}
+
+.user-container:hover,
+.completed_progress:hover{
+  transform: scale(1.03);
+  transition: transform 0.3s ease-in-out;
+}

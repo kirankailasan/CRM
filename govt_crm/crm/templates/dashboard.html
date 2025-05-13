@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <style>
+    @property --progress-value {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --progress-bar-color: #cfd8dc;
+  --progress-value-color: #2196f3;
+  --progress-empty-color-h: 4.1;
+  --progress-empty-color-s: 89.6;
+  --progress-empty-color-l: 58.4;
+  --progress-filled-color-h: 122.4;
+  --progress-filled-color-s: 39.4;
+  --progress-filled-color-l: 49.2;
+}
+
+
+
+progress[value] {
+  display: block;
+  position: relative;
+  appearance: none;
+  width: 90%;
+  height: 12px;
+  border: 0;
+  --border-radius: 10px;
+  border-radius: var(--border-radius);
+  counter-reset: progress var(--progress-value);
+  --progress-value-string: counter(progress) '%';
+  --progress-max-decimal: calc(var(--value, 0) / var(--max, 0));
+  --progress-value-decimal: calc(var(--progress-value, 0) / var(--max, 0));
+  @supports selector(::-moz-progress-bar) {
+    --progress-value-decimal: calc(var(--value, 0) / var(--max, 0));
+  }
+  --progress-value-percent: calc(var(--progress-value-decimal) * 100%);
+  --progress-value-color: hsl(
+    calc((var(--progress-empty-color-h) + (var(--progress-filled-color-h) - var(--progress-empty-color-h)) * var(--progress-value-decimal)) * 1deg)
+    calc((var(--progress-empty-color-s) + (var(--progress-filled-color-s) - var(--progress-empty-color-s)) * var(--progress-value-decimal)) * 1%)
+    calc((var(--progress-empty-color-l) + (var(--progress-filled-color-l) - var(--progress-empty-color-l)) * var(--progress-value-decimal)) * 1%)
+  );
+  animation: calc(3s * var(--progress-max-decimal)) linear 0.5s 1 normal both progress;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: var(--progress-bar-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+progress[value]::-webkit-progress-value {
+  width: var(--progress-value-percent) !important;
+  background-color: var(--progress-value-color);
+  border-radius: var(--border-radius);
+}
+
+progress[value]::-moz-progress-bar {
+  width: var(--progress-value-percent) !important;
+  background-color: var(--progress-value-color);
+  border-radius: var(--border-radius);
+}
+
+progress[value]::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  left: var(--progress-value-percent);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--progress-value-color);
+  border-radius: 50%;
+  content: attr(value);
+  content: var(--progress-value-string, var(--value));
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+@keyframes progress {
+	from {
+		--progress-value: 0;
+	} to {
+		--progress-value: var(--value);
+	}
+}
+
+  </style>
+  <link rel="stylesheet" href="{%static 'css/dashboard.css' %}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+
+  <!-- Dashboard Content -->
+  <div class="content">
+ 
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+      <div class="stat-box">
+        <h3>Total Assignments</h3>
+        <img src="{%static 'images/assignment.png'%}">
+        <p onclick="openModal()">{{assignments|length}}</p>
+      </div>
+      <div class="stat-box">
+        <a style="text-decoration: none"><h3>Completed</h3></a>
+        <img src="{%static 'images/completed.png'%}">
+        <p><a style="text-decoration: none;" href="{% url 'submitted_data' %}">{{is_completed|length}}</a> </p>
+      </div>
+      <div class="stat-box">
+        <h3>Pending</h3>
+        <img src="{%static 'images/pending.png'%}">
+        <p>{{is_not_completed|length}}</p>
+      </div>
+      <div class="stat-box">
+        <h3>Performance Score</h3>
+        <img src="{%static 'images/performance.png'%}">
+        <p>{{performance}}%</p>
+      </div>
+    </div>
+
+    <!-- Assignment Progress Section -->
+    <div class="assignment-progress-section">
+      <h2>Assignment Progress</h2>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+      </div>
+      {% if assignments %}
+          <ul style="list-style-type: none;">
+              {% for assignment in assignments %}
+                  <li><b>Assignment: {{ assignment.district }}, {{ assignment.taluka }}</b></li><br>
+               
+                  {% if assignment.is_completed%}
+                  <progress value="100" max="100" style="--value: 100; --max: 100;"></progress>
+
+                  {%else%}
+                  <progress value="0" max="100" style="--value: 0; --max: 100;"></progress>
+
+                  {%endif%}
+                  <br><br>
+              {% endfor %}
+          </ul>
+          
+      {% else %}
+          <p>You have no assignments yet.</p>
+      {% endif %}
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="recent-activity-section">
+      <h2>Recent Activity</h2>
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Verbs</th>
+          </tr>
+        </thead>
+
+        
+        <tbody>
+          <tr>
+              {% for activity in recent_activities %}
+                <tr>
+                  <td>{{ activity.activity }}</td>
+                  <td>{{ activity.status }}</td>
+                  <td>{{ activity.date|date:"F d, Y H:i" }}</td>
+                  <td>{{ activity.verb }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="4" style="text-align:center;">No recent activity found.</td>
+                </tr>
+              {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="assignmentModal" class="modal">
+    <div class="assignment-popup"></div>
+      <span class="close" onclick="closeModal()">&times;</span>
+
+
+      <div class="dashboard-container">
+        <h3>Your Assignments</h3>
+        {% if assignments %}
+            <ul class="assignments-list" style="list-style-type: none;">
+                {% for assignment in assignments %}
+                    <li class="assignment-item">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>District</th>
+                              <th>Taluka</th>
+                              <th>Region</th>
+                              <th>Tanda</th>
+                              <th>Additional instructions</th>
+                              <th>Assigned on</th>
+                              <th>Status</th>
+                              {% if not assignment.is_completed %}
+                              <th>Start</th>
+                              {%endif%}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ assignment.district }}</td>
+                              <td>{{ assignment.taluka }}</td>
+                              <td>{{ assignment.region }}</td>
+                              <td>{{ assignment.tanda }}</td>
+                              <td>{{assignment.additional_instructions}}</td>
+                              <td>{{ assignment.assigned_at }}</td>
+                              <td>{% if assignment.is_completed %}✅Completed {% else %}❌Not Completed {% endif %}</td>
+                              {% if not assignment.is_completed %}
+                              <td><a class= "view_scheme" href="{% url 'all_forms' %}">Start</a></td>
+                              {%endif%}
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no assignments yet.</p>
+        {% endif %}
+    </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openModal() {
+      document.getElementById('assignmentModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('assignmentModal').style.display = 'none';
+    }
+
+    function completeTask(button) {
+      button.textContent = "Completed";
+      button.disabled = true;
+      button.style.backgroundColor = "gray";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('assignmentModal');
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+{% include 'footer.html' %}
+</body>
+</html>

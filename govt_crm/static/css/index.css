@@ -1,0 +1,321 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light grey background for the whole page */
+    color: #333; /* Dark grey for text for better readability on grey */
+}
+
+/* Main section with adjusted background and overlay */
+.main-section {
+    background-image: url('/static/images/icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 40px;
+    min-height: 700px;
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Enable flexbox for positioning content */
+    flex-direction: column; /* Stack content vertically by default */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text within the section */
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+}
+
+.main-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Medium grey overlay with 50% opacity */
+}
+
+.main-section > * {
+    position: relative;
+    z-index: 1;
+    color: white; /* Ensure text on the overlay is readable */
+}
+.info-left{
+  text-align: left;
+
+  margin-left: 5vw;
+    flex: 1.5;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8); /* Bright white text shadow */
+  animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+}
+.info-left h1 {
+  color: white;
+  text-shadow: 2px 2px 12px rgba(255, 255, 255, 0.5); /* Even brighter shadow for the title */
+  animation: slideInDown 0.8s ease-out; /* Slide down animation for the title */
+}
+
+.info-left p {
+  text-shadow: 1px 1px 8px rgba(255, 255, 255, 0.7); /* Slightly softer shadow for the description */
+  animation-delay: 0.2s; /* Delay the paragraph animation */
+  animation: fadeIn 1s ease-in-out both; /* Apply and keep the final state */
+}
+
+.info-left ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.info-left li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust spacing between list items */
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.6); /* Subtle shadow for list items */
+  opacity: 0; /* Initially hidden */
+  animation: slideInLeft 0.5s ease-out forwards; /* Slide in from left animation */
+}
+
+
+.info-left li div {
+  border-radius: 15px;
+  border-color: white;
+  height: fit-content;
+  padding: 15px; /* Increased padding to 15px */
+  border: 1px solid white;
+  display: inline-block;
+  text-shadow: 0.5px 0.5px 4px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added box shadow */
+  background-color: rgb(232, 229, 229, 0.2);
+}
+
+.info-left li div p {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(0, 166, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added box shadow to the paragraph */
+}
+
+.info-left li:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.info-left li:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.info-left li:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.info-left li:nth-child(4) {
+  animation-delay: 1s;
+}
+
+.info-left li img {
+  width: 15px;
+  margin-right: 8px; /* Space between checkmark and text */
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-15px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.info-left ul{
+  text-align: left;
+}
+
+.section1 {
+    display: flex;
+    flex-direction: row;
+    gap: 20vw; /* Space between the boxes in the row */
+    margin-top: 20px; /* Add some space below the main content if any */
+}
+
+.right-box {
+    width: 30%;
+}
+
+.access-box {
+    background-color: rgba(255, 255, 255, 0.1); /* Light grey for the box background */
+    border: 2px solid #ffffff; /* Darker grey border */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 250px;
+    text-align: center;
+    transition: transform 0.3 ease-out;
+    box-shadow: 4px 4px 12px rgba(250, 248, 248, 0.872); /* Slightly stronger shadow */
+}
+
+
+.access-box:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly darker background on hover */
+  border-color: #f0f0f0; /* Slightly lighter border on hover */
+  box-shadow: 6px 6px 16px rgba(250, 248, 248, 0.9); /* Stronger shadow on hover */
+  cursor: pointer; /* Indicate it's interactive */
+  transform: scale(1.01);
+
+}
+
+.access-box img {
+    width: 40px;
+    margin-bottom: 10px;
+    opacity: 0.8; /* Slightly reduce image brightness */
+}
+
+.access-box h2 {
+  color: white;
+    
+}
+
+.access-box button,
+.popup-content form button {
+    padding: 10px 20px;
+    background-color: rgb(0, 98, 255); /* Dark grey button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+}
+
+.access-box button:hover,
+.popup-content form button:hover {
+    background-color: blue;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out
+}
+.bot-box{
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+  max-width: 30vw;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+
+/* Login popup */
+#loginPopup,
+#adminLoginPopup {
+     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+.top1{
+  background-color: grey;
+  padding: 10px;
+  border-radius: 20px;
+  width: 95%;
+  margin-bottom: 20px;
+}
+
+.popup-content {
+    position: relative;
+    margin: 10% auto;
+    background-color: rgba(253, 253, 253, 0.382);
+    width: 400px;
+    padding: 25px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.5s ease;
+}
+
+
+/* Slide Down Animation */
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+   transform: scale(1.05);
+   transition: transform 0.3s ease-in-out;
+   border: 0.5px solid white;
+   border-radius: 5px;
+}
+
+/* Form Labels */
+#user-email-label, #user-password-label {
+    margin-top: 15px;
+    color: #fffefe;
+}
+
+/* Form Inputs */
+input[type="email"], input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border-radius: 5px;
+    border: 2px solid #ffffff;
+    background-color: #3b3b3b;
+    color: white;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #146edc;
+    outline: none;
+}
+.logintop{
+justify-content: center;
+display: flex;
+
+}
+
+
+/* Register Link */
+#register-link {
+    color: #e8eaeeb9;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#register-link:hover {
+    color: blue;
+}
+

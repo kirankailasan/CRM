@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form 6 - Development Works</title>
+    <link rel="stylesheet" href="{% static 'css/form6.css' %}">
+</head>
+<body>
+
+<form class="form-section" id="form1" method="post">
+    <h2 class="form-title">
+        Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme
+    </h2>
+    <h3 class="form-subtitle">Form 6: Development Works (Available: Yes/No)</h3>
+
+    <div class="form-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Development Work</th>
+                    <th>Available (Yes/No)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Cremation Ground</td>
+                    <td>
+                        <select name="work_1">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Community Hall</td>
+                    <td>
+                        <select name="work_2">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>School Building</td>
+                    <td>
+                        <select name="work_3">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Water Supply Scheme</td>
+                    <td>
+                        <select name="work_4">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Gymnasium</td>
+                    <td>
+                        <select name="work_5">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Library</td>
+                    <td>
+                        <select name="work_6">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Bus Stop</td>
+                    <td>
+                        <select name="work_7">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Playground</td>
+                    <td>
+                        <select name="work_8">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Cement Concrete Roads</td>
+                    <td>
+                        <select name="work_9">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table><br>
+        <div class="form-section">
+            <td>10. Which types of roads are needed in the Tanda?</td><br>
+            <p>
+                <small>
+                    (If the information is filled incorrectly in the above columns, please correct it here by mentioning the name of the required work along with the road.)<br>
+
+                </small>
+            </p>
+            <textarea name="needed_roads" rows="3" style="width: 100%;" placeholder="Mention required roads or works..."></textarea>
+        </div>
+        
+        <div class="form-section">
+            <td>11. Proposed Works to be Undertaken</td><br>
+            <p>
+                <small>
+                    (If the information is filled incorrectly in the above columns, please correct it here by mentioning the name of the proposed work along with the road.)<br>
+
+                </small>
+            </p>
+            <textarea name="proposed_works" rows="3" style="width: 100%;" placeholder="Mention proposed works..."></textarea>
+        </div>
+
+
+        <div id="successMessage" class="success-message" style="display:none;">
+            Form saved successfully!
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

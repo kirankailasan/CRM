@@ -1,0 +1,221 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    background: #ffffff;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Buttons */
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
+
+button.design {
+    margin-left: 10px;
+    background-color: #27ae60;
+}
+
+button.design:hover {
+    background-color: #219150;
+}
+
+/* OTP Popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    width: 90%;
+    max-width: 400px;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+    color: #444;
+}
+
+.popup-content p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.popup-content input {
+    width: 100%;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.popup-content button {
+    background-color: #4a90e2;
+    width: 100%;
+}
+
+.popup-content button:hover {
+    background-color: #357ab8;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #444;
+}
+
+#otp-loading-message {
+    color: #777;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+
+
+/* pic */
+.profile-pic-wrapper {
+    position: relative;
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    margin: 0 auto 20px auto;
+}
+
+.profile-pic-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    transition: 0.3s ease;
+}
+
+.edit-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    border-radius: 0 0 50% 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.profile-pic-wrapper:hover .edit-overlay {
+    display: block;
+}
+
+.image-upload-popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content-1 {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    margin: 100px auto;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 22px;
+    cursor: pointer;
+}

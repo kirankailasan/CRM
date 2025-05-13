@@ -1,0 +1,371 @@
+{% load custom_tags %}
+{% load static %}
+
+
+<html>
+    <head> 
+
+        <style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f8fa;
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 28px;
+  color: #1a237e;
+  font-weight: 600;
+}
+
+#completed_works {
+  margin: 50px auto;
+
+  max-width: 1200px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s ease-in-out;
+}
+#completed_works:hover{
+  transform: scale(1.04);
+  transition: transform 0.3s ease-in-out;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.table th {
+  background: #e3eafc;
+  color: #1a237e;
+  font-weight: 600;
+}
+
+.table tr:nth-child(even) {
+  background: #f5f7fa;
+}
+
+.table tr:hover {
+  background: #f0f7ff;
+}
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.download-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.download-menu a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.download-menu a:hover {
+  background: #f0f0f0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  height: 90%;
+  margin: 40px auto;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.edit_edit {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_edit > div {
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  height: 90%;
+  margin: 40px auto;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.edit_edit span {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.edit_edit span:hover {
+  color: #333;
+}
+#submittedTable_filter{
+  margin-bottom: 20px;
+}
+        </style>
+        <!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- jQuery + DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <div id="completed_works" style=" margin-top: 100px; margin-bottom: 100px">
+
+
+
+            {% if submitted_data %}
+            <table id="submittedTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                      <th id="noHeader">No</th>
+                      <th id="userNameHeader">User Name</th>
+                      <th id="emailHeader">Email</th>
+                      <th id="districtHeader">District</th>
+                      <th id="talukaNameHeader">Taluka Name</th>
+                      <th id="gramPanchayatHeader">Gram Panchayat</th>
+                      <th id="submittedOnHeader">Submitted on</th>
+                      <th id="viewHeader">View</th>
+                      <th id="downloadHeader">Download</th>
+                      <th id="editHeader">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in submitted_data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ entry.user.get_full_name|default:entry.user.username }}</td>
+                        <td>{{ entry.user.email }}</td>
+                        <td>{{ entry.form2_data|get_item:"district" }}</td>
+                        <td>{{ entry.form1_data|get_item:"taluka-name" }}</td>
+                        <td>{{ entry.form1_data|get_item:"gram-panchayat-name" }}</td>
+                        <td>{{ entry.created_at}}</td>
+                        <td>
+                            <button onclick="viewFormData('{{ entry.id }}')" class="btn btn-primary btn-sm">View</button>
+                        </td>
+                        <td style="position:relative;">
+                            <button class="btn btn-success btn-sm" onclick="toggleDownloadMenu(event, '{{ entry.id }}')" title="Download">
+                                📥
+                            </button>
+                            <div id="download-menu-{{ entry.id }}" class="download-menu" style="display:none; position:absolute; z-index:10; background:#fff; border:1px solid #ccc; border-radius:4px; min-width:120px;">
+                                <a href="{% url 'download_form_pdf' entry.id %}" target="_blank" style="display:block; padding:8px 12px; text-decoration:none; color:#333;">PDF</a>
+                                <a href="{% url 'download_form_excel' entry.id %}" target="_blank" style="display:block; padding:8px 12px; text-decoration:none; color:#333;">Excel</a>
+                            </div>
+                        </td>
+                        <td style="position: relative;">
+                            <a href="{% url 'edit_form' entry.id%}" >📝</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% else %}
+            <p>No completed/submitted forms found.</p>
+            {% endif %}
+        </div>
+            <div id="formModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+                <div class="modal-content" style="background: #fff; padding: 30px; width: 90%; height: 90%; margin: 40px auto; overflow-y: auto; position: relative; border-radius: 10px;">
+                    <span class="close" onclick="closeModal()" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size: 24px;">&times;</span>
+                    <div id="formContainer"></div>
+                </div>
+            </div>
+
+
+        <script>
+          /**
+           * Fetch form data and display it in the modal
+           * @param {string} formId - The ID of the form entry
+           */
+          function viewFormData(formId) {
+              fetch(`/view-form-popup/${formId}/`, {
+                  method: "GET",
+                  headers: {
+                      "X-Requested-With": "XMLHttpRequest"
+                  }
+              })
+              .then(response => response.json()) 
+              .then(data => {
+                  if (data.html) {
+                      // Inject HTML into the modal container
+                      document.getElementById('formContainer').innerHTML = data.html;
+                      document.getElementById('formModal').style.display = 'block';
+      
+                      // Apply translations to the popup form
+                      const userLanguage = localStorage.getItem('selectedLanguage') || 'en';
+                      loadTranslations(userLanguage, 'submitted_form');  // Trigger translation for the form
+                  } else if (data.error) {
+                      alert(data.error);
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert("Error loading form data.");
+              });
+          }
+      
+          /**
+           * Close the modal
+           */
+          function closeModal() {
+              document.getElementById('formModal').style.display = 'none';
+          }
+      
+          // Optional: Close modal when clicking outside content
+          window.onclick = function(event) {
+              var modal = document.getElementById('formModal');
+              if (event.target == modal) {
+                  modal.style.display = 'none';
+              }
+          }
+      
+          /**
+           * Toggle the visibility of a form section
+           * @param {string} id - The ID of the form section
+           * @param {string} iconId - The ID of the toggle icon
+           */
+          function toggleForm(id, iconId) {
+              const section = document.getElementById(id);
+              const icon = document.getElementById(iconId);
+              if (section.style.display === "none") {
+                  section.style.display = "block";
+                  icon.innerText = "▼";
+              } else {
+                  section.style.display = "none";
+                  icon.innerText = "▶";
+              }
+          }
+      </script>
+      
+
+<script>
+    function toggleDownloadMenu(event, entryId) {
+        event.stopPropagation();
+        // Hide any other open menus
+        document.querySelectorAll('.download-menu').forEach(menu => menu.style.display = 'none');
+        // Show the clicked menu
+        var menu = document.getElementById('download-menu-' + entryId);
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+    // Hide menu when clicking outside
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.download-menu').forEach(menu => menu.style.display = 'none');
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#submittedTable').DataTable({
+            pageLength: 10,
+            order: [[0, 'asc']], // Default sort by "No"
+            columnDefs: [
+                { orderable: false, targets: [7, 8, 9] } // Disable sorting on action columns
+            ]
+        });
+    });
+</script>
+
+
+{% include 'footer.html' %}
+
+    </body>
+</html>

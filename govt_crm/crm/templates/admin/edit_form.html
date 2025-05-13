@@ -1,0 +1,1141 @@
+{% load custom_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Submitted Forms - Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
+    <link rel="stylesheet" href="{% static 'css/submitted_form.css' %}">
+    <style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f8fa;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 28px 28px 28px;
+}
+
+form {
+    width: 100%;
+}
+
+.form-header {
+    background: #f0f4f8;
+    color: #1a237e;
+    font-size: 1.18rem;
+    font-weight: 600;
+    padding: 14px 18px;
+    border-radius: 7px;
+    margin-bottom: 8px;
+    margin-top: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.form-header:hover {
+    background: #e3eafc;
+}
+
+.toggle-icon {
+    margin-right: 10px;
+    font-size: 1.3em;
+    transition: transform 0.3s;
+}
+
+.toggle-icon.open {
+    transform: rotate(90deg);
+}
+
+.form-section-content {
+    background: #f9fafb;
+    border-radius: 7px;
+    padding: 22px 18px 18px 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.form-section {
+    margin-bottom: 18px;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #cfd8dc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #1976d2;
+    outline: none;
+    background: #f0f7ff;
+}
+
+textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.form-section h3,
+.form-section h4,
+.form-title {
+    margin-top: 0;
+    color: #1a237e;
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    background: #fff;
+}
+
+th, td {
+    padding: 10px 8px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 1rem;
+}
+
+th {
+    background: #e3eafc;
+    color: #1a237e;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f5f7fa;
+}
+
+tr:hover {
+    background: #f0f7ff;
+}
+
+button[type="submit"] {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+button[type="submit"]:hover {
+    background: #1256a3;
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 12px 4vw 18px 4vw;
+    }
+    .form-section-content {
+        padding: 14px 6px 10px 6px;
+    }
+    th, td {
+        font-size: 0.98rem;
+        padding: 7px 4px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 4px 2vw 8px 2vw;
+    }
+    .form-header {
+        font-size: 1rem;
+        padding: 10px 8px;
+    }
+    .form-section-content {
+        padding: 8px 2px 6px 2px;
+    }
+    th, td {
+        font-size: 0.93rem;
+        padding: 5px 2px;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px 0;
+    }
+}
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <!-- Form 1 Toggle -->
+            <div class="form-header" onclick="toggleForm('form1', 'icon1')">
+                <span id="icon1" class="toggle-icon">▶</span> Form 1 - General Information
+            </div>
+            <div id="form1" class="form-section-content" style="display: none;">
+                <div class="form-section">
+                    <label><strong>Taluka (Administrative Division) Name:</strong>
+                        <input type="text" name="taluka-name" value="{{ form1_data|get_item:'taluka-name' }}">
+                    </label>
+                    <label><strong>Name of the Gram Panchayat:</strong>
+                        <input type="text" name="gram-panchayat-name" value="{{ form1_data|get_item:'gram-panchayat-name' }}">
+                    </label>
+                    <label><strong>Name of the Village:</strong>
+                        <input type="text" name="village-name" value="{{ form1_data|get_item:'village-name' }}">
+                    </label>
+                    <label><strong>Name of the Zilla Parishad Constituency:</strong>
+                        <input type="text" name="zilla-parishad" value="{{ form1_data|get_item:'zilla-parishad' }}">
+                    </label>
+                    <label><strong>No. of Approved Tandas:</strong>
+                        <input type="number" name="num-approved-tandas" value="{{ form1_data|get_item:'num-approved-tandas' }}">
+                    </label>
+                    <label><strong>No. of Proposed New Tandas:</strong>
+                        <input type="number" name="num-proposed-tandas" value="{{ form1_data|get_item:'num-proposed-tandas' }}">
+                    </label>
+                </div>
+                <div class="form-section">
+                    <h3>Tanda Wise Information</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Tanda Name</th>
+                                    <th>Gram Panchayat Name</th>
+                                    <th>Total Population</th>
+                                    <th>Male</th>
+                                    <th>Female</th>
+                                    <th>Existing Facilities</th>
+                                    <th>Electricity Available</th>
+                                    <th>Water Facility Available</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in tanda_count|make_range %}
+                                <tr>
+                                    <td>{{ i|add:1 }}</td>
+                                    <td><input type="text" name="tanda-name-{{ i|add:1 }}" value="{% get_key_value form1_data 'tanda-name' i|add:1 %}"></td>
+                                    <td><input type="text" name="gram-panchayat-name-{{ i|add:1 }}" value="{% get_key_value form1_data 'gram-panchayat-name' i|add:1 %}"></td>
+                                    <td><input type="number" name="total-population-{{ i|add:1 }}" value="{% get_key_value form1_data 'total-population' i|add:1 %}"></td>
+                                    <td><input type="number" name="male-{{ i|add:1 }}" value="{% get_key_value form1_data 'male' i|add:1 %}"></td>
+                                    <td><input type="number" name="female-{{ i|add:1 }}" value="{% get_key_value form1_data 'female' i|add:1 %}"></td>
+                                    <td><input type="text" name="existing-facilities-{{ i|add:1 }}" value="{% get_key_value form1_data 'existing-facilities' i|add:1 %}"></td>
+                                    <td><input type="text" name="electricity-available-{{ i|add:1 }}" value="{% get_key_value form1_data 'electricity-available' i|add:1 %}"></td>
+                                    <td><input type="text" name="water-facility-available-{{ i|add:1 }}" value="{% get_key_value form1_data 'water-facility-available' i|add:1 %}"></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form 2 Toggle -->
+            <div class="form-header" onclick="toggleForm('form2', 'icon2')">
+                <span id="icon2" class="toggle-icon">▶</span> Form 2 - General Information of the Tanda
+            </div>
+            <div id="form2" class="form-section-content" style="display: none;">
+                <div class="form-container">
+                    <h2>Sant Sevalal Maharaj Banjara Lambhan Tanda Comprehensive Scheme</h2>
+                    <p class="subtitle">
+                        (Government Decision No. Tanda Sudhar-2019/P.K.39/Aadha-5, Dated 23 February 2021)
+                    </p>
+                    <h3>General Information of the Tanda (Form 2)</h3>
+                    <table>
+                        <tbody>
+                            <tr><td>1</td><td>Name of the Tanda</td><td><input type="text" name="tanda_name" value="{{ form2_data.tanda_name }}"></td></tr>
+                            <tr><td>2</td><td>Taluka (Administrative Division)</td><td><input type="text" name="taluka" value="{{ form2_data.taluka }}"></td></tr>
+                            <tr><td>3</td><td>District</td><td><input type="text" name="district" value="{{ form2_data.district }}"></td></tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Population</td>
+                                <td>
+                                    Female: <input type="number" name="female_population" value="{{ form2_data.female_population }}"><br>
+                                    Male: <input type="number" name="male_population" value="{{ form2_data.male_population }}"><br>
+                                    Total: <input type="number" name="total_population" value="{{ form2_data.total_population }}">
+                                </td>
+                            </tr>
+                            <tr><td>5</td><td>Name of the Gram Panchayat</td><td><input type="text" name="gp_name" value="{{ form2_data.gp_name }}"></td></tr>
+                            <tr><td>6</td><td>Is there a separate Gram Panchayat building?</td><td><input type="text" name="separate_gp_building" value="{{ form2_data.separate_gp_building }}"></td></tr>
+                            <tr><td>7</td><td>Is there a separate Tanda?</td><td><input type="text" name="separate_tanda" value="{{ form2_data.separate_tanda }}"></td></tr>
+                            <tr><td>8</td><td>Is there a Gram Panchayat office in the Tanda?</td><td><input type="text" name="gp_office_in_tanda" value="{{ form2_data.gp_office_in_tanda }}"></td></tr>
+                            <tr><td>9</td><td>Proposal submitted to Planning Department?</td><td><input type="text" name="proposal_submitted" value="{{ form2_data.proposal_submitted }}"></td></tr>
+                            <tr>
+                                <td>10</td>
+                                <td>How many houses are sanctioned in the Tanda?</td>
+                                <td>
+                                    Sanctioned: <input type="number" name="houses_sanctioned" value="{{ form2_data.houses_sanctioned }}"><br>
+                                    Remaining: <input type="number" name="houses_remaining" value="{{ form2_data.houses_remaining }}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Form 3 Toggle -->
+            <div class="form-header" onclick="toggleForm('form3', 'icon3')">
+                <span id="icon3" class="toggle-icon">▶</span> Form 3 - Committee Members Information
+            </div>
+            <div id="form3" class="form-section-content" style="display: none;">
+                <div class="form-section" id="view-form3">
+                    <h3>Form 3: Committee Members Information</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Contact No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in form3_data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><input type="text" name="form3_name_{{ forloop.counter }}" value="{{ member.name }}"></td>
+                                <td><input type="text" name="form3_designation_{{ forloop.counter }}" value="{{ member.designation }}"></td>
+                                <td><input type="text" name="form3_contact_{{ forloop.counter }}" value="{{ member.contact }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Form 4 Toggle -->
+            <div class="form-header" onclick="toggleForm('form4', 'icon4')">
+                <span id="icon4" class="toggle-icon">▶</span> Form 4 - Tanda Facilities
+            </div>
+            <div id="form4" class="form-section-content" style="display: none;">
+                <div class="form-section">
+                    <h4>School Facilities</h4>
+                    <label>Primary School: <input type="text" name="school_primary" value="{{ form4_data.school_primary }}"></label>
+                    <label>Secondary School: <input type="text" name="school_secondary" value="{{ form4_data.school_secondary }}"></label>
+                    <label>College Distance: <input type="text" name="college_distance" value="{{ form4_data.college_distance }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>Transportation & Infrastructure</h4>
+                    <label>Bus Stand: <input type="text" name="bus_stand" value="{{ form4_data.bus_stand }}"></label>
+                    <label>Health Center: <input type="text" name="health_center" value="{{ form4_data.health_center }}"></label>
+                    <label>Veterinary Dispensary: <input type="text" name="veterinary_disp" value="{{ form4_data.veterinary_disp }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>Livestock & Milk Center</h4>
+                    <label>Livestock Count: <input type="text" name="livestock_count" value="{{ form4_data.livestock_count }}"></label>
+                    <label>Has Milk Center: <input type="text" name="has_milk_center" value="{{ form4_data.has_milk_center }}"></label>
+                    <label>Milk Center Name: <input type="text" name="milk_center_name" value="{{ form4_data.milk_center_name }}"></label>
+                    <label>Milk Center Number: <input type="text" name="milk_center_number" value="{{ form4_data.milk_center_number }}"></label>
+                    <label>Cattle Details: <input type="text" name="cattle_details" value="{{ form4_data.cattle_details }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>Infrastructure & Ration</h4>
+                    <label>Shed Name: <input type="text" name="shed_name" value="{{ form4_data.shed_name }}"></label>
+                    <label>Shed Number: <input type="text" name="shed_number" value="{{ form4_data.shed_number }}"></label>
+                    <label>Electricity: <input type="text" name="electricity" value="{{ form4_data.electricity }}"></label>
+                    <label>Ration Shop: <input type="text" name="ration_shop" value="{{ form4_data.ration_shop }}"></label>
+                    <label>Ration Shop Name: <input type="text" name="ration_name" value="{{ form4_data.ration_name }}"></label>
+                    <label>Ration Shop Number: <input type="text" name="ration_number" value="{{ form4_data.ration_number }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>Water & Other Amenities</h4>
+                    <label>Water Source: <input type="text" name="water" value="{{ form4_data.water }}"></label>
+                    <label>Water Source Name: <input type="text" name="water_name" value="{{ form4_data.water_name }}"></label>
+                    <label>Water Source Number: <input type="text" name="water_number" value="{{ form4_data.water_number }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>FPO (Farmer Producer Organization)</h4>
+                    <label>FPO: <input type="text" name="fpo" value="{{ form4_data.fpo }}"></label>
+                    <label>FPO Name: <input type="text" name="fpo_name" value="{{ form4_data.fpo_name }}"></label>
+                    <label>FPO Number: <input type="text" name="fpo_number" value="{{ form4_data.fpo_number }}"></label>
+                </div>
+                <div class="form-section">
+                    <h4>Community Hall</h4>
+                    <label>Community Hall: <input type="text" name="hall" value="{{ form4_data.hall }}"></label>
+                    <label>Hall Name: <input type="text" name="hall_name" value="{{ form4_data.hall_name }}"></label>
+                    <label>Hall Number: <input type="text" name="hall_number" value="{{ form4_data.hall_number }}"></label>
+                </div>
+            </div>
+
+            <!-- Form 5 Toggle -->
+            <div class="form-header" onclick="toggleForm('form5', 'icon5')">
+                <span id="icon5" class="toggle-icon">▶</span> Form 5 - Committee Members
+            </div>
+            <div id="form5" class="form-section-content form5-style" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Name</th>
+                            <th>Position/Profession</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in form5_data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><input type="text" name="form5_name_{{ forloop.counter }}" value="{{ member.name }}"></td>
+                            <td><input type="text" name="form5_position_{{ forloop.counter }}" value="{{ member.position }}"></td>
+                            <td><input type="text" name="form5_contact_{{ forloop.counter }}" value="{{ member.contact }}"></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No members found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Form 6 Toggle -->
+            <div class="form-header" onclick="toggleForm('form6', 'icon6')">
+                <span id="icon6" class="toggle-icon">▶</span> Form 6 - Development Works
+            </div>
+            <div id="form6" class="form-section-content" style="display: none;">
+                <div class="form-section">
+                    <h3 class="form-title">Form 6: Development Works</h3>
+                    <table class="form-table">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Development Work</th>
+                                <th>Available (Yes/No)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Cremation Ground</td><td><input type="text" name="work_1" value="{{ form6_data.work_1 }}"></td></tr>
+                            <tr><td>2</td><td>Community Hall</td><td><input type="text" name="work_2" value="{{ form6_data.work_2 }}"></td></tr>
+                            <tr><td>3</td><td>School Building</td><td><input type="text" name="work_3" value="{{ form6_data.work_3 }}"></td></tr>
+                            <tr><td>4</td><td>Water Supply Scheme</td><td><input type="text" name="work_4" value="{{ form6_data.work_4 }}"></td></tr>
+                            <tr><td>5</td><td>Gymnasium</td><td><input type="text" name="work_5" value="{{ form6_data.work_5 }}"></td></tr>
+                            <tr><td>6</td><td>Library</td><td><input type="text" name="work_6" value="{{ form6_data.work_6 }}"></td></tr>
+                            <tr><td>7</td><td>Bus Stop</td><td><input type="text" name="work_7" value="{{ form6_data.work_7 }}"></td></tr>
+                            <tr><td>8</td><td>Playground</td><td><input type="text" name="work_8" value="{{ form6_data.work_8 }}"></td></tr>
+                            <tr><td>9</td><td>Cement Concrete Roads</td><td><input type="text" name="work_9" value="{{ form6_data.work_9 }}"></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="form-section">
+                        <h4>10. Required Roads/Works</h4>
+                        <textarea name="needed_roads">{{ form6_data.needed_roads }}</textarea>
+                    </div>
+                    <div class="form-section">
+                        <h4>11. Proposed Works</h4>
+                        <textarea name="proposed_works">{{ form6_data.proposed_works }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+
+                    <!-- Form 7 Toggle -->
+<div class="form-header" onclick="toggleForm('form7', 'icon7')">
+    <span id="icon7" class="toggle-icon">▶</span> Form 7 - General Information on Tanda
+</div>
+<div id="form7" class="form-section-content" style="display: none;">
+    <div class="form-section">
+        <h3>Location Information</h3>
+        <table>
+            <tr>
+                <th>District Name</th>
+                <th>Taluka</th>
+                <th>Gram Panchayat Name</th>
+                <th>Tanda Name</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="district_name" value="{{ form7_data.district_name }}"></td>
+                <td><input type="text" name="taluka" value="{{ form7_data.taluka }}"></td>
+                <td><input type="text" name="gram_panchayat_name" value="{{ form7_data.gram_panchayat_name }}"></td>
+                <td><input type="text" name="tanda_name" value="{{ form7_data.tanda_name }}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Population Details</h3>
+        <table>
+            <tr>
+                <th>Number of Women</th>
+                <th>Number of Men</th>
+                <th>Children</th>
+                <th>Little Girls</th>
+                <th>Other</th>
+                <th>Total Population</th>
+            </tr>
+            <tr>
+                <td><input type="number" name="number_of_women" value="{{ form7_data.number_of_women }}"></td>
+                <td><input type="number" name="number_of_men" value="{{ form7_data.number_of_men }}"></td>
+                <td><input type="number" name="number_of_children" value="{{ form7_data.number_of_children }}"></td>
+                <td><input type="number" name="number_of_little_girls" value="{{ form7_data.number_of_little_girls }}"></td>
+                <td><input type="number" name="other" value="{{ form7_data.other }}"></td>
+                <td><input type="number" name="total_population" value="{{ form7_data.total_population }}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Gram Panchayat Information</h3>
+        <label>Is there a separate building for the gram panchayat?
+            <select name="separate_building">
+                <option value="">Select</option>
+                <option value="yes" {% if form7_data.separate_building == "yes" %}selected{% endif %}>Yes</option>
+                <option value="no" {% if form7_data.separate_building == "no" %}selected{% endif %}>No</option>
+            </select>
+        </label>
+        <table>
+            <tr>
+                <th>Place Name</th>
+                <th>Public/Private</th>
+                <th>Area</th>
+                <th>Proposal Submitted</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="separate_place_name" value="{{ form7_data.separate_place_name }}"></td>
+                <td>
+                    <select name="public_private">
+                        <option value="public" {% if form7_data.public_private == "public" %}selected{% endif %}>Public</option>
+                        <option value="private" {% if form7_data.public_private == "private" %}selected{% endif %}>Private</option>
+                    </select>
+                </td>
+                <td><input type="text" name="place_area" value="{{ form7_data.place_area }}"></td>
+                <td>
+                    <select name="proposal_submitted">
+                        <option value="yes" {% if form7_data.proposal_submitted == "yes" %}selected{% endif %}>Yes</option>
+                        <option value="no" {% if form7_data.proposal_submitted == "no" %}selected{% endif %}>No</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Independent Gram Panchayat Status</h3>
+        <label>Is Tanda a separate Gram Panchayat of Tanda?
+            <select name="separate_gp">
+                <option value="yes" {% if form7_data.separate_gp == "yes" %}selected{% endif %}>Yes</option>
+                <option value="no" {% if form7_data.separate_gp == "no" %}selected{% endif %}>No</option>
+            </select>
+        </label>
+        <label>Is gram panchayat eligible for revenue status?
+            <select name="revenue_status_eligibility">
+                <option value="">Select</option>
+                <option value="yes" {% if form7_data.revenue_status_eligibility == "yes" %}selected{% endif %}>Yes</option>
+                <option value="no" {% if form7_data.revenue_status_eligibility == "no" %}selected{% endif %}>No</option>
+            </select>
+        </label>
+        <label>Did you submit the proposal to the department?
+            <select name="proposal_submitted_gp">
+                <option value="">Select</option>
+                <option value="yes" {% if form7_data.proposal_submitted_gp == "yes" %}selected{% endif %}>Yes</option>
+                <option value="no" {% if form7_data.proposal_submitted_gp == "no" %}selected{% endif %}>No</option>
+            </select>
+        </label>
+        <table>
+            <tr>
+                <th>Resolution Date</th>
+                <th>Submission Date</th>
+                <th>Concerned Officer</th>
+                <th>Pending</th>
+            </tr>
+            <tr>
+                <td><input type="date" name="resolution_date" value="{{ form7_data.resolution_date }}"></td>
+                <td><input type="date" name="submission_date" value="{{ form7_data.submission_date }}"></td>
+                <td><input type="text" name="concerned_officer" value="{{ form7_data.concerned_officer }}"></td>
+                <td><input type="text" name="pending" value="{{ form7_data.pending }}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-section">
+        <h3>Housing Plan Information</h3>
+        <table>
+            <tr>
+                <th>Total Houses</th>
+                <th>Total Household Information</th>
+                <th>Approved Houses</th>
+                <th>Balance Houses</th>
+            </tr>
+            <tr>
+                <td><input type="number" name="total_houses" value="{{ form7_data.total_houses }}"></td>
+                <td><input type="number" name="total_household_information" value="{{ form7_data.total_household_information }}"></td>
+                <td><input type="number" name="approved_houses" value="{{ form7_data.approved_houses }}"></td>
+                <td><input type="number" name="balance_houses" value="{{ form7_data.balance_houses }}"></td>
+            </tr>
+        </table>
+    </div>
+
+<!-- Committee Members -->
+<div class="form-section">
+    <h3>Committee Members</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>A.No.</th>
+                <th>Member's Name</th>
+                <th>Designation</th>
+                <th>Contact No.</th>
+                <th>Address</th>
+                <th>Email ID</th>
+                <th>Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in form7_data.committee_members %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><input type="text" name="committee_member_name_{{ forloop.counter }}" value="{{ member.name }}"></td>
+                <td><input type="text" name="committee_member_designation_{{ forloop.counter }}" value="{{ member.designation }}"></td>
+                <td><input type="text" name="committee_member_contact_{{ forloop.counter }}" value="{{ member.contact }}"></td>
+                <td><input type="text" name="committee_member_address_{{ forloop.counter }}" value="{{ member.address }}"></td>
+                <td><input type="email" name="committee_member_email_{{ forloop.counter }}" value="{{ member.email }}"></td>
+                <td><input type="date" name="committee_member_dob_{{ forloop.counter }}" value="{{ member.dob }}"></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="committee_member_name_1"></td>
+                <td><input type="text" name="committee_member_designation_1"></td>
+                <td><input type="text" name="committee_member_contact_1"></td>
+                <td><input type="text" name="committee_member_address_1"></td>
+                <td><input type="email" name="committee_member_email_1"></td>
+                <td><input type="date" name="committee_member_dob_1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Facilities in Tanda -->
+<div class="form-section">
+    <h3>Facilities in Tanda</h3>
+    <p><strong>Is there a school?</strong> {{ form7_data.has_school }}</p>
+    <table>
+        <tr>
+
+            <th>School Name</th>
+            <th>Primary/Secondary</th>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Principal's Name</th>
+            <th>Contact Number</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="school_name" value="{{ form7_data.school_name }}"></td>
+            <td><input type="text" name="primary_secondary" value="{{ form7_data.primary_secondary }}"></td>
+            <td><input type="text" name="village_name" value="{{ form7_data.village_name }}"></td>
+            <td><input type="text" name="school_distance" value="{{ form7_data.school_distance }}"></td>
+            <td><input type="text" name="principals_name" value="{{ form7_data.principals_name }}"></td>
+            <td><input type="text" name="contact_number" value="{{ form7_data.contact_number }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Milk Collection Center -->
+<div class="form-section">
+    <h3>Milk Collection Center</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Owner's Name</th>
+            <th>Contact Number</th>
+            <th>Milk Collection Capacity</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="center_name" value="{{ form7_data.center_name }}"></td>
+            <td><input type="text" name="owner_name" value="{{ form7_data.owner_name }}"></td>
+            <td><input type="text" name="contact_number1" value="{{ form7_data.contact_number1 }}"></td>
+            <td><input type="text" name="collection_capacity" value="{{ form7_data.collection_capacity }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<div class="form-section">
+    <h3>Development Works </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Names of works</th>
+          <th>Status</th>
+          <th>Nature of work</th>
+          <th>Funding provision</th>
+        </tr>
+      </thead>
+      <tbody id="development_works">
+        {% for work in form7_data.development_works %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <input type="text" name="name_of_work_{{ forloop.counter }}" value="{{ work.name }}">
+            </td>
+            <td>
+              <input type="text" name="status_{{ forloop.counter }}" value="{{ work.status }}">
+            </td>
+            <td>
+              <input type="text" name="nature_of_work_{{ forloop.counter }}" value="{{ work.nature }}">
+            </td>
+            <td>
+              <input type="text" name="fund_provision_{{ forloop.counter }}" value="{{ work.fund }}">
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>1</td>
+            <td><input type="text" name="name_of_work_1"></td>
+            <td><input type="text" name="status_1"></td>
+            <td><input type="text" name="nature_of_work_1"></td>
+            <td><input type="text" name="fund_provision_1"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+<!-- Cow Shed -->
+<div class="form-section">
+    <h3>Cow Shed</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Owner's Name</th>
+            <th>Contact Number</th>
+            <th>Founding Year</th>
+            <th>Number of Livestock</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="gaushala_name" value="{{ form7_data.gaushala_name }}"></td>
+            <td><input type="text" name="owner_name2" value="{{ form7_data.owner_name2 }}"></td>
+            <td><input type="text" name="contact_number2" value="{{ form7_data.contact_number2 }}"></td>
+            <td><input type="number" name="founding_year" value="{{ form7_data.founding_year }}"></td>
+            <td><input type="number" name="number_of_livestock" value="{{ form7_data.number_of_livestock }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Ration Shop -->
+<div class="form-section">
+    <h3>Ration Shop</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Owner's Name</th>
+            <th>Contact Number</th>
+            <th>Number of Card Holders</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="shop_name" value="{{ form7_data.shop_name }}"></td>
+            <td><input type="text" name="owner_name3" value="{{ form7_data.owner_name3 }}"></td>
+            <td><input type="text" name="contact_number3" value="{{ form7_data.contact_number3 }}"></td>
+            <td><input type="number" name="number_of_cardholder" value="{{ form7_data.number_of_cardholder }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- College, Health Centre, Veterinary Hospital, FPO, Medicine Shop -->
+<div class="form-section">
+
+<!-- College -->
+<h4>College</h4>
+<table>
+    <thead>
+        <tr>
+            <th>College Name</th>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Principal's Name</th>
+            <th>Contact Numbers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="college_name" value="{{ form7_data.college_name }}"></td>
+            <td><input type="text" name="college_village" value="{{ form7_data.college_village }}"></td>
+            <td><input type="text" name="college_difference" value="{{ form7_data.college_difference }}"></td>
+            <td><input type="text" name="college_principal" value="{{ form7_data.college_principal }}"></td>
+            <td><input type="text" name="college_contact" value="{{ form7_data.college_contact }}"></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<!-- Health Centre -->
+<h4>Health Centre</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Health Officer's Name</th>
+            <th>Contact Numbers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="health_village" value="{{ form7_data.health_village }}"></td>
+            <td><input type="text" name="health_difference" value="{{ form7_data.health_difference }}"></td>
+            <td><input type="text" name="health_officer" value="{{ form7_data.health_officer }}"></td>
+            <td><input type="text" name="health_contact" value="{{ form7_data.health_contact }}"></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<!-- Veterinary Hospital -->
+<h4>Veterinary Hospital</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Veterinary Officer's Name</th>
+            <th>Contact Numbers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="vet_village" value="{{ form7_data.vet_village }}"></td>
+            <td><input type="text" name="vet_difference" value="{{ form7_data.vet_difference }}"></td>
+            <td><input type="text" name="vet_officer" value="{{ form7_data.vet_officer }}"></td>
+            <td><input type="text" name="vet_contact" value="{{ form7_data.vet_contact }}"></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<!-- FPO -->
+<h4>FPO</h4>
+<table>
+    <thead>
+        <tr>
+            <th>FPO Name</th>
+            <th>Distance</th>
+            <th>Director's Name</th>
+            <th>Contact Numbers</th>
+            <th>Number of Members</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="fpo_name" value="{{ form7_data.fpo_name }}"></td>
+            <td><input type="text" name="fpo_difference" value="{{ form7_data.fpo_difference }}"></td>
+            <td><input type="text" name="fpo_director" value="{{ form7_data.fpo_director }}"></td>
+            <td><input type="text" name="fpo_contact" value="{{ form7_data.fpo_contact }}"></td>
+            <td><input type="number" name="fpo_members" value="{{ form7_data.fpo_members }}"></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<!-- Medicine Shop -->
+<h4>Medicine Shop</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Shop Name</th>
+            <th>Distance</th>
+            <th>Director's Name</th>
+            <th>Contact Numbers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="medicine_name" value="{{ form7_data.medicine_name }}"></td>
+            <td><input type="text" name="medicine_difference" value="{{ form7_data.medicine_difference }}"></td>
+            <td><input type="text" name="medicine_director" value="{{ form7_data.medicine_director }}"></td>
+            <td><input type="text" name="medicine_contact" value="{{ form7_data.medicine_contact }}"></td>
+        </tr>
+        
+    </tbody>
+</table>
+</div>
+
+<!-- Religious Places -->
+<div class="form-section">
+    <h3>Religious Places</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Temple Name</th>
+                <th>Is there a place?</th>
+                <th>Location Govt./Private</th>
+                <th>Area</th>
+                <th>Proposal Submitted?</th>
+                <th>Funding</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for temple in form7_data.temple_list %}
+            <tr>
+                <td><input type="text" name="temple_name_{{ forloop.counter }}" value="{{ temple.name }}"></td>
+                <td><input type="text" name="temple_place_{{ forloop.counter }}" value="{{ temple.place }}"></td>
+                <td><input type="text" name="temple_location_{{ forloop.counter }}" value="{{ temple.location }}"></td>
+                <td><input type="text" name="temple_area_{{ forloop.counter }}" value="{{ temple.area }}"></td>
+                <td><input type="text" name="temple_proposal_{{ forloop.counter }}" value="{{ temple.proposal }}"></td>
+                <td><input type="text" name="temple_funding_{{ forloop.counter }}" value="{{ temple.funding }}"></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td><input type="text" name="temple_name_1"></td>
+                <td><input type="text" name="temple_place_1"></td>
+                <td><input type="text" name="temple_location_1"></td>
+                <td><input type="text" name="temple_area_1"></td>
+                <td><input type="text" name="temple_proposal_1"></td>
+                <td><input type="text" name="temple_funding_1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Social Hall -->
+<div class="form-section">
+    <h3>Social Hall</h3>
+    <table>
+        <tr>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Is there a place?</th>
+            <th>Location Govt./Private</th>
+            <th>Area</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="socialhall_village" value="{{ form7_data.socialhall_village }}"></td>
+            <td><input type="text" name="socialhall_difference" value="{{ form7_data.socialhall_difference }}"></td>
+            <td><input type="text" name="socialhall_place" value="{{ form7_data.socialhall_place }}"></td>
+            <td><input type="text" name="socialhall_location" value="{{ form7_data.socialhall_location }}"></td>
+            <td><input type="text" name="socialhall_area" value="{{ form7_data.socialhall_area }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Anganwadi -->
+<div class="form-section">
+    <h3>Anganwadi</h3>
+    <table>
+        <tr>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Is there a place?</th>
+            <th>Location Govt./Private</th>
+            <th>Area</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="anganwadi_village" value="{{ form7_data.anganwadi_village }}"></td>
+            <td><input type="text" name="anganwadi_difference" value="{{ form7_data.anganwadi_difference }}"></td>
+            <td><input type="text" name="anganwadi_place" value="{{ form7_data.anganwadi_place }}"></td>
+            <td><input type="text" name="anganwadi_location" value="{{ form7_data.anganwadi_location }}"></td>
+            <td><input type="text" name="anganwadi_area" value="{{ form7_data.anganwadi_area }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Cremation Ground -->
+<div class="form-section">
+    <h3>Cremation Ground</h3>
+    <table>
+        <tr>
+            <th>Village Name</th>
+            <th>Distance</th>
+            <th>Is there a place?</th>
+            <th>Location Govt./Private</th>
+            <th>Area</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="cremation_village" value="{{ form7_data.cremation_village }}"></td>
+            <td><input type="text" name="cremation_difference" value="{{ form7_data.cremation_difference }}"></td>
+            <td><input type="text" name="cremation_place" value="{{ form7_data.cremation_place }}"></td>
+            <td><input type="text" name="cremation_location" value="{{ form7_data.cremation_location }}"></td>
+            <td><input type="text" name="cremation_area" value="{{ form7_data.cremation_area }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<div class="form-section">
+    <h3>Choir (Bhajani Mandal)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>A.No.</th>
+                <th>Name of Bhajani Mandal</th>
+                <th>Number of members</th>
+                <th>Member's name</th>
+                <th>Contact No.</th>
+                <th>Address of correspondence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for choir in form7_data.choir_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><input type="text" name="choir_name_{{ forloop.counter }}" value="{{ choir.name }}"></td>
+                <td><input type="text" name="members_{{ forloop.counter }}" value="{{ choir.members }}"></td>
+                <td><input type="text" name="members_name_{{ forloop.counter }}" value="{{ choir.members_name }}"></td>
+                <td><input type="text" name="contact_no_{{ forloop.counter }}" value="{{ choir.contact_no }}"></td>
+                <td><input type="text" name="address_{{ forloop.counter }}" value="{{ choir.address }}"></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="choir_name_1"></td>
+                <td><input type="text" name="members_1"></td>
+                <td><input type="text" name="members_name_1"></td>
+                <td><input type="text" name="contact_no_1"></td>
+                <td><input type="text" name="address_1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Other Facilities -->
+<div class="form-section">
+    <h3>Other Facilities</h3>
+    <table>
+        <tr>
+            <th>Regular Power Supply</th>
+            <th>Regular Water Supply</th>
+            <th>Exercise School</th>
+            <th>Playground</th>
+            <th>Regular Bus</th>
+            <th>Bus Station</th>
+            <th>Main Road to Tanda</th>
+            <th>Underground Sewer</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="powersupply" value="{{ form7_data.powersupply }}"></td>
+            <td><input type="text" name="watersupply" value="{{ form7_data.watersupply }}"></td>
+            <td><input type="text" name="exercise_school" value="{{ form7_data.exercise_school }}"></td>
+            <td><input type="text" name="playground" value="{{ form7_data.playground }}"></td>
+            <td><input type="text" name="regular_bus" value="{{ form7_data.regular_bus }}"></td>
+            <td><input type="text" name="bus_station" value="{{ form7_data.bus_station }}"></td>
+            <td><input type="text" name="mainroad_to_tanda" value="{{ form7_data.mainroad_to_tanda }}"></td>
+            <td><input type="text" name="underground_sewer" value="{{ form7_data.underground_sewer }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Library -->
+<div class="form-section">
+    <h3>Library</h3>
+    <table>
+        <tr>
+            <th>Library Name</th>
+            <th>Village Name</th>
+            <th>Is there a space</th>
+            <th>Location Govt/Private</th>
+            <th>Area</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="library_name" value="{{ form7_data.library_name }}"></td>
+            <td><input type="text" name="library_village" value="{{ form7_data.library_village }}"></td>
+            <td><input type="text" name="library_distance" value="{{ form7_data.library_distance }}"></td>
+            <td><input type="text" name="location_G_P" value="{{ form7_data.location_G_P }}"></td>
+            <td><input type="text" name="library_area" value="{{ form7_data.library_area }}"></td>
+        </tr>
+        
+    </table>
+</div>
+
+<!-- Important People -->
+<div class="form-section">
+    <h3>Important People in Tanda</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>A.No.</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Contact Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in form7_data.important_people %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><input type="text" name="important_person_name_{{ forloop.counter }}" value="{{ person.name }}"></td>
+                <td><input type="text" name="important_person_designation_{{ forloop.counter }}" value="{{ person.designation }}"></td>
+                <td><input type="text" name="important_person_number_{{ forloop.counter }}" value="{{ person.number }}"></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="important_person_name_1"></td>
+                <td><input type="text" name="important_person_designation_1"></td>
+                <td><input type="text" name="important_person_number_1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+    <!-- Repeat for all other dynamic and static sections as needed, using the same pattern. -->
+</div></div>
+            </div>
+                        <!-- Submit Button -->
+                        <div class="form-section" style="text-align: center; margin-top: 20px;">
+                            <button type="submit">Save Changes</button>
+                        </div>
+            </form>
+        </div>
+
+        <script>
+            // Function to toggle form visibility and rotate the icon
+            function toggleForm(id, iconId) {
+                const section = document.getElementById(id);
+                const icon = document.getElementById(iconId);
+
+                if (section.style.display === "none" || section.style.display === "") {
+                    section.style.display = "block";
+                    icon.classList.add('open');
+                } else {
+                    section.style.display = "none";
+                    icon.classList.remove('open');
+                }
+            }
+        </script>
+
+        {% include 'footer.html' %}
+    </body>
+    </html>

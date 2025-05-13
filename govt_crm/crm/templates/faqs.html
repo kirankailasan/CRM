@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQs</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+  <!-- FAQ Section -->
+  <div class="faq-section">
+    <h1>Frequently Asked Questions</h1>
+    <input type="text" id="faqSearch" placeholder="Search for a question..." onkeyup="searchFAQ()" style="width:50%;padding:10px;margin-bottom:20px;border-radius:6px;border:1px solid #ccc;">
+    <div class="sections">
+      <a id="formsubmission" href="#" onclick="formSubmission()">
+        <h3>Form Submission</h3>
+        <p>Information about form processing, submission and related details.</p>
+      </a>
+
+      <a id="accountmanagement" href="#" onclick="accountManagement()">
+        <h3>Account management</h3>
+        <p>Questions about account updates.</p>
+      </a>
+
+      <a id="tanda" href="#" onclick="tanda()">
+        <h3>Tanda</h3>
+        <p>Understand Tanda details.</p>
+      </a>
+
+      <a id="general" href="#" onclick="general()">
+        <h3>General</h3>
+        <p>Check common questions and answers.</p>
+      </a>
+
+
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="formsubmission-result">
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How do I submit a form?</div>
+          <div class="faq-answer">Go to the 'Form Submission' menu, select the required form, fill in the details, and click submit.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I edit a form after submission?</div>
+          <div class="faq-answer">No, once a form is submitted, it cannot be edited. Please contact support for corrections.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Where can I find the forms required for my assignments?</div>
+          <div class="faq-answer">You can access all required forms by clicking the 'Form Submission' link in the dashboard menu or by clicking 'Start' next to your assignment in the assignments list.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What information do I need to provide when submitting a form for an assignment?</div>
+          <div class="faq-answer">You will need to provide details such as district, taluka, region, tanda, and any additional instructions as specified in your assignment. Please review your assignment details before submitting the form.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I know if my form submission for an assignment was successful?</div>
+          <div class="faq-answer">After submitting a form, you will see a confirmation message. You can also check the status of your assignments in the dashboard; completed assignments are marked as '✅Completed'.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I start a form for an assignment and finish it later?</div>
+          <div class="faq-answer">If the form supports saving as a draft, you can save your progress and return to complete it before the assignment deadline.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What should I do if I have questions about the information required in a form?</div>
+          <div class="faq-answer">Refer to the 'Additional instructions' column in your assignment details or contact support using the 'Help' or 'Tickets' options in the Assistance menu.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I view the status of all my submitted forms?</div>
+          <div class="faq-answer">Go to the 'Form Submission' section or check your dashboard to see the status of each assignment and its related form submissions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accountmanagement-result">
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How do I create an account?</div>
+          <div class="faq-answer">Click on the 'Register' button on the login page and fill in the required details.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">I forgot my password. What should I do?</div>
+          <div class="faq-answer">Use the 'Forgot Password' link on the login page to reset your password.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I update my email address?</div>
+          <div class="faq-answer">Go to your profile page by clicking the 'Profile' button in the navbar, then update your email address and save the changes.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How can I change my password?</div>
+          <div class="faq-answer">After logging in, go to your profile settings and select the option to change your password.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I delete my account?</div>
+          <div class="faq-answer">To request account deletion, please contact support using the 'Help' or 'Tickets' option in the Assistance menu.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What should I do if I notice unauthorized activity on my account?</div>
+          <div class="faq-answer">Immediately change your password and contact support through the 'Help' or 'Tickets' option for further assistance.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I update my profile information?</div>
+          <div class="faq-answer">Click the 'Profile' button in the navbar to view and update your profile details.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tanda-result">
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What is a Tanda?</div>
+          <div class="faq-answer">A Tanda is a group or assignment area for field work in the CRM system.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I view my assigned Tandas?</div>
+          <div class="faq-answer">Your assigned Tandas are visible in the dashboard under 'Your Assignments'.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I request a change to my assigned Tanda?</div>
+          <div class="faq-answer">If you need to change your assigned Tanda, please contact your supervisor or submit a ticket through the Assistance menu.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What should I do if I have issues accessing my Tanda location?</div>
+          <div class="faq-answer">Report any access issues to your supervisor and document the problem using the 'Tickets' option in the Assistance menu.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I submit reports for my Tanda?</div>
+          <div class="faq-answer">Submit reports by filling out the relevant form in the 'Form Submission' section and selecting your assigned Tanda from the options provided.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I view details about other Tandas?</div>
+          <div class="faq-answer">You can only view details for Tandas assigned to you. For other Tanda information, please contact your supervisor.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="general-result">
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">Who do I contact for technical support?</div>
+          <div class="faq-answer">Use the 'Help' or 'Tickets' option in the Assistance menu to contact support.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I update my profile information?</div>
+          <div class="faq-answer">Click on the 'Profile' button in the navbar to update your information.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I log out of the CRM system?</div>
+          <div class="faq-answer">Click the 'Logout' button in the top right corner of the navbar to securely log out of your account.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Which browsers are supported for the CRM?</div>
+          <div class="faq-answer">The CRM works best on the latest versions of Chrome, Firefox, Edge, and Safari.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What should I do if I encounter an error or bug?</div>
+          <div class="faq-answer">Report any issues using the 'Tickets' option in the Assistance menu, providing as much detail as possible.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I change the language of the interface?</div>
+          <div class="faq-answer">If language options are available, you can change them in your profile settings. If not, please contact support for assistance.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How can I get updates about new features or changes?</div>
+          <div class="faq-answer">Important updates and announcements will be shared on your dashboard or via email notifications.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  
+
+  <script>
+    // Show only the selected category's questions
+    function showCategory(category) {
+      document.querySelectorAll('.faq-list').forEach(list => list.style.display = 'none');
+      document.querySelectorAll('.formsubmission-result, .accountmanagement-result, .tanda-result, .general-result')
+        .forEach(div => div.style.display = 'none');
+      document.querySelector(`.${category}-result`).style.display = 'block';
+      document.querySelector(`.${category}-result .faq-list`).style.display = 'block';
+    }
+
+    // Button handlers
+    function formSubmission() { showCategory('formsubmission'); }
+    function accountManagement() { showCategory('accountmanagement'); }
+    function tanda() { showCategory('tanda'); }
+    function general() { showCategory('general'); }
+
+    // Show first category by default
+    document.addEventListener('DOMContentLoaded', function() {
+      formSubmission();
+    });
+
+    // Search FAQ across all categories
+    function searchFAQ() {
+      const input = document.getElementById('faqSearch').value.toLowerCase();
+
+      let anyMatch = false;
+      document.querySelectorAll('.faq-list').forEach(list => {
+        let listHasMatch = false;
+        list.querySelectorAll('.faq-item').forEach(item => {
+          const question = item.querySelector('.faq-question').textContent.toLowerCase();
+          const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+          if (question.includes(input) || answer.includes(input)) {
+            item.style.display = "block";
+            listHasMatch = true;
+          } else {
+            item.style.display = "none";
+          }
+        });
+        list.style.display = listHasMatch && input ? 'block' : 'none';
+        if (listHasMatch) {
+          list.parentElement.style.display = 'block';
+          anyMatch = true;
+        } else {
+          list.parentElement.style.display = 'none';
+        }
+      });
+      // If search is empty, show the selected category
+      if (!input) {
+        document.querySelectorAll('.formsubmission-result, .accountmanagement-result, .tanda-result, .general-result')
+          .forEach(div => div.style.display = 'none');
+        // Find which section is active (default to formsubmission)
+        let active = 'formsubmission';
+        if (document.querySelector('.accountmanagement-result .faq-list').style.display === 'block') active = 'accountmanagement';
+        if (document.querySelector('.tanda-result .faq-list').style.display === 'block') active = 'tanda';
+        if (document.querySelector('.general-result .faq-list').style.display === 'block') active = 'general';
+        document.querySelector(`.${active}-result`).style.display = 'block';
+        document.querySelector(`.${active}-result .faq-list`).style.display = 'block';
+      }
+    }
+  </script>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 30px;
+}
+.total-container{
+    margin-top:100px;
+}
+form h1{
+    margin-bottom: 50px;
+}
+
+.form-section {
+    background: #fff;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.form-header {
+    background-color: rgba(0, 0, 0, 0.742);
+    color: #fff;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    gap: 10px;
+    border-radius:15px;
+}
+
+.form-content {
+    padding: 20px;
+}
+
+/* Simple Popup Style */
+.success-message {
+    display: none;  /* Hidden by default */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 9999;
+}
+

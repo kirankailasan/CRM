@@ -1,0 +1,396 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+
+  
+
+
+  .content {
+    padding: 50px;
+    text-align: center;
+  }
+
+
+
+  /* Stats Section */
+  .stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the row horizontally */
+  align-items: flex-start; /* Align items at the top */
+  flex-wrap: wrap; /* Allow wrapping if needed */
+  gap: 20px; /* Space between the boxes */
+  margin: 20px 0; /* Some top and bottom margin */
+    
+  }
+
+  .stat-box {
+    background-color: white;
+    text-align: center;
+
+    padding: 10px;
+    border-radius: 15px;
+    width: 300px;
+    height: auto;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s ease-in-out;
+    display:flex;
+    flex-direction: column;
+
+  }
+  .stat-box:hover{
+      transform: translateY(-10px);
+      transition: transform 0.3s ease-in-out;
+  }
+
+  .stat-box h3
+ {
+
+    font-size: 18px;
+    color: black;
+  }
+
+  .stat-box p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+
+    cursor: pointer;
+  }
+  .stats-container img{
+    width: 40px;
+    justify-content: center;
+    margin: 0 auto;
+    display:flex;
+  }
+
+  /* Assignment Progress Section */
+.assignment-progress-section {
+  margin-top: 60px;
+  text-align: left;
+  max-width: 900px;
+
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+  transition: transform 0.3s ease-in-out;
+}
+.assigment-progress-section:hover{
+    transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.assignment-progress-section ul{
+    max-height: 600px;
+  overflow-y: auto;
+   background: rgba(128, 128, 128, 0.542);
+   padding: 25px;
+   border-radius: 20px !important;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+}
+
+/* Scrollbar Styling - WebKit Browsers */
+.assignment-progress-section ul::-webkit-scrollbar {
+  width: 10px; /* Define scrollbar width */
+  height: 50px;
+
+}
+
+.assignment-progress-section ul::-webkit-scrollbar-track {
+  background: transparent; /* Remove track background */
+}
+
+.assignment-progress-section ul::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.771); /* Thumb color */
+  border-radius: 4px;
+}
+
+.assignment-progress-section ul::-webkit-scrollbar-button,
+.assignment-progress-section ul::-webkit-scrollbar-corner {
+  display: none; /* Remove buttons and corners */
+}
+
+  .assignment-progress-section h2,
+  .recent-activity-section h2 {
+    color: #000000fe;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .assignment {
+    margin-bottom: 25px;
+  }
+
+  .assignment label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 20px;
+  }
+
+
+
+  /* Recent Activity Section */
+  .recent-activity-section {
+    margin-top: 60px;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+  }
+
+  .activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    max-height: 600px;
+    overflow-y:auto;
+    border-radius: 12px;
+  }
+.activity-table ::-webkit-scrollbar-track,
+.activity-table ::-webkit-scrollbar-button{
+  display: none;
+}
+  .activity-table th,
+  .activity-table td {
+    text-align: left;
+    padding: 12px 15px;
+
+  }
+
+  .activity-table th {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 600px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: left;
+  }
+
+  .modal-content h3 {
+    margin-top: 0;
+    color: black;
+  }
+
+  .modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .assignment-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .assignment-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+  .assignment-list button {
+    background-color: #7B1E3E;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .assignment-list button:hover {
+    background-color: #a22a4f;
+  }
+
+  .dashboard-container {
+background-color: #f9f9f9;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
+width: fit-content;
+margin: 0 auto;
+}
+
+.dashboard-container h3 {
+color: black;
+margin-top: 0;
+margin-bottom: 15px;
+border-bottom: 2px solid #eee;
+padding-bottom: 10px;
+}
+
+.assignments-list {
+list-style-type: none; /* Already present in your HTML, good for removing default bullets */
+padding: 0;
+}
+
+.assignment-item {
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 6px;
+padding: 15px;
+margin-bottom: 10px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.assignment-item:last-child {
+margin-bottom: 0; /* Remove margin from the last item */
+}
+
+.task-name {
+font-size: 1.1em;
+font-weight: bold;
+color: #555;
+margin-bottom: 5px;
+}
+
+.assigned-at,
+.status {
+color: #777;
+font-size: 0.9em;
+margin-bottom: 5px;
+}
+
+.status b {
+font-weight: bold;
+color: #666;
+}
+
+.status.completed {
+color: green;
+}
+
+.view_scheme {
+display: inline-block;
+background-color: #7B1E3E;
+color: white;
+padding: 8px 15px;
+text-decoration: none;
+border-radius: 4px;
+font-size: 0.95em;
+transition: background-color 0.3s ease;
+}
+
+.view_scheme:hover {
+background-color: #530621;
+}
+
+.view_scheme:focus {
+outline: none;
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.assignments-list p {
+color: #777;
+font-style: italic;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: sans-serif; /* Choose a readable font */
+}
+
+thead {
+  background-color: #f2f2f2; /* Light grey background for header */
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+
+}
+
+th {
+  font-weight: bold; /* Make header text bold */
+}
+
+tr:hover {
+  background-color: #f5f5f5; /* Slightly darker background on hover for interactivity */
+}
+
+td:last-child {
+  text-align: center; /* Center the 'Start' button */
+}
+
+.view_scheme {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  background-color: #007bff; /* Blue background for the button */
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.view_scheme:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.view_scheme:active {
+  background-color: #003f80; /* Even darker blue when active */
+}
+
+
+
+.user-table td {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f5;
+}
+.user-table td::-webkit-scrollbar {
+  width: 6px;
+}
+.user-table td::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
