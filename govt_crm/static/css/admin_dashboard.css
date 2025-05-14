@@ -1,7 +1,7 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background-color: white;
-
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   color: #222;
@@ -445,12 +445,12 @@ h1 {
   border-radius: 20px;
 
   padding: 30px;
-  gap: auto;
+
 }
 
 .chart,
 .chart1{
-  width: 600px;
+  max-width: 600px;
   height: auto;
   border-radius: 15px;
   background: white;
@@ -509,4 +509,27 @@ h1 {
 .chart3:hover{
   transform: scale(1.03);
   transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px){
+  .charts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .chart, .chart1{
+    width: 90%;
+    margin: 0 auto !important;
+  }
+  .chart3{
+    width: 80%;
+  }
+  .admin-content{
+    margin-top: 15px;
+  }
+  .admin-content div{
+    max-width: 150px;
+    font-size: 0.6em;
+  }
+  
 }

@@ -1,13 +1,15 @@
 {% load static %}
 <html>
     <head>
+      <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
         <meta name="csrf-token" content="{{ csrf_token }}">
 
     </head>
    <div id="navbarfile">
     <body>
-      <nav >
+      <nav>
       <!-- Header -->
       <div class="header">
         <div class="logomain"><img src="{% static 'images/icon.png' %}" alt="State Logo" class="logo"></div>
@@ -18,7 +20,7 @@
         <img src="{% static 'images/img2.jpeg' %}" alt="Ashok Stambh" class="ashok">
       </div>
       <div class="anav">
-                  <ul style="padding: 10px; margin-top: 10px;">
+            <ul style="padding: 10px; margin-top: 10px;">
               <div class="nav-left">
                 {% if user.is_authenticated %}
 
@@ -41,10 +43,13 @@
                     {%endif%}
                   {% else %}
                     <div id="welcome-msg" style="color: white; margin-left: 2vw;"><h3>Welcome to Maharashtra CRM Portal</h3></div>
+                    
                   {%endif%}
               </div>
+
               <div class="nav-right">
-                  <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+
+                <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
                   {% if user.is_authenticated %}
                       {% if request.user.is_authenticated and request.user.is_superuser %}
                       
@@ -80,16 +85,53 @@
 
                   
                   
-                  {% endif %}
-                  <select id="language-selector">
-                    <option value="en">English</option>
-                    <option value="hi">Hindi</option>
-                    <option value="mr">Marathi</option>
-                  </select>
+                    {% endif %}
+                    <select id="language-selector">
+                      <option value="en">English</option>
+                      <option value="hi">Hindi</option>
+                      <option value="mr">Marathi</option>
+                    </select>
 
-              </div>
+                </div>
+                <div class="burger-dropdown"> 
+                      <!-- Hamburger Icon -->
+                    <div class="burger" id="burger">
+                      <img src="{% static 'images/menu.png' %}">
+                    </div>
+                    <div class="burger-content">
+                      <!-- Navigation Links -->
+                      <ul class="burger-links" id="burgerLinks">
+                          <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                          {% if user.is_authenticated %}
+                          {% if request.user.is_authenticated and request.user.is_superuser %}
+                            <li><a href="{% url 'admin_dashboard' %}" >Admin Dashboard</a></li>
+                            <li><a href="{% url 'completed_works' %}" >Form Submissions</a></li>
+                            <li><a href="{% url 'manage_users' %}" >Manage Users</a></li>
+                            <li><a href="{% url 'admin_tickets' %}">Tickets</a></li>
+                            <li><a href="{% url 'faqs' %}">FAQ</a></li>
+                            <li><a href="{% url 'admin_logout' %}" class="nav-link">Logout</a></li>
+                           {% else %}
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            {% if request.resolver_match.url_name == 'dashboard' %}
+                              <li><a href="#" onclick="openModal()">Assignments</a></li>
+                            {%endif%}
+                              <li><a href="{% url 'submitted_data' %}">Form Submission</a></li>
+                              <li><a href="{% url 'faqs' %}">FAQ</a></li>
+                              <li><a href="{% url 'tickets' %}">Tickets</a></li>
+                              <li><a href="{% url 'logout' %}">Logout</a></li>
+                          {% endif %}
+                          {% endif %}
+                      </ul>
+                    </div>
+                </div>
+                    
+
+
           </ul>
-      </div>
+
+
+        </div>
+
       </nav>
 
 

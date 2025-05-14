@@ -9,6 +9,10 @@
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
+.burger-dropdown{
+    display: none;
+}
+
 
 /* Header Section */
 #navbarfile .header {
@@ -24,7 +28,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 21;
     transition: background-color 0.3s ease, transform 0.3s ease;
     animation: slideDown 0.6s ease-out; /* Animation for smooth appearance */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Added box shadow */
@@ -390,5 +394,112 @@
     background-color: rgba(255, 255, 255, 0.575);
     padding: 15px;
     
+
+}
+
+
+@media screen and (max-width: 768px){
+    .title h1, .title h3{
+        font-size: 0.7em !important;
+    }
+    .header{
+        display:flex !important;
+        flex-direction: row !important;
+    
+    }
+    .header h1{
+        max-width: 60vw;
+    }
+    .logomain{
+        width: 40px !important;
+        height: 40px !important
+    }
+
+    .nav-right,
+    .profile-dropdown-content{
+        display: none !important;
+    }
+     #welcome-msg{
+        font-size: 0.7em;
+        color: rgb(108, 108, 108) !important;
+     }
+/* Parent container aligned to right */
+.burger-dropdown {
+    display: block;
+  position: absolute;       /* OR fixed, depending on your layout */
+  top: 125px;
+  right: 20px;              /* Align to the right */
+  z-index: 20;
+}
+
+/* Burger icon */
+.burger {
+  cursor: pointer;
+}
+
+.burger img {
+  height: 30px;
+  width: auto;
+}
+
+/* Dropdown content */
+.burger-content {
+  display: none;
+  position: absolute;
+  border-radius: 20px;
+  top: 100%;         /* Directly below the burger icon */
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.burger-content a:hover{
+    background-color: white !important;
+    color: black !important;
+
+}
+
+/* List styling */
+.burger-links {
+  list-style: none;
+  margin: 0;
+  padding: 15px;
+}
+
+/* Links */
+.burger-links li a {
+  display: block;
+  padding: 15px 25px !important;
+  color: white;
+  text-decoration: none;
+  border-radius: 15px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect */
+.burger-links li a:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Show dropdown on hover */
+.burger-dropdown:hover .burger-content {
+  display: block !important;
+}
+.anav{
+ 
+   animation: fadein 1s ease-in; 
+   background-color:transparent !important;
+   background-image: none;
+
+    box-shadow: none;
+    color: white;
+    border-radius:none;
+   
+}
+
+
 
 }

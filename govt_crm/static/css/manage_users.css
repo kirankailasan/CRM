@@ -1,3 +1,20 @@
+.table-in{
+    max-width: 100%;
+    overflow-x:auto;
+}
+@media(max-width: 800px)
+{
+    .table-in{
+        overflow-x: auto;
+    }
+    .table-in table {
+        min-width: 800px;
+    }
+}
+
+
+
+
 /* Popup Modal Styles */
 .create_user_model {
     display: none;
@@ -49,7 +66,7 @@
 .create_user_model input[type="text"],
 .create_user_model input[type="email"],
 .create_user_model input[type="password"] {
-    width: 100%;
+    width: 93%;
     padding: 8px 10px;
     margin-bottom: 12px;
     border: 1px solid #ccc;
@@ -110,4 +127,34 @@
 .completed_progress:hover{
   transform: scale(1.03);
   transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+    .user-container h2, .top-panel input, .top-panel button,
+     .user-table th, .user-table td, .user-table button{
+        font-size: 0.7em !important;
+    }
+    .user-table, .taskdetails{
+        width: 90%;
+    }
+    .top-panel{
+        gap: 10vw !important;
+    }
+    #detailsModal .modal-conten, .create_user_model form{
+        padding: 20px;
+    }
+    
+    .completed_progress{
+        font-size: 0.8em !important;
+        width: 80vw !important;
+        transform: none !important;
+    }
+    #appointModal{
+        width: 85%;
+        padding: 10px !important;
+    }
+    #appointForm{
+    padding: 20px !important;
+    }
+
 }

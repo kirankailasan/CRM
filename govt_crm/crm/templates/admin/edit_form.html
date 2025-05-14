@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Submitted Forms - Sant Sevalal Maharaj Banjara - Lambhan Tanda Comprehensive Scheme</title>
     <link rel="stylesheet" href="{% static 'css/submitted_form.css' %}">
     <style>
@@ -194,6 +195,27 @@ button[type="submit"]:hover {
         width: 100%;
         padding: 12px 0;
     }
+}
+/* table style */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse; /* Optional for better layout */
+}
+
+/* 2. Optional: Keep table header and cells styled properly */
+th, td {
+
+  white-space: nowrap; /* Prevent content from wrapping */
+}
+
+/* 3. Media query for smaller screens (optional fine-tuning) */
+@media screen and (max-width: 800px) {
+  table {
+    font-size: 0.9em;
+  }
 }
     </style>
 </head>

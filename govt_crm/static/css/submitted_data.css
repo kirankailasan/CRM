@@ -1,0 +1,150 @@
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f8fa;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #1a237e;
+        }
+
+        .form-list {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 12px;
+
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+            transition: transform 0.3s ease-in-out;
+            padding: 40px;
+        }
+        .form-list:hover{
+            transform: scale(1.03);
+            transition: transform 0.3s ease-in-out;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+
+        }
+        .table:hover{
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background: #e3eafc;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            width: 90%;
+            height: 90%;
+            margin: 40px auto;
+            overflow-y: auto;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        #submittedTable_filter {
+            margin-bottom: 20px;
+        }
+
+    
+
+
+.form-list{
+    overflow-x: auto;
+}
+
+.form-list table{
+    min-width: 100%;
+    border-collapse: collapse;
+
+}
+@media(max-width: 800px)
+{
+    .form-list table{
+        overflow-x: auto;
+    }
+    /* table style */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse; /* Optional for better layout */
+}
+
+/* 2. Optional: Keep table header and cells styled properly */
+th, td {
+
+  white-space: nowrap; /* Prevent content from wrapping */
+}
+
+/* 3. Media query for smaller screens (optional fine-tuning) */
+@media screen and (max-width: 800px) {
+  table {
+    font-size: 0.9em;
+  }
+}
+
+.close{
+    right: 30px !important;
+}
+}
+
+
+

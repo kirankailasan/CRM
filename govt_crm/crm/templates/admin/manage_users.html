@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
         <link rel="stylesheet" href="{% static 'css/manage_users.css' %}">
     </head>
@@ -10,80 +12,82 @@
         {% include 'navbar.html' %}
         <div class="user-container" style="margin-top: 10%;">
             <h2>Regular User Management</h2>
-            <div class="top-panel" style="display: flex; flex-direction: row; gap: 40%;">
+            <div class="top-panel" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <input
                 type="text"
                 id="userSearch"
                 placeholder="Search by name or email..."
                 style="margin-bottom: 16px; padding: 8px; width: 300px; border-radius: 4px; border: 1px solid #ccc;">
-                <button class="create-user" type="button" onclick="registerUser()">Create new user</button>
+                <button class="create-user" type="button" onclick="registerUser()">+ Create new user</button>
             </div>
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Profile</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Designated Areas</th>
-                        <th>Assign</th>
-                        <th>Task Details</th>
-                        <th>User Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
-                        <td>
-                            <img class="ru-profile-pic" src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="Profile Picture">
-                        </td>
-                        <td>{{ user.user.first_name }} {{ user.user.last_name }}</td>
-                        <td>{{ user.user.email }}</td>
-                        <td>{{ user.phone }}</td>
-                        <td style="max-height: 60px; height: auto; overflow-y: auto; display: block; ">
-                            {% with assignments=user.user.assignments.all %}
-                                {% if assignments %}
-                                    <ul style="list-style: none; padding-left: 0; margin: 0;">
-                                        {% for assignment in assignments|dictsortreversed:"assigned_at" %}
-                                            <li style="margin-bottom: 5px;">
-        
-                                                {{ assignment.district }}
-                                                {% if assignment.taluka %}, {{ assignment.taluka }}{% endif %}
-                                                {% if assignment.deadline %} ({{ assignment.deadline|date:"d M Y" }}){% endif %}
-                                                {% if assignment.is_completed %}
-                                                <span style="color: green;">✅</span>
-                                            {% endif %}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    Not Assigned
-                                {% endif %}
-                            {% endwith %}
-                        </td>
-                        
-                        
-                        <td>
-                            <button class="appoint-user" type="button" onclick="openAppoint('{{ user.user.id }}')">Appoint</button>
-        
-                        </td>
-                        <td>
-                            <button class="view_task" type="button" onclick="openTaskDetails('{{user.id}}')">View</button>
-        
-        
-                        
-                        </td>
-                        <td>
-                            <button class="view-details-btn" type="button" onclick="openDetails('{{ user.id }}')">View</button>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" style="text-align:center;">No registered users found.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+            <div class="table-in">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Designated Areas</th>
+                            <th>Assign</th>
+                            <th>Task Details</th>
+                            <th>User Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>
+                                <img class="ru-profile-pic" src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="Profile Picture">
+                            </td>
+                            <td>{{ user.user.first_name }} {{ user.user.last_name }}</td>
+                            <td>{{ user.user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td style="max-height: 60px; height: auto; overflow-y: auto; display: block; ">
+                                {% with assignments=user.user.assignments.all %}
+                                    {% if assignments %}
+                                        <ul style="list-style: none; padding-left: 0; margin: 0;">
+                                            {% for assignment in assignments|dictsortreversed:"assigned_at" %}
+                                                <li style="margin-bottom: 5px;">
+            
+                                                    {{ assignment.district }}
+                                                    {% if assignment.taluka %}, {{ assignment.taluka }}{% endif %}
+                                                    {% if assignment.deadline %} ({{ assignment.deadline|date:"d M Y" }}){% endif %}
+                                                    {% if assignment.is_completed %}
+                                                    <span style="color: green;">✅</span>
+                                                {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        Not Assigned
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                            
+                            
+                            <td>
+                                <button class="appoint-user" type="button" onclick="openAppoint('{{ user.user.id }}')">Appoint</button>
+            
+                            </td>
+                            <td>
+                                <button class="view_task" type="button" onclick="openTaskDetails('{{user.id}}')">View</button>
+            
+            
+                            
+                            </td>
+                            <td>
+                                <button class="view-details-btn" type="button" onclick="openDetails('{{ user.id }}')">View</button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align:center;">No registered users found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
             </table>
+            </div>
         </div>
         
         <div id="appointModal" style="display:none">
@@ -120,7 +124,7 @@
                 <input type="date" id="deadline" name="deadline">
         
                 <label for="additional">Additional instructions: </label>
-                <input type="text" name="additional" id="additional"><br>
+                <input type="text" name="additional" id="additional"><br><br>
         
                 <button type="submit">Appoint</button>
             </form>
@@ -187,7 +191,7 @@
         
 <div class="completed_progress" style="margin-top: 10%">
     <h2>Tandas Completed by User</h2>
-    <canvas id="userCompletionChart"></canvas>
+    <div><canvas id="userCompletionChart"></canvas></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     

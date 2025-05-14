@@ -1,0 +1,241 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f8fa;
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 28px;
+  color: #1a237e;
+  font-weight: 600;
+}
+
+#completed_works {
+  margin: 50px auto;
+
+  width: 80%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s ease-in-out;
+    overflow-x: auto;
+}
+#completed_works:hover{
+  transform: scale(1.04);
+  transition: transform 0.3s ease-in-out;
+}
+
+table {
+  min-width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+@media (max-width: 800px)
+{
+  #completed_works {
+    overflow-x: auto;
+
+  }
+}
+
+.table th, .table td {
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.table th {
+  background: #e3eafc;
+  color: #1a237e;
+  font-weight: 600;
+}
+
+.table tr:nth-child(even) {
+  background: #f5f7fa;
+}
+
+.table tr:hover {
+  background: #f0f7ff;
+}
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.download-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.download-menu a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.download-menu a:hover {
+  background: #f0f0f0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  height: 90%;
+  margin: 40px auto;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.edit_edit {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_edit > div {
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  height: 90%;
+  margin: 40px auto;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.edit_edit span {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.edit_edit span:hover {
+  color: #333;
+}
+#submittedTable_filter{
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px){
+  body{
+    padding: 0 !important;
+  }
+  #completed_works{
+    width: 90% !important;
+    max-width: 100% !important;
+  }
+  #completed_works:hover{
+    transform: none !important;
+  }
+  #completed_works, table{
+    font-size: 0.8em !important;
+  }
+  .close{
+    margin-right: 20px;
+  }
+
+}
+
+
+/* table style */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse; /* Optional for better layout */
+}
+
+/* 2. Optional: Keep table header and cells styled properly */
+th, td {
+
+  white-space: nowrap; /* Prevent content from wrapping */
+}
+
+/* 3. Media query for smaller screens (optional fine-tuning) */
+@media screen and (max-width: 800px) {
+  table {
+    font-size: 0.9em;
+  }
+}

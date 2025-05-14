@@ -319,3 +319,89 @@ display: flex;
     color: blue;
 }
 
+/* ... existing code ... */
+
+/* Add these media queries at the end of the file */
+@media screen and (max-width: 768px) {
+  .main-section {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .section1 {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .info-left {
+    margin: 0;
+    text-align: center;
+  }
+
+  .info-left ul {
+    text-align: center;
+    padding: 0;
+  }
+
+  .info-left li {
+    justify-content: center;
+  }
+
+  .right-box {
+    width: 100%;
+    align-items: center;
+  }
+
+  .access-box {
+    max-width: 100%;
+    margin: 0 auto;
+    min-width: 60vw;
+  }
+
+  .popup-content {
+    width: 90%;
+    margin: 20% auto;
+  }
+  #tanda-info-title{
+    font-size: 1.2em;
+  }
+  /* Bottom section responsiveness */
+  .bot-box {
+
+    max-width: 70% !important;
+  }
+
+  .popup-content{
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .info-left h1 {
+    font-size: 24px;
+  }
+
+  .info-left p {
+    font-size: 16px;
+  }
+
+  .info-left li {
+    font-size: 14px;
+  }
+
+  .access-box h2 {
+    font-size: 20px;
+  }
+
+  .bot-box {
+    padding: 10px;
+  }
+
+  .bot-box h3 {
+    font-size: 18px;
+  }
+
+  .bot-box li {
+    font-size: 14px;
+  }
+}

@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maharashtra Government CRM Portal</title>
   <style>
 
@@ -16,13 +17,13 @@
 
 
  <!-- Add margin above and below the section -->
-<div class="main-section" style="margin: 40px 0;">
+<div class="main-section">
 
     <!-- Main Content Section -->
     <div class="section1" >
   
       <!-- Left info section (white text inside wine background) -->
-      <div class="info-left" style="flex: 1.5; color: white;">
+      <div class="info-left" style=" color: white;">
         <h1 id="scheme-title" style="color: white;">Saint Sevalal Maharaj Banjara Laman Tanda Prosperity Scheme</h1>
         <p id="scheme-desc">Welcome to Maharashtra's Digital Collection Portal - a comprehensive platform designed to streamline government services and support citizens across the state.</p>
         <ul style="list-style-type: none;">
@@ -35,17 +36,17 @@
       </div>
   
       <!-- Right access section -->
-      <div class="right-box" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+      <div class="right-box" style="display: flex; flex-direction:column; gap: 30px;">
         
         <!-- Admin Access -->
-        <div class="access-box" style=" padding: 20px; border-radius: 8px; text-align: center;">
+        <div class="access-box">
           <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px; margin-bottom: 10px;">
           <h2 id="admin-access-title">Administrative Access</h2>
           <button id="admin-login-btn" onclick="openAdminLoginPopup()">Admin Login</button>
         </div>
   
         <!-- User Access -->
-        <div class="access-box" style=" padding: 20px; border-radius: 8px; text-align: center;">
+        <div class="access-box" >
           <img src="{% static 'images/ashoka.png' %}" alt="Ashok Stambh" style="width: 60px; margin-bottom: 10px;">
           <h2 id="user-access-title">User Access</h2>
           <button id="user-login-btn" onclick="openLoginPopup()" >User Login</button>
@@ -137,10 +138,10 @@
 
     <h2 id="tanda-info-title" style="color: black; text-align: center; margin-top: 100px;">Tanda Collection Portal Information</h2>
     
-    <div style="display: flex; justify-content: center; gap: 2vw;">
+    <div style="display: flex; justify-content: center; gap: 2vw; flex-wrap: wrap;">
   
       <!-- Marathi Box -->
-      <div class="bot-box" style="flex: 1">
+      <div class="bot-box">
         <h3 id="marathi-features-title" style="color:#4b494a;">मुख्य वैशिष्ट्ये</h3>
         <ul style="display: flex; flex-direction: column; padding-left: 20px;">
           <li id="marathi-feature-1">नोंदणी प्रणाली - टांडा आणि सदस्यांची नोंदणी</li>
@@ -151,7 +152,7 @@
       </div>
   
       <!-- English Box -->
-      <div class="bot-box" style="flex: 1">
+      <div class="bot-box">
         <h3 id="english-features-title" style="color: #4b494a;">Key Features</h3>
         <ul style="display: flex; flex-direction: column; padding-left: 20px;">
           <li id="english-feature-1">Registration System – Register Tanda and Members</li>

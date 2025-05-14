@@ -112,14 +112,15 @@ body {
   }
   
   @media (max-width: 700px) {
+    .faq-section h1{
+      font-size: 1.3em;
+    }
     .faq-section {
       padding: 18px 6vw 18px 6vw;
     }
     .sections {
-      flex-direction: column;
+      display: none;
       gap: 14px;
     }
-    .sections a {
-      min-width: unset;
-    }
+
   }

@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard</title>
   <style>
     @property --progress-value {
@@ -194,11 +195,15 @@ progress[value]::after {
   <!-- Modal -->
   <div id="assignmentModal" class="modal">
     <div class="assignment-popup"></div>
-      <span class="close" onclick="closeModal()">&times;</span>
+      
 
 
       <div class="dashboard-container">
-        <h3>Your Assignments</h3>
+        
+        <div class="hx">
+                  <h3>Your Assignments</h3>
+        <span class="close" ><button type="button" onclick="closeAssignments()">x</button></span>
+        </div>
         {% if assignments %}
             <ul class="assignments-list" style="list-style-type: none;">
                 {% for assignment in assignments %}
@@ -243,17 +248,18 @@ progress[value]::after {
     </div>
 
     </div>
-  </div>
+  
 
   <!-- JavaScript -->
   <script>
+    function closeAssignments(){
+      document.getElementById('assignmentModal').style.display = 'none';
+    }
     function openModal() {
       document.getElementById('assignmentModal').style.display = 'block';
     }
 
-    function closeModal() {
-      document.getElementById('assignmentModal').style.display = 'none';
-    }
+
 
     function completeTask(button) {
       button.textContent = "Completed";

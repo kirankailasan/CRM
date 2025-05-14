@@ -117,3 +117,52 @@
   .hc a:hover{
     background-color: rgb(6, 6, 200);
   }
+
+  /* Responsive: adjust padding and font sizes */
+@media (max-width: 800px) {
+  .ticket-section {
+    padding: 16px;
+  }
+
+  .ticket-list th,
+  .ticket-list td {
+    padding: 8px 5px;
+    font-size: 0.95rem;
+  }
+
+  .ticket-list table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .ticket-section {
+    width: 70% !important;
+    margin: 20px 10px;
+  }
+
+  .ticket-list table{
+    overflow-x: auto;
+  }
+
+  .ticket-list table {
+    min-width: 600px;
+  }
+}
+@media screen and (max-width: 768px){
+.hc h2{
+        font-size: 1em !important;
+    }
+.ticket-list th, .ticket-list td, .ticket-list label, .ticket-list select 
+{
+    font-size: 0.8em !important;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    text-align: left !important;
+}
+
+}

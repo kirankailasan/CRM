@@ -235,18 +235,29 @@ body {
     padding-bottom: 10px;
   }
 
-  .assignment-list button {
-    background-color: #7B1E3E;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+.dashboard-container .close button{
 
-  .assignment-list button:hover {
-    background-color: #a22a4f;
-  }
+  color: black;
+
+  background: transparent;
+  border-radius: 10px;
+
+  font-size: 1.2em;
+  cursor: pointer;
+
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+.dashboard-container .close button:hover{
+  background-color: grey;
+  color: white;
+}
+
+.hx{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
   .dashboard-container {
 background-color: #f9f9f9;
@@ -394,3 +405,64 @@ td:last-child {
   border-radius: 4px;
 }
 
+@media screen and (max-width: 768px) {
+
+  .stat-box {
+    width: 120px !important;
+    height: 150px !important;
+  }
+
+  .stat-box h3,
+  .stat-box p {
+    font-size: 0.9em !important;
+  }
+
+  .stats-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+
+  .assignment-progress-section,
+  .recent-activity-section {
+    width: 100% !important;
+    margin-left: -7vw;
+  }
+
+  .recent-activity-section table {
+   
+
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    display: block; /* Needed to enable horizontal scrolling */
+  }
+  #assignmentModal{
+    width: 100% !important;
+  }
+
+
+}
+
+/* table style */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse; /* Optional for better layout */
+}
+
+/* 2. Optional: Keep table header and cells styled properly */
+th, td {
+
+  white-space: nowrap; /* Prevent content from wrapping */
+}
+
+/* 3. Media query for smaller screens (optional fine-tuning) */
+@media screen and (max-width: 800px) {
+  table {
+    font-size: 0.9em;
+  }
+}
